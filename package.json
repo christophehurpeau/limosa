@@ -1,0 +1,37 @@
+{
+  "name": "springbokjs-router",
+  "version": "1.0.0",
+  "description": "SpringbokJS Router",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha -u tdd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:christophehurpeau/springbokjs-router.git"
+  },
+  "keywords": [
+    "springbokjs"
+  ],
+  "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/christophehurpeau/springbokjs-router/issues"
+  },
+  "homepage": "https://github.com/christophehurpeau/springbokjs-router",
+  "dependencies": {
+    "springbokjs-utils": "^0.3.0",
+    "springbokjs-shim": "^0.1.14"
+  },
+  "devDependencies": {
+    "gulp": "^3.6.1",
+    "gulp-insert": "^0.3.0",
+    "gulp-jshint": "^1.5.3",
+    "gulp-plumber": "^0.6.1",
+    "gulp-traceur": "^0.4.0",
+    "jshint-stylish": "^0.1.5",
+    "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
+    "mocha": "~1.18.2",
+    "proclaim": "^2.0.0"
+  }
+}

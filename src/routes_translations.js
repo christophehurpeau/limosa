@@ -1,0 +1,61 @@
+var S = require('springbokjs-utils');
+
+/**
+ * Routes Translations
+ *
+ * Convert a simple conf file key=>value into a two-way translation map
+ * 
+ * @class
+ */
+var RoutesTranslations = S.newClass();
+module.exports = RoutesTranslations;
+
+S.extendPrototype(RoutesTranslations, /** @lends RoutesTranslations.prototype */ {
+    /**
+     * @param {Map} translations
+     */
+    construct(translations) {
+        this._translations = new Map();
+
+        if (translations) {
+            S.forEach(translations, (translationsMap, key) => {
+                S.forEach(translationsMap, (translation, lang) => {
+                    if (!this._translations.has('>' + lang)) {
+                        this._translations.set('>' + lang, new Map());
+                        this._translations.set(lang + '>', new Map());
+                    }
+                    this._translations.get('>' + lang).set(key.toLowerCase(), translation);
+                    this._translations.get(lang + '>').set(translation.toLowerCase(), key);
+                });
+            });
+        }
+    },
+
+    /**
+     * @param {String} string
+     * @param {String} lang
+     */
+    translate(string, lang) {
+        string = string.toLowerCase();
+        var translationsMap = this._translations.get('>' + lang);
+
+        if (!translationsMap.has(string)) {
+            throw new Error('Missing translation ' + string + ' for lang ' + lang);
+        }
+        return translationsMap.get(string);
+    },
+
+    /**
+     * @param {String} string
+     * @param {String} lang
+     */
+    untranslate(string, lang) {
+        string = string.toLowerCase();
+        var translationsMap = this._translations.get(lang + '>');
+
+        if (!translationsMap.has(string)) {
+            throw new Error('Missing untranslation ' + string + ' for lang ' + lang);
+        }
+        return translationsMap.get(string);
+    }
+});
