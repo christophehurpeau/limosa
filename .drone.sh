@@ -3,7 +3,7 @@
 npm -d install
 
 echo "\n> Ensure that the code is warning free"
-# node_modules/.bin/gulp lint || exit 1
+node_modules/.bin/gulp lint || exit 1
 
 echo "\n> Run tests"
 npm test || exit 1

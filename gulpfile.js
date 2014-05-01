@@ -1,4 +1,3 @@
-"use strict";
 var gulp = require('gulp');
 var plumber = require('gulp-plumber');
 var jshint = require('gulp-jshint');
@@ -47,7 +46,7 @@ gulp.task('build', function() {
 });
 
 gulp.task('docs', function(onEnd) {
-    exec('./node_modules/.bin/jsdoc src/ src/router_route/ -d docs/', function(error, stdout, stderr) {
+    exec('./node_modules/.bin/jsdoc src/ -d docs/', function(error, stdout, stderr) {
         console.log(stdout);
         if (error) {
             console.error(error);

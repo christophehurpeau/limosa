@@ -49,10 +49,10 @@ test('Common route', function() {
     assert.deepEqual(rr.namedParams, ['action']);
     expect(rr.getNamedParamsCount(), 1);
     var en = rr.get('en');
-    expect(en.regExp.source, '^\\/([^/\\.]+)(?:\\/([^.]*))?(?:\\.(html))?$');
+    expect(en.regExp.source, '^\\/([^/.]+)(?:\\/([^.]*))?(?:\\.(html))?$');
     expect(en.strf,'/%s/%s%s');
     var fr = rr.get('fr');
-    expect(en.regExp.source, '^\\/([^/\\.]+)(?:\\/([^.]*))?(?:\\.(html))?$');
+    expect(en.regExp.source, '^\\/([^/.]+)(?:\\/([^.]*))?(?:\\.(html))?$');
     expect(fr.strf,'/%s/%s%s');
 });
 

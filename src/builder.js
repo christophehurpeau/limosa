@@ -231,7 +231,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
             if (p1) {
                 return str;
             }
-            paramNames.push(p2)
+            paramNames.push(p2);
         });
         //console.log(routeLangs[this._allLangs[0]], paramNames);
 
@@ -257,7 +257,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
                 .replace(/\(/g, '(?:');
 
           if (specialEnd) {
-            routeLangRegExp = routeLangRegExp + '(?:\\/([^\.]*))?';
+            routeLangRegExp = routeLangRegExp + '(?:\\/([^.]*))?';
           } else if (specialEnd2) {
             routeLangRegExp = routeLangRegExp.slice(0,-2) + '(?:\\/(.*))?' + routeLangRegExp.slice(-2);
           }
@@ -287,7 +287,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
               return '([0-9]+)';
             }
 
-            return '([^/\\.]+)';
+            return '([^/.]+)';
           });
           var routeLangStrf = routeLang.replace(/(\:[a-zA-Z_]+)/g, '%s')
               .replace(/[\?\(\)]/g, '')
