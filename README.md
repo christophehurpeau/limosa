@@ -5,7 +5,7 @@ See the [auto-generated docs](http://christophehurpeau.github.io/springbokjs-rou
 ### How to use
 
 
-```
+```js
 var SpringbokRouter = require('springbokjs-router');
 
 var RouterBuilder = SpringbokRouter.RouterBuilder;
