@@ -14,4 +14,7 @@ builder
         namedParamsDefinition: {'slug': '[A-Za-z\-]+'},
         extension: 'htm'
     })
+    .add('postWithDate', '/post(/:tagKey)?(/:date_:slug)', 'Post.view', {
+        namedParamsDefinition: {date: '\\d{4}\\-\\d{2}\\-\\d{2}'}
+    })
     .addDefaultRoutes();

@@ -71,6 +71,22 @@ test('Named param route', function() {
     expect(fr.strf,'/article/%s-%s');
 });
 
+test('More complex param route', function() {
+    var rr = router.get('postWithDate');
+    assert.ok(rr != null);
+    expect(rr.controller, 'Post');
+    expect(rr.action, 'view');
+    assert.deepEqual(rr.namedParams, ['tagKey', 'date', 'slug']);
+    expect(rr.getNamedParamsCount(), 3);
+    var en = rr.get('en');
+    expect(en.regExp.source, '^\\/post(?:\\/([^/.]+))?(?:\\/(\\d{4}\\-\\d{2}\\-\\d{2})_([^/.]+))$');
+    expect(en.strf,'/post/%s/%s_%s');
+    var fr = rr.routes.fr;
+    expect(fr.regExp.source, '^\\/article(?:\\/([^/.]+))?(?:\\/(\\d{4}\\-\\d{2}\\-\\d{2})_([^/.]+))$');
+    expect(fr.strf,'/article/%s/%s_%s');
+});
+
+
 test('Find simple routes', function() {
     var r = router.find('/', 'en');
     assert.ok(r != null);

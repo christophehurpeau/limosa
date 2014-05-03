@@ -108,7 +108,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
         this._allLangs = allLangs;
         this.router = new Router(routesTranslations);
 
-        this.regExpNamedParam = /(\(\?)?\:([a-zA-Z_]+)/g;
+        this.regExpNamedParam = /(\(\?)?\:([a-zA-Z]+)/g;
         this.translatableRoutePart = /\/([a-zA-Z\_]+)/g;
         this.translatableRouteNamedParamValue = /^[a-zA-Z\|\_]+$/g;
     },
