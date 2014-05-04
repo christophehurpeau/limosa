@@ -11,7 +11,7 @@ module.exports = builder.router;
 builder
     .add('/', '/', 'Site.index')
     .add('postView', '/post/:id-:slug', 'Post.view', {
-        namedParamsDefinition: {'slug': '[A-Za-z\-]+'},
+        namedParamsDefinition: {'slug': '[A-Za-z\\-]+'},
         extension: 'htm'
     })
     .add('postWithDate', '/post(/:tagKey)?(/:date_:slug)', 'Post.view', {

@@ -81,6 +81,7 @@ Router.extendPrototype(/** @lends Router.prototype */{
         var result;
         routes.some((route) => {
             var /*RouterRouteLang*/ routeLang = route.get(lang);
+            if (!routeLang) throw new Error();
             console.info('[springbokjs-router] trying ' + routeLang.regExp);
 
             var match = routeLang.match(path);

@@ -1,19 +1,47 @@
-var RouteBuilder = require('../lib/builder');
+var RouterBuilder = require('../lib/builder');
 var RouteTranslations = require('../lib/routes_translations');
 
 var assert = require('proclaim');
 var expect = assert.strictEqual;
-var fs = require('springbokjs-utils/fs');
+//var fs = require('springbokjs-utils/fs');
 
-var routesLangsConfig = fs.readYamlFileSync('example/routesLangs.yml');
-var rt = new RouteTranslations(routesLangsConfig);
+//var routesLangsConfig = fs.readYamlFileSync('example/routesLangs.yml');
+var routesLangsConfig = {
+    login: {
+        en: 'login',
+        fr: 'connexion',
+    },
+    post: {
+        en: 'post',
+        fr: 'article',
+    },
+    view: {
+        en: 'view',
+        fr: 'afficher'
+    }
+};
+
+var routesTranslations = new RouteTranslations(routesLangsConfig);
 
 test('RouteTranslations', function() {
-    expect(rt.translate('login', 'fr'), 'connexion');
-    expect(rt.untranslate('connexion', 'fr'), 'login');
+    expect(routesTranslations.translate('login', 'fr'), 'connexion');
+    expect(routesTranslations.untranslate('connexion', 'fr'), 'login');
 });
 
-var router = require('../example/router');
+var builder = new RouterBuilder(routesTranslations, ['en', 'fr']);
+var router = builder.router;
+
+builder
+    .add('/', '/', 'Site.index')
+    .add('postView', '/post/:id-:slug', 'Post.view', {
+        namedParamsDefinition: {'slug': '[A-Za-z\\-]+'},
+        extension: 'htm'
+    })
+    .add('postWithDate', '/post(/:tagKey)?(/:date_:slug)', 'Post.view', {
+        namedParamsDefinition: {date: '\\d{4}\\-\\d{2}\\-\\d{2}'}
+    })
+    .addDefaultRoutes();
+
 
 test('SimpleRoute', function() {
     var rr = router.get('/');
@@ -64,10 +92,10 @@ test('Named param route', function() {
     assert.deepEqual(rr.namedParams, ['id', 'slug']);
     expect(rr.getNamedParamsCount(), 2);
     var en = rr.get('en');
-    expect(en.regExp.source, '^\\/post\\/([0-9]+)\\-([A-Za-z\-]+)\\.(htm)$');
+    expect(en.regExp.source, '^\\/post\\/([0-9]+)\\-([A-Za-z\\-]+)\\.(htm)$');
     expect(en.strf,'/post/%s-%s');
     var fr = rr.routes.fr;
-    expect(fr.regExp.source, '^\\/article\\/([0-9]+)\\-([A-Za-z\-]+)\\.(htm)$');
+    expect(fr.regExp.source, '^\\/article\\/([0-9]+)\\-([A-Za-z\\-]+)\\.(htm)$');
     expect(fr.strf,'/article/%s-%s');
 });
 
@@ -80,10 +108,10 @@ test('More complex param route', function() {
     expect(rr.getNamedParamsCount(), 3);
     var en = rr.get('en');
     expect(en.regExp.source, '^\\/post(?:\\/([^/.]+))?(?:\\/(\\d{4}\\-\\d{2}\\-\\d{2})_([^/.]+))$');
-    expect(en.strf,'/post/%s/%s_%s');
+    expect(en.strf,'/post/%s/%s%s');
     var fr = rr.routes.fr;
     expect(fr.regExp.source, '^\\/article(?:\\/([^/.]+))?(?:\\/(\\d{4}\\-\\d{2}\\-\\d{2})_([^/.]+))$');
-    expect(fr.strf,'/article/%s/%s_%s');
+    expect(fr.strf,'/article/%s/%s%s');
 });
 
 
