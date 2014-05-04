@@ -266,7 +266,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
                     (extension == 'html' ? '(?:\\.(html))?': '\\.(' + extension + ')');
 
           var replacedRegExp = routeLangRegExp.replace(this.regExpNamedParam, (str, m1, m2) => {
-            if (m1 != null) {
+            if (m1) {
                 return str;
             }
 
@@ -289,6 +289,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
 
             return '([^/.]+)';
           });
+
           var routeLangStrf = routeLang.replace(/(\:[a-zA-Z_]+)/g, '%s')
               .replace(/[\?\(\)]/g, '')
               .replace('/*','%s')
