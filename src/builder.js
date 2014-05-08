@@ -13,7 +13,7 @@ var regExpEndingSlash = /\/+$/;
 
 /**
  * Build a route segment
- * 
+ *
  * @class
  */
 var RouterBuilderSegment = S.newClass();
@@ -271,23 +271,25 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
             }
 
             if (namedParamsDefinition && namedParamsDefinition[m2]) {
-              var paramDefVal = namedParamsDefinition[m2];
-              if (!S.isString(paramDefVal)) {
-                paramDefVal = paramDefVal[lang];
-              } else {
-                if (paramDefVal.match(this.translatableRouteNamedParamValue)) {
-                  paramDefVal = paramDefVal.split('|')
-                      .map((s) => this.translate(lang, s)).join('|');
+                var paramDefVal = namedParamsDefinition[m2];
+                if (S.isString(paramDefVal)) {
+                    if (paramDefVal.match(this.translatableRouteNamedParamValue)) {
+                      paramDefVal = paramDefVal.split('|')
+                          .map((s) => this.translate(lang, s)).join('|');
+                        }
+                    } else if (paramDefVal instanceof RegExp) {
+                        paramDefVal = paramDefVal.source;
+                    } else {
+                        paramDefVal = paramDefVal[lang];
                 }
-              }
-              return paramDefVal == 'id' ? '([0-9]+)' : '(' + paramDefVal.replace('(','(?:') + ')';
+                return paramDefVal == 'id' ? '([0-9]+)' : '(' + paramDefVal.replace('(','(?:') + ')';
             }
 
             if (m2 == 'id') {
               return '([0-9]+)';
             }
 
-            return '([^/.]+)';
+            return '([^\\/.]+)';
           });
 
           var routeLangStrf = routeLang.replace(/(\:[a-zA-Z_]+)/g, '%s')

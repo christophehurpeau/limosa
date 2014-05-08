@@ -37,6 +37,10 @@ builder
         namedParamsDefinition: {'slug': '[A-Za-z\\-]+'},
         extension: 'htm'
     })
+    .add('postView2', '/post/:id-:slug', 'Post.view', {
+        namedParamsDefinition: {'slug': /[A-Za-z\-]+/},
+        extension: 'htm'
+    })
     .add('postWithDate', '/post(/:tagKey)?(/:date_:slug)', 'Post.view', {
         namedParamsDefinition: {date: '\\d{4}\\-\\d{2}\\-\\d{2}'}
     })
@@ -69,7 +73,7 @@ test('Common route', function() {
     var rsfr = rrs.get('fr');
     expect(rsfr.regExp.source, '^(?:\\.(html))?$');
     expect(rsfr.strf,'/%s');
-    
+
     var rr = router.get('default');
     assert.ok(rr != null);
     expect(rr.controller, 'Site');
@@ -77,10 +81,11 @@ test('Common route', function() {
     assert.deepEqual(rr.namedParams, ['action']);
     expect(rr.getNamedParamsCount(), 1);
     var en = rr.get('en');
-    expect(en.regExp.source, '^\\/([^/.]+)(?:\\/([^.]*))?(?:\\.(html))?$');
+
+    expect(en.regExp.source, /^\/([^\/.]+)(?:\/([^.]*))?(?:\.(html))?$/.source);
     expect(en.strf,'/%s/%s%s');
     var fr = rr.get('fr');
-    expect(en.regExp.source, '^\\/([^/.]+)(?:\\/([^.]*))?(?:\\.(html))?$');
+    expect(en.regExp.source, /^\/([^\/.]+)(?:\/([^.]*))?(?:\.(html))?$/.source);
     expect(fr.strf,'/%s/%s%s');
 });
 
@@ -92,10 +97,25 @@ test('Named param route', function() {
     assert.deepEqual(rr.namedParams, ['id', 'slug']);
     expect(rr.getNamedParamsCount(), 2);
     var en = rr.get('en');
-    expect(en.regExp.source, '^\\/post\\/([0-9]+)\\-([A-Za-z\\-]+)\\.(htm)$');
+    expect(en.regExp.source, /^\/post\/([0-9]+)\-([A-Za-z\-]+)\.(htm)$/.source);
     expect(en.strf,'/post/%s-%s');
     var fr = rr.routes.fr;
-    expect(fr.regExp.source, '^\\/article\\/([0-9]+)\\-([A-Za-z\\-]+)\\.(htm)$');
+    expect(fr.regExp.source, /^\/article\/([0-9]+)\-([A-Za-z\-]+)\.(htm)$/.source);
+    expect(fr.strf,'/article/%s-%s');
+});
+
+test('Named param route with RegExp', function() {
+    var rr = router.get('postView2');
+    assert.ok(rr != null);
+    expect(rr.controller, 'Post');
+    expect(rr.action, 'view');
+    assert.deepEqual(rr.namedParams, ['id', 'slug']);
+    expect(rr.getNamedParamsCount(), 2);
+    var en = rr.get('en');
+    expect(en.regExp.source, /^\/post\/([0-9]+)\-([A-Za-z\-]+)\.(htm)$/.source);
+    expect(en.strf,'/post/%s-%s');
+    var fr = rr.routes.fr;
+    expect(fr.regExp.source, /^\/article\/([0-9]+)\-([A-Za-z\-]+)\.(htm)$/.source);
     expect(fr.strf,'/article/%s-%s');
 });
 
@@ -107,10 +127,10 @@ test('More complex param route', function() {
     assert.deepEqual(rr.namedParams, ['tagKey', 'date', 'slug']);
     expect(rr.getNamedParamsCount(), 3);
     var en = rr.get('en');
-    expect(en.regExp.source, '^\\/post(?:\\/([^/.]+))?(?:\\/(\\d{4}\\-\\d{2}\\-\\d{2})_([^/.]+))$');
+    expect(en.regExp.source, /^\/post(?:\/([^\/.]+))?(?:\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+))$/.source);
     expect(en.strf,'/post/%s/%s%s');
     var fr = rr.routes.fr;
-    expect(fr.regExp.source, '^\\/article(?:\\/([^/.]+))?(?:\\/(\\d{4}\\-\\d{2}\\-\\d{2})_([^/.]+))$');
+    expect(fr.regExp.source, /^\/article(?:\/([^\/.]+))?(?:\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+))$/.source);
     expect(fr.strf,'/article/%s/%s%s');
 });
 
@@ -124,7 +144,7 @@ test('Find simple routes', function() {
     expect(r.extension, undefined);
     expect(r.namedParams, undefined);
     expect(r.otherParams, undefined);
-    
+
     r = router.find('/', 'fr');
     assert.ok(r != null);
     expect(r.all, '/');
