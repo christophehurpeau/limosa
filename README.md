@@ -1,5 +1,8 @@
 [![Build Status](https://drone.io/github.com/christophehurpeau/springbokjs-router/status.png)](https://drone.io/github.com/christophehurpeau/springbokjs-router/latest)
 
+[![browser support](https://ci.testling.com/christophehurpeau/springbokjs-router.png)
+](https://ci.testling.com/christophehurpeau/springbokjs-router)
+
 See the [auto-generated docs](http://christophehurpeau.github.io/springbokjs-router/docs/)
 
 ### How to use
