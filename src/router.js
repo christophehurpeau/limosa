@@ -10,34 +10,31 @@ var regExpEndingSlash = /\/+$/;
 
 /**
  * Creates a new Router
- * 
+ *
  * @class Router Represents a Router
  */
-var Router = S.newClass();
-module.exports = Router;
-
-Router.extendPrototype(/** @lends Router.prototype */{
+module.exports = class Router {
     /**
      * Creates a new Router
-     * 
+     *
      * @constructs
      * @param {RoutesTranslations} routesTranslations
      */
-    construct(routesTranslations) {
+    constructor(routesTranslations) {
         this._routesMap = new Map();
         this._routes = [];
         this._routesTranslations = routesTranslations;
-    },
+    }
 
     /**
      * Get a Route by its key
-     * 
+     *
      * @param {String} key
      * @return {Route}
      */
     get(key) {
         return this._routesMap.get(key);
-    },
+    }
 
 
     /**
@@ -49,7 +46,7 @@ Router.extendPrototype(/** @lends Router.prototype */{
             this._addInternalRoute(routeKey, route);
         }
         this._routes.push(route);
-    },
+    }
 
     /**
      * @param {String} routeKey
@@ -57,7 +54,7 @@ Router.extendPrototype(/** @lends Router.prototype */{
      */
     _addInternalRoute(routeKey, route) {
         this._routesMap.set(routeKey, route);
-    },
+    }
 
     /**
      * @param {String} path
@@ -67,7 +64,7 @@ Router.extendPrototype(/** @lends Router.prototype */{
     find(path, lang = 'en') {
         path = '/' + path.trim().replace(regExpStartingSlash, '').replace(regExpEndingSlash,'');
         return this._findRoute(this._routes, path, path, lang);
-    },
+    }
 
     /**
      * @param {Array} routes
@@ -132,8 +129,8 @@ Router.extendPrototype(/** @lends Router.prototype */{
             return true;
         });
         return result;
-    },
-    
+    }
+
     /**
      * Creates a new Route result
      * @param {String} completePath
@@ -194,7 +191,7 @@ Router.extendPrototype(/** @lends Router.prototype */{
         }
 
         return new Route(completePath, controller, action, namedParams, otherParams, extension);
-    },
+    }
 
     /**
      * Create a link
@@ -220,4 +217,4 @@ Router.extendPrototype(/** @lends Router.prototype */{
         link = S.string.vformat(link, params.map((param) => { this._routesTranslations.translate(param, lang); }));
         return (link === '/' ? link : link.replace(regExpEndingSlash, '')) + plus;
     }
-});
+};

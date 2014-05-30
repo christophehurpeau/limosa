@@ -1,20 +1,16 @@
-//var S = require('springbokjs-utils');
 var RouterRouteCommon = require('./common');
 
 /**
  * @class
  */
-var RouterRouteSegment = RouterRouteCommon.extend();
-module.exports = RouterRouteSegment;
-
-RouterRouteSegment.extendPrototype(/** @lends RouterRouteSegment.prototype */{
+module.exports = class RouterRouteSegment extends RouterRouteCommon {
     /**
      * @constructs
      */
-    construct() {
-        RouterRouteCommon.prototype.construct.apply(this, arguments);
+    constructor(namedParams) {
+        super(namedParams);
         this.subRoutes = [];
-    },
+    }
 
     /**
      * Set the segment's default route
@@ -23,4 +19,4 @@ RouterRouteSegment.extendPrototype(/** @lends RouterRouteSegment.prototype */{
     setDefaultRoute(defaultRoute) {
         this.defaultRoute = defaultRoute;
     }
-});
+};

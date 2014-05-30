@@ -1,22 +1,17 @@
-var S = require('springbokjs-utils');
-
 /**
  * @class
  */
-var Route = S.newClass();
-module.exports = Route;
-
-Route.extendPrototype( /** @lends Route.prototype */ {
+module.exports = class Route {
     /**
      * @constructs
      * @param {String} all
      * @param {String} controller
      * @param {String} action
-     * @param {Object} namedParams
+     * @param {Map} namedParams
      * @param {Array} otherParams
      * @param {String} extension
      */
-    construct(all, controller, action, namedParams, otherParams, extension) {
+    constructor(all, controller, action, namedParams, otherParams, extension) {
         this.all = all;
         this.controller = controller;
         this.action = action;
@@ -24,5 +19,5 @@ Route.extendPrototype( /** @lends Route.prototype */ {
         this.otherParams = otherParams;
         this.extension = extension;
         Object.freeze(this);
-    },
-});
+    }
+};

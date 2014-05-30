@@ -16,19 +16,18 @@ var regExpEndingSlash = /\/+$/;
  *
  * @class
  */
-var RouterBuilderSegment = S.newClass();
-S.extendPrototype(RouterBuilderSegment, /** @lends RouterBuilderSegment.prototype */ {
+class RouterBuilderSegment {
     /**
      * @constructs
      * @param {RouterBuilder} builder
      * @param {RouterRouteSegment} router
      * @param {RouterRouteSegment=} parent
      */
-    construct(builder, route, parent) {
+    constructor(builder, route, parent) {
         this.builder = builder;
         this.route = route;
         this.parent = parent;
-    },
+    }
 
     /**
      * @param {String} routeKey
@@ -41,7 +40,7 @@ S.extendPrototype(RouterBuilderSegment, /** @lends RouterBuilderSegment.prototyp
         this.route.subRoutes.push(route);
         this.builder.router._addInternalRoute(routeKey, route);
         return this;
-    },
+    }
 
     /**
      * @param {String} routeKey
@@ -55,7 +54,7 @@ S.extendPrototype(RouterBuilderSegment, /** @lends RouterBuilderSegment.prototyp
                             options && options.namedParamsDefinition,
                             options && options.routeLangs,
                             options && options.extension);
-    },
+    }
 
     /**
      * @param {String} routeKey
@@ -69,7 +68,7 @@ S.extendPrototype(RouterBuilderSegment, /** @lends RouterBuilderSegment.prototyp
         this.route.subRoutes.push(route);
         this.builder.router._addInternalRoute(routeKey, route);
         return this;
-    },
+    }
 
 
     /**
@@ -88,22 +87,19 @@ S.extendPrototype(RouterBuilderSegment, /** @lends RouterBuilderSegment.prototyp
         buildSegment(segment);
         this.router.addRoute(null, route);
       }
-});
+}
 
 
 /**
  * @class
  */
-var Builder = S.newClass();
-module.exports = Builder;
-
-Builder.extendPrototype( /** @lends Builder.prototype */ {
+class Builder {
     /**
      * @constructs
      * @param {RoutesTranslations} routesTranslations
      * @param {Array} allLangs Array of all langs
      */
-    construct(routesTranslations, allLangs) {
+    constructor(routesTranslations, allLangs) {
         this._routesTranslations = routesTranslations;
         this._allLangs = allLangs;
         this.router = new Router(routesTranslations);
@@ -111,7 +107,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
         this.regExpNamedParam = /(\(\?)?\:([a-zA-Z]+)/g;
         this.translatableRoutePart = /\/([a-zA-Z\_]+)/g;
         this.translatableRouteNamedParamValue = /^[a-zA-Z\|\_]+$/g;
-    },
+    }
 
     /**
      * @param {String} lang
@@ -122,20 +118,20 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
         var lstring = string.toLowerCase();
         var translation = this._routesTranslations.translate(lstring, lang);
         return translation;
-    },
+    }
 
     /**
      * @param {Map} routes
      */
     fromMap(routes) {
-        S.forEach(routes, function(route, routeKey) {
+        routes.forEach(function(route, routeKey) {
             this.add(routeKey, routeKey, route[0], {
                 namedParamsDefinition: route.length > 1 ? route[1] : undefined,
                 routeLangs: route.length > 2 ? (route[2] || {}) : {},
                 extension: route.length > 3 ? route[3] : undefined
             });
         });
-    },
+    }
 
     /**
      * @param {String} routeKey
@@ -150,7 +146,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
                             options && options.extension);
         this.router.addRoute(routeKey, route);
         return this;
-    },
+    }
 
     /**
      * @param {String} routeUrl
@@ -168,7 +164,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
         buildSegment(segment);
         this.router.addRoute(undefined, route);
         return this;
-    },
+    }
 
     /**
      * @param {RouterRouteSegment} parent
@@ -179,7 +175,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
      */
     _createRouteSegment(parent, routeUrl, namedParamsDefinition, routeLangs) {
         return this._createRoute(true, parent, routeUrl, undefined, namedParamsDefinition, routeLangs, undefined);
-    },
+    }
 
     /**
      * @param {bool} segment
@@ -200,16 +196,18 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
         }
 
         if (routeLangs == null) {
-          routeLangs = {};
+            routeLangs = new Map();
+        } else {
+            routeLangs = S.object.toMap(routeLangs);
         }
 
         // -- Route langs --
 
-        if (Object.keys(routeLangs).length !== 0) {
+        if (routeLangs.size !== 0) {
             this._allLangs.forEach((lang) => {
-                if (!routeLangs[lang]) {
+                if (!routeLangs.has(lang)) {
                     if (lang == 'en') {
-                        routeLangs.en = routeUrl;
+                        routeLangs.set('en', routeUrl);
                     } else {
                         throw new Error('Missing lang "'+ lang + '" for route "' + routeUrl + '"');
                     }
@@ -217,17 +215,17 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
             });
         } else  if (!routeUrl.match(this.translatableRoutePart)) {
             this._allLangs.forEach((lang) => {
-                routeLangs[lang] = routeUrl;
+                routeLangs.set(lang, routeUrl);
             });
         } else {
             this._allLangs.forEach((lang) => {
-                routeLangs[lang] = routeUrl.replace(this.translatableRoutePart,
-                  (str, p1) => '/' + this.translate(lang, p1));
+                routeLangs.set(lang, routeUrl.replace(this.translatableRoutePart,
+                  (str, p1) => '/' + this.translate(lang, p1)));
             });
         }
 
         var paramNames = [];
-        routeLangs[this._allLangs[0]].replace(this.regExpNamedParam, (str, p1, p2) => {
+        routeLangs.get(this._allLangs[0]).replace(this.regExpNamedParam, (str, p1, p2) => {
             if (p1) {
                 return str;
             }
@@ -238,7 +236,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
         var finalRoute = segment ? new RouterRouteSegment(paramNames)
             : new RouterRoute(controllerAndAction[0], controllerAndAction[1], extension, paramNames);
 
-        S.forEach(routeLangs, (routeLang, lang) => {
+        routeLangs.forEach((routeLang, lang) => {
             var specialEnd = false, specialEnd2 = false;
             var routeLangRegExp;
 
@@ -285,7 +283,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
                 return paramDefVal == 'id' ? '([0-9]+)' : '(' + paramDefVal.replace('(','(?:') + ')';
             }
 
-            if (m2 == 'id') {
+            if (m2 === 'id') {
               return '([0-9]+)';
             }
 
@@ -299,7 +297,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
               .replace(regExpEndingSlash, '');
 
           if (parent != null) {
-            routeLangStrf = parent.routes[lang].strf + routeLangStrf;
+            routeLangStrf = parent.routes.get(lang).strf + routeLangStrf;
           }
 
           if (routeLangStrf.length === 0) {
@@ -312,7 +310,7 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
         });
 
         return finalRoute;
-    },
+    }
 
     /**
      * Add default routes
@@ -324,5 +322,6 @@ Builder.extendPrototype( /** @lends Builder.prototype */ {
                 .defaultRoute('defaultSimple', 'Site.index', { extension: 'html' });
         });
     }
+}
 
-});
+module.exports = Builder;

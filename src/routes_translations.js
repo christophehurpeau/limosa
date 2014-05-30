@@ -7,14 +7,11 @@ var S = require('springbokjs-utils');
  * 
  * @class
  */
-var RoutesTranslations = S.newClass();
-module.exports = RoutesTranslations;
-
-S.extendPrototype(RoutesTranslations, /** @lends RoutesTranslations.prototype */ {
+module.exports = class RoutesTranslations {
     /**
      * @param {Map} translations
      */
-    construct(translations) {
+    constructor(translations) {
         this._translations = new Map();
 
         if (translations) {
@@ -29,7 +26,7 @@ S.extendPrototype(RoutesTranslations, /** @lends RoutesTranslations.prototype */
                 });
             });
         }
-    },
+    }
 
     /**
      * @param {String} string
@@ -43,7 +40,7 @@ S.extendPrototype(RoutesTranslations, /** @lends RoutesTranslations.prototype */
             throw new Error('Missing translation ' + string + ' for lang ' + lang);
         }
         return translationsMap.get(string);
-    },
+    }
 
     /**
      * @param {String} string
@@ -58,4 +55,4 @@ S.extendPrototype(RoutesTranslations, /** @lends RoutesTranslations.prototype */
         }
         return translationsMap.get(string);
     }
-});
+};
