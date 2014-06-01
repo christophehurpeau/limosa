@@ -1,5 +1,3 @@
-var S = require('springbokjs-utils');
-
 /**
  * @class
  */

@@ -1,6 +1,6 @@
 {
   "name": "springbokjs-router",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "SpringbokJS Router",
   "main": "index.js",
   "scripts": {
