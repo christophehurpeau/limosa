@@ -76,10 +76,10 @@ module.exports = class Router {
      */
     _findRoute(routes, completePath, path, lang, namedParams) {
         var result;
-        routes.some((route) => {
+        routes.some((route, index) => {
             var /*RouterRouteLang*/ routeLang = route.get(lang);
             if (!routeLang) {
-                throw new Error();
+                throw new Error('Cannot find routeLang for lang ' + lang + ' and route ' + index);
             }
             if (console && console.info) {
                 console.info('[springbokjs-router] trying ' + routeLang.regExp);
