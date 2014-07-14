@@ -1,7 +1,5 @@
 /dist
-/src
 /example
-/test/src
 
 /.settings
 .project

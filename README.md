@@ -1,4 +1,4 @@
-[![Build Status](https://drone.io/github.com/christophehurpeau/springbokjs-router/status.png)](https://drone.io/github.com/christophehurpeau/springbokjs-router/latest)
+# springbokjs-router [![NPM version][npm-image]][npm-url] [![Drone.io Status][droneio-image]][droneio-url]
 
 [![browser support](https://ci.testling.com/christophehurpeau/springbokjs-router.png)
 ](https://ci.testling.com/christophehurpeau/springbokjs-router)
@@ -43,3 +43,9 @@ builder
 
 
 ```
+
+
+[npm-image]: https://img.shields.io/npm/v/springbokjs-router.svg?style=flat
+[npm-url]: https://npmjs.org/package/springbokjs-router
+[droneio-image]: https://drone.io/github.com/christophehurpeau/springbokjs-router/status.png
+[droneio-url]: https://drone.io/github.com/christophehurpeau/springbokjs-router/latest
