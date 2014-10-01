@@ -1,6 +1,6 @@
 # Go to project > Repository and set the branch filter
 # Then click on "View Key" and paste it on github
-npm -d install
+npm install
 
 echo "\n> Ensure that the code is warning free"
 node_modules/.bin/gulp lint || exit 1
@@ -12,7 +12,7 @@ npm test || exit 1
 #node_modules/.bin/gulp build || exit 1
 
 echo "\n> Generate docs"
-node_modules/.bin/gulp docs || exit 1
+node_modules/.bin/gulp docs # || exit 1
 
 echo "\n> Copy docs up to github gh-pages branch"
 mv docs docs-tmp
