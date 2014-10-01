@@ -1,5 +1,8 @@
-var RouterBuilder = require('../lib/builder');
-var RouteTranslations = require('../lib/routes_translations');
+/* global test */
+var lib = '../../lib' + (process.env.TEST_COV && '-cov' || '') + '/';
+
+var RouterBuilder = require(lib + 'builder');
+var RouteTranslations = require(lib + 'routes_translations');
 
 var assert = require('proclaim');
 var expect = assert.strictEqual;
@@ -284,7 +287,7 @@ test('Find common routes, /:controller/:action', function() {
     expect(r.controller, 'Post');
     expect(r.action, 'view');
     expect(r.extension, 'htm');
-    var namedParams = r.namedParams;
+    namedParams = r.namedParams;
     assert.isInstanceOf(namedParams, Map);
     expect(r.namedParams.size, 2);
     expect(r.namedParams.get('id'), '001');

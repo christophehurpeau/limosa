@@ -3,7 +3,6 @@
  */
 module.exports = class Route {
     /**
-     * @constructs
      * @param {String} all
      * @param {String} controller
      * @param {String} action
