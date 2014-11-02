@@ -1,7 +1,7 @@
 /**
  * @class
  */
-module.exports = class RouterRouteLang {
+export default class RouterRouteLang {
     /**
      * @constructs
      * @param {RegExp} regExp
@@ -19,4 +19,4 @@ module.exports = class RouterRouteLang {
     match(input) {
         return input.match(this.regExp);
     }
-};
+}

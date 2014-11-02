@@ -1,6 +1,6 @@
 {
   "name": "springbokjs-router",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "SpringbokJS Router",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/christophehurpeau/springbokjs-router",
   "dependencies": {
-    "springbokjs-utils": "^0.5.11",
-    "springbokjs-shim": "^0.2.0"
+    "springbokjs-utils": "^0.6.5",
+    "springbokjs-shim": "^0.2.1"
   },
   "devDependencies": {
     "gulp": "^3.8",
@@ -29,9 +29,9 @@
     "karma-mocha": "^0.1.9",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-proclaim": "^1.0.0",
-    "mocha": "~1.21.5",
+    "mocha": "~2.0.1",
     "proclaim": "^2.0",
-    "springbokjs-library": "^3.0.1"
+    "springbokjs-library": "^3.1.0"
   },
   "testling": {
     "harness": "mocha-tdd",

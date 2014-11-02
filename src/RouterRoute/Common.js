@@ -1,7 +1,7 @@
 /**
  * @class
  */
-module.exports = class RouterRouteCommon {
+export default class RouterRouteCommon {
     /**
      * @constructs
      * @param {Array} namedParams
@@ -33,4 +33,4 @@ module.exports = class RouterRouteCommon {
     set(lang, route) {
         this.routes.set(lang, route);
     }
-};
+}

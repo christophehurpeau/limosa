@@ -1,9 +1,9 @@
-var RouterRouteCommon = require('./common');
+import RouterRouteCommon from './Common';
 
 /**
  * @class
  */
-module.exports = class RouterRouteSegment extends RouterRouteCommon {
+export default class RouterRouteSegment extends RouterRouteCommon {
     /**
      * @constructs
      */
@@ -19,4 +19,4 @@ module.exports = class RouterRouteSegment extends RouterRouteCommon {
     setDefaultRoute(defaultRoute) {
         this.defaultRoute = defaultRoute;
     }
-};
+}

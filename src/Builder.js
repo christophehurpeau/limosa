@@ -1,9 +1,10 @@
+//import * as S from 'springbokjs-utils';
 var S = require('springbokjs-utils');
-var Router = require('./router');
-//var RouterRouteCommon = require('./router_route/common');
-var RouterRoute = require('./router_route/route');
-var RouterRouteSegment = require('./router_route/segment');
-var RouterRouteLang = require('./router_route/lang');
+import Router from './Router';
+//import RouterRouteCommon from './RouterRoute/Common';
+import RouterRoute from './RouterRoute/Route';
+import RouterRouteSegment from './RouterRoute/Segment';
+import RouterRouteLang from './RouterRoute/Lang';
 
 //var regExpStartingSlash = /^\/+/;
 var regExpEndingSlash = /\/+$/;
@@ -93,7 +94,7 @@ class RouterBuilderSegment {
 /**
  * @class
  */
-class Builder {
+export default class Builder {
     /**
      * @constructs
      * @param {RoutesTranslations} routesTranslations
@@ -140,7 +141,7 @@ class Builder {
      * @param {Object} options namedParamsDefinition, routeLangs, extension
      */
     add(routeKey, routeUrl, controllerAndActionSeparatedByDot, options) {
-        var route = this._createRoute(false, undefined, routeUrl, controllerAndActionSeparatedByDot, 
+        var route = this._createRoute(false, undefined, routeUrl, controllerAndActionSeparatedByDot,
                             options && options.namedParamsDefinition,
                             options && options.routeLangs,
                             options && options.extension);
@@ -318,10 +319,8 @@ class Builder {
     addDefaultRoutes() {
         this.addSegment('/:controller', { extension: 'html' }, (segment) => {
             segment
-                .add('default', '/:action/*', 'Site.index', { extension: 'html' })
-                .defaultRoute('defaultSimple', 'Site.index', { extension: 'html' });
+                .add('default', '/:action/*', 'site.index', { extension: 'html' })
+                .defaultRoute('defaultSimple', 'site.index', { extension: 'html' });
         });
     }
 }
-
-module.exports = Builder;

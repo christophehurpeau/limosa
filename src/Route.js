@@ -1,7 +1,7 @@
 /**
  * @class
  */
-module.exports = class Route {
+export default class Route {
     /**
      * @param {String} all
      * @param {String} controller
@@ -19,4 +19,4 @@ module.exports = class Route {
         this.extension = extension;
         Object.freeze(this);
     }
-};
+}

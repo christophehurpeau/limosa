@@ -1,9 +1,9 @@
 require('springbokjs-shim/es6');
 var S = require('springbokjs-utils');
 
-var RouterRoute = require('./router_route/route');
-var RouterRouteSegment = require('./router_route/segment');
-var Route = require('./route');
+import RouterRoute from './RouterRoute/Route';
+import RouterRouteSegment from './RouterRoute/Segment';
+import Route from './Route';
 
 var regExpStartingSlash = /^\/+/;
 var regExpEndingSlash = /\/+$/;
@@ -13,7 +13,7 @@ var regExpEndingSlash = /\/+$/;
  *
  * @class Router Represents a Router
  */
-module.exports = class Router {
+export default class Router {
     /**
      * Creates a new Router
      *
@@ -81,8 +81,8 @@ module.exports = class Router {
             if (!routeLang) {
                 throw new Error('Cannot find routeLang for lang ' + lang + ' and route ' + index);
             }
-            if (console && console.info) {
-                console.info('[springbokjs-router] trying ' + routeLang.regExp);
+            if (this.logger) {
+                this.logger.info('[springbokjs-router] trying ' + routeLang.regExp);
             }
 
             var match = routeLang.match(path);
@@ -170,7 +170,6 @@ module.exports = class Router {
             // Replace controller and action if needed
             if (namedParams.has('controller')) {
                 controller = this._routesTranslations.untranslate(namedParams.get('controller'), lang);
-                controller = controller[0].toUpperCase() + controller.substring(1);
                 // Should we remove it ?
                 namedParams.delete('controller');
             }
@@ -217,4 +216,4 @@ module.exports = class Router {
         link = S.string.vformat(link, params.map((param) => { this._routesTranslations.translate(param, lang); }));
         return (link === '/' ? link : link.replace(regExpEndingSlash, '')) + plus;
     }
-};
+}

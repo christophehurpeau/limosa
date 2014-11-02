@@ -1,3 +1,4 @@
+//import * as S from 'springbokjs-utils';
 var S = require('springbokjs-utils');
 
 /**
@@ -7,7 +8,7 @@ var S = require('springbokjs-utils');
  *
  * @class
  */
-module.exports = class RoutesTranslations {
+export default class RoutesTranslations {
     /**
      * @param {Map} translations
      */
@@ -57,4 +58,4 @@ module.exports = class RoutesTranslations {
         }
         return translationsMap.get(string);
     }
-};
+}

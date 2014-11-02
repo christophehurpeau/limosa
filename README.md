@@ -45,6 +45,10 @@ builder
 ```
 
 
+Missing before 1.0.0:
+
+- better handle of array to route : RouterRouteLang.strf is not ideal. Especially with routes like '.../*' or route with optional parts
+
 [npm-image]: https://img.shields.io/npm/v/springbokjs-router.svg?style=flat
 [npm-url]: https://npmjs.org/package/springbokjs-router
 [droneio-image]: https://drone.io/github.com/christophehurpeau/springbokjs-router/status.png
