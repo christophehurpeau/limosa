@@ -8,7 +8,7 @@ update:
 	gulp springbokjs-shim
 
 clean:
-	rm -Rf lib/*
+	rm -Rf docs lib lib-cov tests/lib
 
 watch:
 	gulp watch

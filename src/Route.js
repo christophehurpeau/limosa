@@ -1,5 +1,5 @@
 /**
- * @class
+ * @class Route
  */
 export default class Route {
     /**

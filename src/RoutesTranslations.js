@@ -2,11 +2,10 @@
 var S = require('springbokjs-utils');
 
 /**
- * Routes Translations
+ * @class Routes Translations
  *
  * Convert a simple conf file key=>value into a two-way translation map
  *
- * @class
  */
 export default class RoutesTranslations {
     /**

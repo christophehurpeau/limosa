@@ -1,7 +1,7 @@
 import RouterRouteCommon from './Common';
 
 /**
- * @class
+ * @class RouterRouteSegment
  */
 export default class RouterRouteSegment extends RouterRouteCommon {
     /**

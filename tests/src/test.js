@@ -1,8 +1,14 @@
 /* global test */
-var lib = '../../lib' + (process.env.TEST_COV && '-cov' || '') + '/';
+var libcov = '../../lib-cov/';
+var RouterBuilder = require('../../lib/Builder').default;
+if (process.env.TEST_COV) {
+    RouterBuilder = require(libcov + 'Builder').default;
+}
 
-var RouterBuilder = require(lib + 'Builder').default;
-var RouteTranslations = require(lib + 'RoutesTranslations').default;
+var RouteTranslations = require('../../lib/RoutesTranslations').default;
+if (process.env.TEST_COV) {
+    RouteTranslations = require(libcov + 'RoutesTranslations').default;
+}
 
 var assert = require('proclaim');
 //var fs = require('springbokjs-utils/fs');

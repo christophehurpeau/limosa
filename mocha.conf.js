@@ -1,2 +1,2 @@
 window.mocha.setup({ui: 'tdd'});
-window.mocha.checkLeaks();
+//window.mocha.checkLeaks();

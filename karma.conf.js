@@ -32,7 +32,7 @@ module.exports = function(config) {
 
 
         // enable / disable colors in the output (reporters and logs)
-        colors: true,
+        colors: !process.env.DRONE,
 
 
         // level of logging
@@ -41,6 +41,6 @@ module.exports = function(config) {
 
 
         // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: true,
+        autoWatch: false,
     });
 };

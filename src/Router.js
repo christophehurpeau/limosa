@@ -11,13 +11,13 @@ var regExpEndingSlash = /\/+$/;
 /**
  * Creates a new Router
  *
- * @class Router Represents a Router
+ * @class Router
  */
 export default class Router {
     /**
      * Creates a new Router
      *
-     * @constructs
+     * @constructs Router
      * @param {RoutesTranslations} routesTranslations
      */
     constructor(routesTranslations) {

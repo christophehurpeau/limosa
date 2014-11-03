@@ -1,5 +1,5 @@
 /**
- * @class
+ * @class RouterRouteLang
  */
 export default class RouterRouteLang {
     /**

@@ -1,5 +1,5 @@
 /**
- * @class
+ * @class RouterRouteCommon
  */
 export default class RouterRouteCommon {
     /**

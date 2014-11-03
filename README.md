@@ -1,4 +1,4 @@
-# springbokjs-router [![NPM version][npm-image]][npm-url] [![Drone.io Status][droneio-image]][droneio-url]
+# springbokjs-router [![NPM version][npm-image]][npm-url] [![Build Status][build-status-image]][build-status-url] [![Coverage][coverage-image]][coverage-url]
 
 [![browser support](https://ci.testling.com/christophehurpeau/springbokjs-router.png)
 ](https://ci.testling.com/christophehurpeau/springbokjs-router)
@@ -34,8 +34,8 @@ var builder = new RouterBuilder(routesTranslations, ['en', 'fr']);
 module.exports = builder.router;
 
 builder
-    .add('/', '/', 'Site.index')
-    .add('postView', '/post/:id-:slug', 'Post.view', {
+    .add('/', '/', 'site.index')
+    .add('postView', '/post/:id-:slug', 'post.view', {
         namedParamsDefinition: {'slug': '[A-Za-z\-]+'},
         extension: 'htm'
     })
@@ -51,5 +51,7 @@ Missing before 1.0.0:
 
 [npm-image]: https://img.shields.io/npm/v/springbokjs-router.svg?style=flat
 [npm-url]: https://npmjs.org/package/springbokjs-router
-[droneio-image]: https://drone.io/github.com/christophehurpeau/springbokjs-router/status.png
-[droneio-url]: https://drone.io/github.com/christophehurpeau/springbokjs-router/latest
+[build-status-image]: https://drone.io/github.com/christophehurpeau/springbokjs-router/status.png
+[build-status-url]: https://drone.io/github.com/christophehurpeau/springbokjs-router/latest
+[coverage-image]: http://img.shields.io/badge/coverage-85%-green.svg?style=flat
+[coverage-url]: http://christophehurpeau.github.io/springbokjs-router/docs/coverage.html
