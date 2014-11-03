@@ -3,7 +3,9 @@
 
 sudo apt-get install jscoverage
 npm install -g karma-cli
+npm install -g codeclimate-test-reporter
 npm install
+npm install mocha-lcov-reporter
 
 echo "\n> Ensure that the code is warning free"
 node_modules/.bin/gulp lint || exit 1
@@ -24,6 +26,11 @@ karma start karma.conf.js --single-run --browsers=Firefox,Chrome,PhantomJS || ex
 
 echo "\n> Generate docs (api and coverage)"
 node_modules/.bin/gulp docs || exit 1
+
+echo "\n> Generate coverage for codeclimate"
+cd lib-cov
+TEST_COV=1 ../node_modules/.bin/mocha --harmony -u tdd --reporter mocha-lcov-reporter ../tests/lib | CODECLIMATE_REPO_TOKEN=5e2f69aa955b8f192cfeb37185b2ccc9d4ff289dc8e2ef03d8b4aaa1d849f63c codeclimate
+cd ..
 
 echo "\n> Copy docs up to github gh-pages branch"
 mv docs docs-tmp
