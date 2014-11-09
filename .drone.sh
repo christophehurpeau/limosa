@@ -1,7 +1,6 @@
 # Go to project > Repository and set the branch filter
 # Then click on "View Key" and paste it on github
 
-sudo apt-get install jscoverage
 npm install -g karma-cli
 npm install -g codeclimate-test-reporter
 npm install
@@ -9,7 +8,6 @@ npm install mocha-lcov-reporter
 
 echo "\n> Ensure that the code is warning free"
 node_modules/.bin/gulp lint || exit 1
-node_modules/.bin/gulp linttests || exit 1
 
 echo "\n> Build"
 node_modules/.bin/gulp build-all || exit 1
