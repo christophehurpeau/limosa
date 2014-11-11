@@ -1,5 +1,6 @@
 /* global test */
 "use strict";
+require('springbokjs-shim/es6');
 var libcov = '../../lib-cov/';
 var RouterBuilder = require('../../lib/Builder').default;
 if (process.env.TEST_COV) {

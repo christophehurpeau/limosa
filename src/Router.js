@@ -1,4 +1,3 @@
-require('springbokjs-shim/es6');
 var S = require('springbokjs-utils');
 
 import RouterRoute from './RouterRoute/Route';

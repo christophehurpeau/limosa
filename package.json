@@ -17,8 +17,7 @@
   },
   "homepage": "https://github.com/christophehurpeau/springbokjs-router",
   "dependencies": {
-    "springbokjs-utils": "^0.6.5",
-    "springbokjs-shim": "^0.2.1"
+    "springbokjs-utils": "^0.6.5"
   },
   "devDependencies": {
     "gulp": "^3.8",
@@ -31,7 +30,8 @@
     "karma-proclaim": "^1.0.0",
     "mocha": "~2.0.1",
     "proclaim": "^2.0",
-    "springbokjs-library": "^3.3.0"
+    "springbokjs-library": "^3.3.0",
+    "springbokjs-shim": "^0.2.1"
   },
   "testling": {
     "harness": "mocha-tdd",
