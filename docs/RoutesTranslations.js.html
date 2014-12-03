@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>springbokjs-router Class: RouterRouteLang</title>
+	<title>springbokjs-router Source: RoutesTranslations.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -66,193 +66,99 @@
 	<div class="row-fluid">
 
 		
-		<div class="span8">
-			
+			<div class="span12">
+				
 				<div id="main">
 					
 
 
-	<h1 class="page-title">Class: RouterRouteLang</h1>
+		<h1 class="page-title">Source: RoutesTranslations.js</h1>
+    
 <section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">"use strict";
 
-<header>
-    <h2>
-    RouterRouteLang
-    </h2>
-    
-</header>
+var _classProps = function (child, staticProps, instanceProps) {
+  if (staticProps) Object.defineProperties(child, staticProps);
+  if (instanceProps) Object.defineProperties(child.prototype, instanceProps);
+};
 
-<article>
-    <div class="container-overview">
-    
+//import * as S from 'springbokjs-utils';
+var S = require("springbokjs-utils");
 
-    
-        
-<dt>
-    <h4 class="name" id="RouterRouteLang"><span class="type-signature"></span>new RouterRouteLang<span class="signature">(regExp, strf)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
+var RoutesTranslations = (function () {
+  var RoutesTranslations =
+  /**
+   * @param {Map} translations
+   */
+  function RoutesTranslations(translations) {
+    this._translations = new Map();
 
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
+    if (translations) {
+      S.forEach(translations, function (translationsMap, key) {
+        //keep functions here
+        S.forEach(translationsMap, function (translation, lang) {
+          if (!this._translations.has(">" + lang)) {
+            this._translations.set(">" + lang, new Map());
+            this._translations.set(lang + ">", new Map());
+          }
+          this._translations.get(">" + lang).set(key.toLowerCase(), translation);
+          this._translations.get(lang + ">").set(translation.toLowerCase(), key);
+        }.bind(this));
+      }.bind(this));
+    }
+  };
 
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>regExp</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">RegExp</span>
+  _classProps(RoutesTranslations, null, {
+    translate: {
+      writable: true,
 
 
-            
-            </td>
+      /**
+       * @param {String} string
+       * @param {String} lang
+       * @return {String}
+       */
+      value: function (string, lang) {
+        string = string.toLowerCase();
+        var translationsMap = this._translations.get(">" + lang);
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>strf</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
+        if (!translationsMap.has(string)) {
+          throw new Error("Missing translation " + string + " for lang " + lang);
+        }
+        return translationsMap.get(string);
+      }
+    },
+    untranslate: {
+      writable: true,
 
 
-            
-            </td>
+      /**
+       * @param {String} string
+       * @param {String} lang
+       * @return {String}
+       */
+      value: function (string, lang) {
+        string = string.toLowerCase();
+        var translationsMap = this._translations.get(lang + ">");
 
-            
+        if (!translationsMap.has(string)) {
+          throw new Error("Missing untranslation " + string + " for lang " + lang);
+        }
+        return translationsMap.get(string);
+      }
+    }
+  });
 
-            
+  return RoutesTranslations;
+})();
 
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="RouterRoute_Lang.js.html">RouterRoute/Lang.js</a>,
-				 <a href="RouterRoute_Lang.js.html#sunlight-1-line-15">line 15</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
+exports["default"] = RoutesTranslations;
+//# sourceMappingURL=RoutesTranslations.js.map</pre>
+	</article>
 </section>
+
 
 
 
@@ -271,10 +177,6 @@
 				</footer>
 			</div>
 
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
 			
 			<br clear="both">
 		</div>

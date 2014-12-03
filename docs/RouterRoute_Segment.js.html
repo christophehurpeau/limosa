@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>springbokjs-router Class: RouterRouteLang</title>
+	<title>springbokjs-router Source: RouterRoute/Segment.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -66,193 +66,72 @@
 	<div class="row-fluid">
 
 		
-		<div class="span8">
-			
+			<div class="span12">
+				
 				<div id="main">
 					
 
 
-	<h1 class="page-title">Class: RouterRouteLang</h1>
+		<h1 class="page-title">Source: RouterRoute/Segment.js</h1>
+    
 <section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">"use strict";
 
-<header>
-    <h2>
-    RouterRouteLang
-    </h2>
-    
-</header>
+var _classProps = function (child, staticProps, instanceProps) {
+  if (staticProps) Object.defineProperties(child, staticProps);
+  if (instanceProps) Object.defineProperties(child.prototype, instanceProps);
+};
 
-<article>
-    <div class="container-overview">
-    
+var _extends = function (child, parent) {
+  child.prototype = Object.create(parent.prototype, {
+    constructor: {
+      value: child,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  child.__proto__ = parent;
+};
 
-    
-        
-<dt>
-    <h4 class="name" id="RouterRouteLang"><span class="type-signature"></span>new RouterRouteLang<span class="signature">(regExp, strf)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
+var RouterRouteCommon = require('./Common')["default"];
+var RouterRouteSegment = (function (RouterRouteCommon) {
+  var RouterRouteSegment =
+  /**
+   * @constructs
+   */
+  function RouterRouteSegment(namedParams) {
+    RouterRouteCommon.call(this, namedParams);
+    this.subRoutes = [];
+  };
 
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
+  _extends(RouterRouteSegment, RouterRouteCommon);
 
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>regExp</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">RegExp</span>
+  _classProps(RouterRouteSegment, null, {
+    setDefaultRoute: {
+      writable: true,
 
 
-            
-            </td>
+      /**
+       * Set the segment's default route
+       * @param {RouterRoute} defaultRoute
+       */
+      value: function (defaultRoute) {
+        this.defaultRoute = defaultRoute;
+      }
+    }
+  });
 
-            
+  return RouterRouteSegment;
+})(RouterRouteCommon);
 
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>strf</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="RouterRoute_Lang.js.html">RouterRoute/Lang.js</a>,
-				 <a href="RouterRoute_Lang.js.html#sunlight-1-line-15">line 15</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
+exports["default"] = RouterRouteSegment;
+//# sourceMappingURL=../RouterRoute/Segment.js.map</pre>
+	</article>
 </section>
+
 
 
 
@@ -271,10 +150,6 @@
 				</footer>
 			</div>
 
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
 			
 			<br clear="both">
 		</div>
