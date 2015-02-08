@@ -80,9 +80,9 @@ export default class Router {
             if (!routeLang) {
                 throw new Error('Cannot find routeLang for lang ' + lang + ' and route ' + index);
             }
-            if (this.logger) {
+            /*if (this.logger) {
                 this.logger.info('[springbokjs-router] trying ' + routeLang.regExp);
-            }
+            }*/
 
             var match = routeLang.match(path);
             if (!match) {
