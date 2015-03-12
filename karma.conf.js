@@ -19,9 +19,7 @@ module.exports = function(config) {
         ],
 
         files: [
-            'dist/IE9.js',
-            'dist/es5-compat.js',
-            'dist/es6-compat.js',
+            'http://cdn.polyfill.io/v1/polyfill.min.js?features=all',
             'mocha.conf.js',
             'dist/test.js',
         ],

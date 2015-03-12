@@ -1,4 +1,3 @@
-//import * as S from 'springbokjs-utils';
 var S = require('springbokjs-utils');
 import Router from './Router';
 //import RouterRouteCommon from './RouterRoute/Common';
@@ -94,7 +93,7 @@ class RouterBuilderSegment {
 /**
  * @class
  */
-export default class Builder {
+export default class RouterBuilder {
     /**
      * @constructs
      * @param {RoutesTranslations} routesTranslations

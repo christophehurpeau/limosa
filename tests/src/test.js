@@ -1,14 +1,14 @@
 /* global test */
-require('springbokjs-shim/es6');
+require('es6-shim/es6-shim');
 var libcov = '../../lib-cov/';
-var RouterBuilder = require('../../lib/Builder').default;
+import RouterBuilder from '../../lib/RouterBuilder';
 if (process.env.TEST_COV) {
-    RouterBuilder = require(libcov + 'Builder').default;
+    RouterBuilder = require(libcov + 'RouterBuilder');
 }
 
-var RouteTranslations = require('../../lib/RoutesTranslations').default;
+import RouteTranslations from '../../lib/RoutesTranslations';
 if (process.env.TEST_COV) {
-    RouteTranslations = require(libcov + 'RoutesTranslations').default;
+    RouteTranslations = require(libcov + 'RoutesTranslations');
 }
 
 var assert = require('proclaim');

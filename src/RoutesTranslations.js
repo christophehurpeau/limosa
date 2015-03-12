@@ -1,4 +1,3 @@
-//import * as S from 'springbokjs-utils';
 var S = require('springbokjs-utils');
 
 /**
