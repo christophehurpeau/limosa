@@ -1,6 +1,3 @@
-/**
- * @class Route
- */
 export default class Route {
     /**
      * @param {String} all

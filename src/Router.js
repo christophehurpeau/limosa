@@ -1,22 +1,12 @@
-var S = require('springbokjs-utils');
-
 import RouterRoute from './RouterRoute/Route';
 import RouterRouteSegment from './RouterRoute/Segment';
 import Route from './Route';
 
-var regExpStartingSlash = /^\/+/;
-var regExpEndingSlash = /\/+$/;
+const regExpStartingSlash = /^\/+/;
+const regExpEndingSlash = /\/+$/;
 
-/**
- * Creates a new Router
- *
- * @class Router
- */
 export default class Router {
     /**
-     * Creates a new Router
-     *
-     * @constructs Router
      * @param {RoutesTranslations} routesTranslations
      */
     constructor(routesTranslations) {
@@ -35,7 +25,6 @@ export default class Router {
         return this._routesMap.get(key);
     }
 
-
     /**
      * @param {String} routeKey
      * @param {RouterRouteCommon} route
@@ -44,6 +33,7 @@ export default class Router {
         if (route instanceof RouterRoute) {
             this._addInternalRoute(routeKey, route);
         }
+
         this._routes.push(route);
     }
 
@@ -61,7 +51,7 @@ export default class Router {
      * @return {Route}
      */
     find(path, lang = 'en') {
-        path = '/' + path.trim().replace(regExpStartingSlash, '').replace(regExpEndingSlash,'');
+        path = '/' + path.trim().replace(regExpStartingSlash, '').replace(regExpEndingSlash, '');
         return this._findRoute(this._routes, path, path, lang);
     }
 
@@ -74,45 +64,47 @@ export default class Router {
      * @return {RouterRoute} route the route or undefined if none found
      */
     _findRoute(routes, completePath, path, lang, namedParams) {
-        var result;
+        let result;
         routes.some((route, index) => {
-            var /*RouterRouteLang*/ routeLang = route.get(lang);
+            /* RouterRouteLang */
+            let routeLang = route.get(lang);
             if (!routeLang) {
                 throw new Error('Cannot find routeLang for lang ' + lang + ' and route ' + index);
             }
+
             if (this.logger) {
                 this.logger.info('[springbokjs-router] trying ' + routeLang.regExp);
             }
 
-            var match = routeLang.match(path);
+            const match = routeLang.match(path);
             if (!match) {
                 return false;
             }
-            //console.log(match);
+            // console.log(match);
 
             match.shift(); // remove m[0];
-            var groupCount = match.length;
+            let groupCount = match.length;
 
             if (route instanceof RouterRouteSegment) {
-                var restOfThePath = match[--groupCount];
+                const restOfThePath = match[--groupCount];
 
-                //Copy/paste... argh I hate that !
+                // Copy/paste... argh I hate that !
                 if (route.getNamedParamsCount() !== 0) {
                     // set params
                     if (!namedParams) {
                         namedParams = new Map();
                     }
 
-                    var group = 0;
+                    let group = 0;
                     route.namedParams.forEach((paramName) => {
-                        var value = match[group++];
+                        const value = match[group++];
                         if (value) {
                             namedParams.set(paramName, value);
                         }
                     });
                 }
 
-                /*if (route.defaultRoute) {
+                /* if (route.defaultRoute) {
                     if (restOfThePath.length !== 0) {
                         result = this._findRoute(route.subRoutes, completePath, restOfThePath, lang, namedParams);
                     }
@@ -120,11 +112,12 @@ export default class Router {
                         result = this._createRoute(completePath, lang, route.defaultRoute, undefined, 0, namedParams);
                     }
                 } else {*/
-                    result = this._findRoute(route.subRoutes, completePath, restOfThePath, lang, namedParams);
-                //}
+                result = this._findRoute(route.subRoutes, completePath, restOfThePath, lang, namedParams);
+                // }
             } else {
                 result = this._createRoute(completePath, lang, route, match, groupCount, namedParams);
             }
+
             return true;
         });
         return result;
@@ -132,20 +125,23 @@ export default class Router {
 
     /**
      * Creates a new Route result
+     *
      * @param {String} completePath
      * @param {String} lang
      * @param {RouterRoute} route
+     * @param {Array} match
      * @param {int} groupCount
      * @param {Map} namedParams
      * @return {Route} route
      */
     _createRoute(completePath, lang, route, match, groupCount, namedParams) {
-        var group = 0;
-        var extension = groupCount === 0 || !route.extension ? undefined : match[--groupCount];
+        let group = 0;
+        let extension = groupCount === 0 || !route.extension ? undefined : match[--groupCount];
 
-        var controller = route.controller, action = route.action;
+        let controller = route.controller;
+        let action = route.action;
 
-        var otherParams;
+        let otherParams;
 
         if (route.getNamedParamsCount() !== 0) {
             // set params
@@ -154,7 +150,7 @@ export default class Router {
             }
 
             route.namedParams.forEach((paramName) => {
-                var value = match[group++];
+                const value = match[group++];
                 if (value) {
                     namedParams.set(paramName, value);
                 }
@@ -172,6 +168,7 @@ export default class Router {
                 // Should we remove it ?
                 namedParams.delete('controller');
             }
+
             if (namedParams.has('action')) {
                 action = this._routesTranslations.untranslate(namedParams.get('action'), lang);
                 // Should we remove it ?
@@ -184,7 +181,7 @@ export default class Router {
         }
 
         // The only not-named param can be /*
-        if (group+1 === groupCount && match[group]) {
+        if (group + 1 === groupCount && match[group]) {
             otherParams = match[group].split('/');
         }
 
@@ -196,23 +193,14 @@ export default class Router {
      *
      * @param {String} lang
      * @param {String} routeKey
-     * @param {Array} params
-     * @param {String} extension
-     * @param {String} query
-     * @param {String} hash
+     * @param {Object} [params]
+     * @param {String} [params.extension]
+     * @param {String} [params.queryString]
+     * @param {String} [params.hash]
      * @return {String}
      */
-    createLink(lang, routeKey, params, extension, query, hash) {
-        var route = this._routesMap[routeKey];
-        var plus = '';
-        if (extension) {
-            plus = '.' + extension;
-        } else if (route.extension) {
-            plus = '.' + route.extension;
-        }
-
-        var link = route.routes[lang].strf;
-        link = S.string.vformat(link, params.map((param) => { this._routesTranslations.translate(param, lang); }));
-        return (link === '/' ? link : link.replace(regExpEndingSlash, '')) + plus;
+    urlGenerator(lang, routeKey, params) {
+        const route = this._routesMap[routeKey];
+        return route.routes[lang].url(params);
     }
 }

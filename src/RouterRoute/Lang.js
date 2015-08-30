@@ -1,22 +1,24 @@
-/**
- * @class RouterRouteLang
- */
 export default class RouterRouteLang {
-    /**
-     * @constructs
-     * @param {RegExp} regExp
-     * @param {String} strf
-     */
-    constructor(regExp, strf) {
+    constructor(regExp: RegExp, urlGenerator: RouteRouteLangUrlGenerator) {
         this.regExp = regExp;
-        this.strf = strf == '/' ? '/' : strf.replace(/\/+$/, '');
+        this.urlGenerator = urlGenerator;
     }
 
     /**
-     *
-     * @return {Array} [description]
+     * @return {Array}
      */
     match(input) {
         return input.match(this.regExp);
+    }
+
+    /**
+     * Url generator
+     *
+     * @param {object} args
+     * @returns {string}
+     * @throws Error
+     */
+    url(args) {
+        return this.urlGenerator.generate(args);
     }
 }

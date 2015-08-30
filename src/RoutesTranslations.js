@@ -1,29 +1,31 @@
-var S = require('springbokjs-utils');
-
 /**
- * @class Routes Translations
- *
  * Convert a simple conf file key=>value into a two-way translation map
- *
  */
 export default class RoutesTranslations {
-    /**
-     * @param {Map} translations
-     */
-    constructor(translations) {
-        this._translations = new Map();
+    constructor(translations: Map) {
+        this._languages = new Map();
 
-        if (translations) {
-            S.forEach(translations, function(translationsMap, key) { //keep functions here
-                S.forEach(translationsMap, function(translation, lang) {
-                    if (!this._translations.has('>' + lang)) {
-                        this._translations.set('>' + lang, new Map());
-                        this._translations.set(lang + '>', new Map());
-                    }
-                    this._translations.get('>' + lang).set(key.toLowerCase(), translation);
-                    this._translations.get(lang + '>').set(translation.toLowerCase(), key);
-                }.bind(this));
-            }.bind(this));
+        if (!translations) {
+            return;
+        }
+
+        for (let [key, translationsMap] of translations) {
+            for (let [lang, translation] of translationsMap) {
+                if (!this._languages.has(lang)) {
+                    this._languages.set(
+                        lang,
+                        {
+                            translate: new Map(),
+                            untranslate: new Map(),
+                        }
+                    );
+                }
+
+                const language = this._languages.get(lang);
+
+                language.translate.set(key.toLowerCase(), translation);
+                language.untranslate.set(translation.toLowerCase(), key);
+            }
         }
     }
 
@@ -34,11 +36,12 @@ export default class RoutesTranslations {
      */
     translate(string, lang) {
         string = string.toLowerCase();
-        var translationsMap = this._translations.get('>' + lang);
+        const translationsMap = this._languages.get(lang).translate;
 
         if (!translationsMap.has(string)) {
             throw new Error('Missing translation ' + string + ' for lang ' + lang);
         }
+
         return translationsMap.get(string);
     }
 
@@ -49,11 +52,12 @@ export default class RoutesTranslations {
      */
     untranslate(string, lang) {
         string = string.toLowerCase();
-        var translationsMap = this._translations.get(lang + '>');
+        const translationsMap = this._languages.get(lang).untranslate;
 
         if (!translationsMap.has(string)) {
             throw new Error('Missing untranslation ' + string + ' for lang ' + lang);
         }
+
         return translationsMap.get(string);
     }
 }

@@ -1,14 +1,8 @@
 {
     "opts": {
-        "template": "node_modules/springbokjs-library/node_modules/ink-docstrap/template"
+        "template": "node_modules/jaguarjs-jsdoc"
     },
     "templates" : {
-        "systemName" : "springbokjs-router",
-        "footer" : "",
-        "theme" : "spacelab",
-        "inverseNav" : true,
-        "outputSourceFiles" : true,
-        "outputSourcePath" : true,
-        "linenums": true
+        "applicationName" : "limosa"
     }
 }

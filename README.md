@@ -1,33 +1,20 @@
-# springbokjs-router [![NPM version][npm-image]][npm-url] [![Build Status][build-status-image]][build-status-url] [![Coverage][coverage-image]][coverage-url]
+# limosa [![NPM version][npm-image]][npm-url] [![Build Status][build-status-image]][build-status-url] [![Coverage][coverage-image]][coverage-url]
 
-[![browser support](https://ci.testling.com/christophehurpeau/springbokjs-router.png)
-](https://ci.testling.com/christophehurpeau/springbokjs-router)
-
-See the [auto-generated docs](http://christophehurpeau.github.io/springbokjs-router/docs/)
+See the [auto-generated docs](http://christophehurpeau.github.io/limosa/docs/)
 
 ### How to use
 
 
 ```js
-var SpringbokRouter = require('springbokjs-router');
+import { RouterBuilder, RoutesTranslations } from 'limosa';
 
-var RouterBuilder = SpringbokRouter.RouterBuilder;
-var RoutesTranslations = SpringbokRouter.RoutesTranslations;
 
-var routesLangs = {
-    login: {
-        en: 'login',
-        fr: 'connexion'
-    },
-    post: {
-        en: 'post',
-        fr: 'article'
-    },
-    'view': {
-        en: 'view',
-        fr: 'afficher'
-    }
-};
+const routesLangsConfig = new Map([
+    ['login', new Map([['en', 'login'], ['fr', 'connexion']])],
+    ['post', new Map([['en', 'post'], ['fr', 'article']])],
+    ['view', new Map([['en', 'view'], ['fr', 'afficher']])],
+]);
+
 var routesTranslations = new RoutesTranslations(routesLangs);
 
 var builder = new RouterBuilder(routesTranslations, ['en', 'fr']);
@@ -35,23 +22,32 @@ module.exports = builder.router;
 
 builder
     .add('/', '/', 'site.index')
-    .add('postView', '/post/:id-:slug', 'post.view', {
-        namedParamsDefinition: {'slug': '[A-Za-z\-]+'},
+    .add('postView', '/post/${id}-${slug}', 'post.view', {
+        namedParamsDefinition: { slug: '[A-Za-z\-]+' },
         extension: 'htm'
     })
     .addDefaultRoutes();
 
+```
+
+### Build a router
+
+- Named parameter: `${name}`
+- Optional route part: `[]` like `'/post[/${tagKey}]/${id}-${slug}'`
+- Special named parameters: `controller`, `action`, `queryString`, `hash`.
+
+### Url Generator
+
+```js
+router.urlGenerator('en', 'postView', { id: '001', 'a-slug' });
+// /post/001-a-slug
 
 ```
 
 
-Missing before 1.0.0:
-
-- better handle of array to route : RouterRouteLang.strf is not ideal. Especially with routes like '.../*' or route with optional parts
-
-[npm-image]: https://img.shields.io/npm/v/springbokjs-router.svg?style=flat
-[npm-url]: https://npmjs.org/package/springbokjs-router
-[build-status-image]: https://drone.io/github.com/christophehurpeau/springbokjs-router/status.png
-[build-status-url]: https://drone.io/github.com/christophehurpeau/springbokjs-router/latest
-[coverage-image]: http://img.shields.io/badge/coverage-85%-green.svg?style=flat
-[coverage-url]: http://christophehurpeau.github.io/springbokjs-router/docs/coverage.html
+[npm-image]: https://img.shields.io/npm/v/limosa.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/limosa
+[build-status-image]: https://img.shields.io/circleci/project/christophehurpeau/limosa/master.svg?style=flat-square
+[build-status-url]: https://circleci.com/gh/christophehurpeau/limosa
+[coverage-image]: http://img.shields.io/badge/coverage-90%-green.svg?style=flat
+[coverage-url]: http://christophehurpeau.github.io/limosa/docs/coverage.html

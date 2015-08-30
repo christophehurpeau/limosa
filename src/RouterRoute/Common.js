@@ -1,9 +1,5 @@
-/**
- * @class RouterRouteCommon
- */
 export default class RouterRouteCommon {
     /**
-     * @constructs
      * @param {Array} namedParams
      */
     constructor(namedParams) {

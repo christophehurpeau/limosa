@@ -1,5 +1,2 @@
-'use strict';
-module.exports = {
-    RoutesTranslations: require('./RoutesTranslations'),
-    RouterBuilder: require('./RouterBuilder')
-};
+export { default as RoutesTranslations } from './RoutesTranslations';
+export { default as RouterBuilder } from './RouterBuilder';

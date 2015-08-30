@@ -1,151 +1,130 @@
 /* global test */
-require('es6-shim/es6-shim');
-var libcov = '../../lib-cov/';
 import RouterBuilder from '../../lib/RouterBuilder';
-if (process.env.TEST_COV) {
-    RouterBuilder = require(libcov + 'RouterBuilder');
-}
-
 import RouteTranslations from '../../lib/RoutesTranslations';
-if (process.env.TEST_COV) {
-    RouteTranslations = require(libcov + 'RoutesTranslations');
-}
 
-var assert = require('proclaim');
-//var fs = require('springbokjs-utils/fs');
+import assert from 'proclaim';
 
-//var routesLangsConfig = fs.readYamlFileSync('example/routesLangs.yml');
-var routesLangsConfig = {
-    login: {
-        en: 'login',
-        fr: 'connexion',
-    },
-    post: {
-        en: 'post',
-        fr: 'article',
-    },
-    view: {
-        en: 'view',
-        fr: 'afficher'
-    }
-};
+// const routesLangsConfig = fs.readYamlFileSync('example/routesLangs.yml');
+const routesLangsConfig = new Map([
+    ['login', new Map([['en', 'login'], ['fr', 'connexion']])],
+    ['post', new Map([['en', 'post'], ['fr', 'article']])],
+    ['view', new Map([['en', 'view'], ['fr', 'afficher']])],
+]);
 
-var routesTranslations = new RouteTranslations(routesLangsConfig);
+const routesTranslations = new RouteTranslations(routesLangsConfig);
 
 test('RouteTranslations', function() {
     assert.strictEqual(routesTranslations.translate('login', 'fr'), 'connexion');
     assert.strictEqual(routesTranslations.untranslate('connexion', 'fr'), 'login');
 });
 
-var builder = new RouterBuilder(routesTranslations, ['en', 'fr']);
-var router = builder.router;
+const builder = new RouterBuilder(routesTranslations, ['en', 'fr']);
+const router = builder.router;
 
 builder
     .add('/', '/', 'site.index')
-    .add('postView', '/post/:id-:slug', 'post.view', {
-        namedParamsDefinition: {'slug': '[A-Za-z\\-]+'},
-        extension: 'htm'
+    .add('postView', '/post/${id}-${slug}', 'post.view', {
+        namedParamsDefinition: { slug: '[A-Za-z\\-]+' },
+        extension: 'htm',
     })
-    .add('postView2', '/post/:id-:slug', 'post.view', {
-        namedParamsDefinition: {'slug': /[A-Za-z\-]+/},
-        extension: 'htm'
+    .add('postView2', '/post/${id}-${slug}', 'post.view', {
+        namedParamsDefinition: { slug: /[A-Za-z\-]+/ },
+        extension: 'htm',
     })
-    .add('postWithDate', '/post(/:tagKey)?(/:date_:slug)', 'post.view', {
-        namedParamsDefinition: {date: '\\d{4}\\-\\d{2}\\-\\d{2}'}
+    .add('postWithDate', '/post[/${tagKey}]/${date}_${slug}', 'post.view', {
+        namedParamsDefinition: { date: '\\d{4}\\-\\d{2}\\-\\d{2}' },
     })
     .addDefaultRoutes();
 
-
 test('SimpleRoute', function() {
-    var rr = router.get('/');
+    let rr = router.get('/');
     assert.ok(rr != null);
     assert.strictEqual(rr.controller, 'site');
     assert.strictEqual(rr.action, 'index');
     assert.strictEqual(rr.getNamedParamsCount(), 0);
-    var en = rr.get('en');
+    let en = rr.get('en');
     assert.strictEqual(en.regExp.source, '^\\/$');
-    assert.strictEqual(en.strf,'/');
-    var fr = rr.get('fr');
+    assert.strictEqual(en.url(), '/');
+    let fr = rr.get('fr');
     assert.strictEqual(fr.regExp.source, '^\\/$');
-    assert.strictEqual(fr.strf,'/');
+    assert.strictEqual(fr.url(), '/');
 });
 
 test('Common route', function() {
-    var rrs = router.get('defaultSimple');
+    let rrs = router.get('defaultSimple');
     assert.ok(rrs != null);
     assert.strictEqual(rrs.controller, 'site');
     assert.strictEqual(rrs.action, 'index');
     assert.strictEqual(rrs.getNamedParamsCount(), 0);
-    var rsen = rrs.get('en');
+    let rsen = rrs.get('en');
     assert.strictEqual(rsen.regExp.source, '^(?:\\.(html))?$');
-    assert.strictEqual(rsen.strf,'/%s');
-    var rsfr = rrs.get('fr');
+    assert.strictEqual(rsen.url({ controller: 'post' }), '/post.html');
+    let rsfr = rrs.get('fr');
     assert.strictEqual(rsfr.regExp.source, '^(?:\\.(html))?$');
-    assert.strictEqual(rsfr.strf,'/%s');
+    assert.strictEqual(rsfr.url({ controller: 'post' }), '/article.html');
 
-    var rr = router.get('default');
+    let rr = router.get('default');
     assert.ok(rr != null);
     assert.strictEqual(rr.controller, 'site');
     assert.strictEqual(rr.action, 'index');
     assert.deepEqual(rr.namedParams, ['action']);
     assert.strictEqual(rr.getNamedParamsCount(), 1);
-    var en = rr.get('en');
+    let en = rr.get('en');
 
     assert.strictEqual(en.regExp.source, /^\/([^\/.]+)(?:\/([^.]*))?(?:\.(html))?$/.source);
-    assert.strictEqual(en.strf,'/%s/%s%s');
-    var fr = rr.get('fr');
-    assert.strictEqual(en.regExp.source, /^\/([^\/.]+)(?:\/([^.]*))?(?:\.(html))?$/.source);
-    assert.strictEqual(fr.strf,'/%s/%s%s');
+    assert.strictEqual(en.url({ controller: 'post', action: 'view' }), '/post/view.html');
+    let fr = rr.get('fr');
+    assert.strictEqual(fr.regExp.source, /^\/([^\/.]+)(?:\/([^.]*))?(?:\.(html))?$/.source);
+    assert.strictEqual(fr.url({ controller: 'post', action: 'view' }), '/article/afficher.html');
 });
 
 test('Named param route', function() {
-    var rr = router.get('postView');
+    let rr = router.get('postView');
     assert.ok(rr != null);
     assert.strictEqual(rr.controller, 'post');
     assert.strictEqual(rr.action, 'view');
     assert.deepEqual(rr.namedParams, ['id', 'slug']);
     assert.strictEqual(rr.getNamedParamsCount(), 2);
-    var en = rr.get('en');
+    let en = rr.get('en');
     assert.strictEqual(en.regExp.source, /^\/post\/([0-9]+)\-([A-Za-z\-]+)\.(htm)$/.source);
-    assert.strictEqual(en.strf,'/post/%s-%s');
-    var fr = rr.get('fr');
+    assert.strictEqual(en.url({ id: 1, slug: 'a-slug' }), '/post/1-a-slug.htm');
+    let fr = rr.get('fr');
     assert.strictEqual(fr.regExp.source, /^\/article\/([0-9]+)\-([A-Za-z\-]+)\.(htm)$/.source);
-    assert.strictEqual(fr.strf,'/article/%s-%s');
+    assert.strictEqual(fr.url({ id: 1, slug: 'un-slug' }), '/article/1-un-slug.htm');
 });
 
 test('Named param route with RegExp', function() {
-    var rr = router.get('postView2');
+    let rr = router.get('postView2');
     assert.ok(rr != null);
     assert.strictEqual(rr.controller, 'post');
     assert.strictEqual(rr.action, 'view');
     assert.deepEqual(rr.namedParams, ['id', 'slug']);
     assert.strictEqual(rr.getNamedParamsCount(), 2);
-    var en = rr.get('en');
+    let en = rr.get('en');
     assert.strictEqual(en.regExp.source, /^\/post\/([0-9]+)\-([A-Za-z\-]+)\.(htm)$/.source);
-    assert.strictEqual(en.strf,'/post/%s-%s');
-    var fr = rr.get('fr');
+    assert.strictEqual(en.url({ id: 1, slug: 'a-slug' }), '/post/1-a-slug.htm');
+    let fr = rr.get('fr');
     assert.strictEqual(fr.regExp.source, /^\/article\/([0-9]+)\-([A-Za-z\-]+)\.(htm)$/.source);
-    assert.strictEqual(fr.strf,'/article/%s-%s');
+    assert.strictEqual(fr.url({ id: 1, slug: 'un-slug' }), '/article/1-un-slug.htm');
 });
 
 test('More complex param route', function() {
-    var rr = router.get('postWithDate');
+    let rr = router.get('postWithDate');
     assert.ok(rr != null);
     assert.strictEqual(rr.controller, 'post');
     assert.strictEqual(rr.action, 'view');
     assert.deepEqual(rr.namedParams, ['tagKey', 'date', 'slug']);
     assert.strictEqual(rr.getNamedParamsCount(), 3);
-    var en = rr.get('en');
-    assert.strictEqual(en.regExp.source, /^\/post(?:\/([^\/.]+))?(?:\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+))$/.source);
-    assert.strictEqual(en.strf,'/post/%s/%s%s');
-    var fr = rr.get('fr');
-    assert.strictEqual(fr.regExp.source, /^\/article(?:\/([^\/.]+))?(?:\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+))$/.source);
-    assert.strictEqual(fr.strf,'/article/%s/%s%s');
+    let en = rr.get('en');
+    assert.strictEqual(en.regExp.source, /^\/post(?:\/([^\/.]+))\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+)$/.source);
+    assert.strictEqual(en.url({ date: '2015-01-01', slug: 'a-slug' }), '/post/2015-01-01_a-slug');
+    let fr = rr.get('fr');
+    assert.strictEqual(fr.regExp.source, /^\/article(?:\/([^\/.]+))\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+)$/.source);
+    assert.strictEqual(fr.url({ date: '2015-01-01', slug: 'un-slug' }), '/article/2015-01-01_un-slug');
 });
 
-
 test('Find simple routes', function() {
-    var r = router.find('/', 'en');
+    let r = router.find('/', 'en');
     assert.ok(r != null);
     assert.strictEqual(r.all, '/');
     assert.strictEqual(r.controller, 'site');
@@ -165,7 +144,7 @@ test('Find simple routes', function() {
 });
 
 test('Find common routes, /:controller', function() {
-    var r = router.find('/post', 'en');
+    let r = router.find('/post', 'en');
     assert.ok(r != null);
     assert.strictEqual(r.all, '/post');
     assert.strictEqual(r.controller, 'post');
@@ -199,7 +178,7 @@ test('Find common routes, /:controller', function() {
 });
 
 test('Find common routes, /:controller/:action', function() {
-    var r = router.find('/post/view', 'en');
+    let r = router.find('/post/view', 'en');
     assert.ok(r != null);
     assert.strictEqual(r.all, '/post/view');
     assert.strictEqual(r.controller, 'post');
@@ -234,9 +213,8 @@ test('Find common routes, /:controller/:action', function() {
     assert.strictEqual(r.namedParams, undefined);
 });
 
-
-  test('Find common routes, /:controller/:action/*', function() {
-    var r = router.find('/post/view/test1/test2', 'en');
+test('Find common routes, /:controller/:action/*', function() {
+    let r = router.find('/post/view/test1/test2', 'en');
     assert.ok(r != null);
     assert.strictEqual(r.all, '/post/view/test1/test2');
     assert.strictEqual(r.controller, 'post');
@@ -272,15 +250,14 @@ test('Find common routes, /:controller/:action', function() {
     assert.deepEqual(r.otherParams, ['test1', 'test2']);
 });
 
-
-  test('Find named param route', function() {
-    var r = router.find('/post/001-The-First-Post.htm', 'en');
+test('Find named param route', function() {
+    let r = router.find('/post/001-The-First-Post.htm', 'en');
     assert.ok(r != null);
     assert.strictEqual(r.all, '/post/001-The-First-Post.htm');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'view');
     assert.strictEqual(r.extension, 'htm');
-    var namedParams = r.namedParams;
+    let namedParams = r.namedParams;
     assert.isInstanceOf(namedParams, Map);
     assert.strictEqual(r.namedParams.size, 2);
     assert.strictEqual(r.namedParams.get('id'), '001');
