@@ -1,6 +1,6 @@
 {
   "name": "limosa",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fast router for both browser and server",
   "main": "lib/index.js",
   "scripts": {
