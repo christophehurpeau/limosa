@@ -50,4 +50,4 @@ router.urlGenerator('en', 'postView', { id: '001', 'a-slug' });
 [build-status-image]: https://img.shields.io/circleci/project/christophehurpeau/limosa/master.svg?style=flat-square
 [build-status-url]: https://circleci.com/gh/christophehurpeau/limosa
 [coverage-image]: http://img.shields.io/badge/coverage-90%-green.svg?style=flat
-[coverage-url]: http://christophehurpeau.github.io/limosa/docs/coverage.html
+[coverage-url]: http://christophehurpeau.github.io/limosa/coverage/lcov-report/
