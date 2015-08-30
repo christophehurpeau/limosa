@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: RouterRouteSegment</title>
+    <title>Class: RoutesTranslations</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -424,7 +424,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="RouterRouteSegment.html">Class: RouterRouteSegment</h1>
+        <h1 class="page-title" data-filename="RoutesTranslations.html">Class: RoutesTranslations</h1>
         
 
 
@@ -433,7 +433,7 @@
     
 <header>
     <h2>
-    RouterRouteSegment
+    RoutesTranslations
     </h2>
     
 </header>  
@@ -446,14 +446,14 @@
         
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="RouterRouteSegment">
+        <h4 class="name" id="RoutesTranslations">
             
-            new RouterRouteSegment<span class="signature">(namedParams)</span>
+            new RoutesTranslations<span class="signature">(translations)</span>
         </h4>
     
         
         <div class="tag-source">
-            RouterRoute/Segment.js, line 21
+            RoutesTranslations.js, line 17
         </div>
         
     </div>
@@ -491,10 +491,15 @@
 	
         <tr>
             
-                <td class="name"><code>namedParams</code></td>
+                <td class="name"><code>translations</code></td>
             
             
             <td class="type">
+            
+                
+<span class="param-type">Map</span>
+
+
             
             </td>
             
@@ -571,14 +576,14 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="setDefaultRoute">
+        <h4 class="name" id="translate">
             
-            setDefaultRoute<span class="signature">(defaultRoute, defaultRoute)</span>
+            translate<span class="signature">(string, lang, string, lang)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{String}</span>
         </h4>
     
         
         <div class="tag-source">
-            RouterRoute/Segment.js, line 33
+            RoutesTranslations.js, line 74
         </div>
         
     </div>
@@ -587,10 +592,6 @@
 </dt>
 <dd>
     
-    
-    <div class="description">
-        Set the segment's default route
-    </div>
     
 
     
@@ -620,13 +621,13 @@
 	
         <tr>
             
-                <td class="name"><code>defaultRoute</code></td>
+                <td class="name"><code>string</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="RouterRoute.html">RouterRoute</a></span>
+<span class="param-type">String</span>
 
 
             
@@ -643,7 +644,48 @@
 	
         <tr>
             
-                <td class="name"><code>defaultRoute</code></td>
+                <td class="name"><code>lang</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>string</code></td>
+            
+            
+            <td class="type">
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>lang</code></td>
             
             
             <td class="type">
@@ -696,6 +738,235 @@
     
     
     
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        String
+                        
+                    
+            </td>
+            <td class="description last"></td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="untranslate">
+            
+            untranslate<span class="signature">(string, lang, string, lang)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{String}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            RoutesTranslations.js, line 98
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>string</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>lang</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>string</code></td>
+            
+            
+            <td class="type">
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>lang</code></td>
+            
+            
+            <td class="type">
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        String
+                        
+                    
+            </td>
+            <td class="description last"></td>
+        </tr>
+    
+    </tbody>
+</table>
+
     
     
     
