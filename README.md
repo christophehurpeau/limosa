@@ -15,9 +15,9 @@ const routesLangsConfig = new Map([
     ['view', new Map([['en', 'view'], ['fr', 'afficher']])],
 ]);
 
-var routesTranslations = new RoutesTranslations(routesLangs);
+const routesTranslations = new RoutesTranslations(routesLangsConfig);
 
-var builder = new RouterBuilder(routesTranslations, ['en', 'fr']);
+const builder = new RouterBuilder(routesTranslations, ['en', 'fr']);
 module.exports = builder.router;
 
 builder
