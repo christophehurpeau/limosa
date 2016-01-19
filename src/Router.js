@@ -200,7 +200,7 @@ export default class Router {
      * @return {String}
      */
     urlGenerator(lang, routeKey, params) {
-        const route = this._routesMap[routeKey];
+        const route = this._routesMap.get(routeKey);
         return route.routes[lang].url(params);
     }
 }
