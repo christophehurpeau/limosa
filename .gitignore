@@ -3,6 +3,7 @@
 /coverage
 node_modules
 
+/.idea
 /.settings
 .project
 *.sublime-project
