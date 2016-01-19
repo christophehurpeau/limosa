@@ -277,3 +277,16 @@ test('Find named param route', function() {
     assert.strictEqual(r.namedParams.get('slug'), 'Le-Premier-Billet');
     assert.strictEqual(r.otherParams, undefined);
 });
+
+test('Router generator default', function() {
+    let url = router.urlGenerator('en', 'default', { controller: 'post', action: 'view' });
+    assert.strictEqual(url, '/post/view.html');
+});
+
+test('Router generator postView', function() {
+    let url = router.urlGenerator('en', 'postView', { id: '001', slug: 'Le-Premier-Billet' });
+    assert.strictEqual(url, '/post/001-Le-Premier-Billet.htm');
+
+    url = router.urlGenerator('fr', 'postView', { id: '001', slug: 'Le-Premier-Billet' });
+    assert.strictEqual(url, '/article/001-Le-Premier-Billet.htm');
+});

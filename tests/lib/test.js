@@ -281,4 +281,17 @@ test('Find named param route', /** @function */function () {
     _proclaim2.default.strictEqual(r.namedParams.get('slug'), 'Le-Premier-Billet');
     _proclaim2.default.strictEqual(r.otherParams, undefined);
 });
+
+test('Router generator default', /** @function */function () {
+    let url = router.urlGenerator('en', 'default', { controller: 'post', action: 'view' });
+    _proclaim2.default.strictEqual(url, '/post/view.html');
+});
+
+test('Router generator postView', /** @function */function () {
+    let url = router.urlGenerator('en', 'postView', { id: '001', slug: 'Le-Premier-Billet' });
+    _proclaim2.default.strictEqual(url, '/post/001-Le-Premier-Billet.htm');
+
+    url = router.urlGenerator('fr', 'postView', { id: '001', slug: 'Le-Premier-Billet' });
+    _proclaim2.default.strictEqual(url, '/article/001-Le-Premier-Billet.htm');
+});
 //# sourceMappingURL=test.js.map
