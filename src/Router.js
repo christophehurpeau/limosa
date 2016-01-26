@@ -18,7 +18,7 @@ export default class Router {
     /**
      * Get a Route by its key
      *
-     * @param {String} key
+     * @param {string} key
      * @return {Route}
      */
     get(key) {
@@ -26,7 +26,7 @@ export default class Router {
     }
 
     /**
-     * @param {String} routeKey
+     * @param {string} routeKey
      * @param {RouterRouteCommon} route
      */
     addRoute(routeKey, route) {
@@ -38,7 +38,7 @@ export default class Router {
     }
 
     /**
-     * @param {String} routeKey
+     * @param {string} routeKey
      * @param {RouterRoute} route
      */
     _addInternalRoute(routeKey, route) {
@@ -46,20 +46,20 @@ export default class Router {
     }
 
     /**
-     * @param {String} path
-     * @param {String=} lang
+     * @param {string} path
+     * @param {string=} lang
      * @return {Route}
      */
     find(path, lang = 'en') {
-        path = '/' + path.trim().replace(regExpStartingSlash, '').replace(regExpEndingSlash, '');
+        path = `/${path.trim().replace(regExpStartingSlash, '').replace(regExpEndingSlash, '')}`;
         return this._findRoute(this._routes, path, path, lang);
     }
 
     /**
      * @param {Array} routes
-     * @param {String} completePath
-     * @param {String} path
-     * @param {String} lang
+     * @param {string} completePath
+     * @param {string} path
+     * @param {string} lang
      * @param {Map} namedParams
      * @return {RouterRoute} route the route or undefined if none found
      */
@@ -69,11 +69,11 @@ export default class Router {
             /* RouterRouteLang */
             let routeLang = route.get(lang);
             if (!routeLang) {
-                throw new Error('Cannot find routeLang for lang ' + lang + ' and route ' + index);
+                throw new Error(`Cannot find routeLang for lang ${lang} and route ${index}`);
             }
 
             if (this.logger) {
-                this.logger.info('[springbokjs-router] trying ' + routeLang.regExp);
+                this.logger.info(`[springbokjs-router] trying ${routeLang.regExp}`);
             }
 
             const match = routeLang.match(path);
@@ -126,8 +126,8 @@ export default class Router {
     /**
      * Creates a new Route result
      *
-     * @param {String} completePath
-     * @param {String} lang
+     * @param {string} completePath
+     * @param {string} lang
      * @param {RouterRoute} route
      * @param {Array} match
      * @param {int} groupCount
@@ -191,13 +191,12 @@ export default class Router {
     /**
      * Create a link
      *
-     * @param {String} lang
-     * @param {String} routeKey
-     * @param {Object} [params]
-     * @param {String} [params.extension]
-     * @param {String} [params.queryString]
-     * @param {String} [params.hash]
-     * @return {String}
+     * @param {string} lang
+     * @param {string} routeKey
+     * @param {string} [params.extension]
+     * @param {string} [params.queryString]
+     * @param {string} [params.hash]
+     * @return {string}
      */
     urlGenerator(lang, routeKey, params) {
         const route = this._routesMap.get(routeKey);

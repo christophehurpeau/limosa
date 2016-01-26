@@ -1,11 +1,11 @@
 export default class Route {
     /**
-     * @param {String} all
-     * @param {String} controller
-     * @param {String} action
+     * @param {string} all
+     * @param {string} controller
+     * @param {string} action
      * @param {Map} namedParams
      * @param {Array} otherParams
-     * @param {String} extension
+     * @param {string} extension
      */
     constructor(all, controller, action, namedParams, otherParams, extension) {
         this.all = all;

@@ -8,14 +8,14 @@ export default class RouterRouteCommon {
     }
 
     /**
-     * @return {int}
+     * @return {number}
      */
     getNamedParamsCount() {
         return this.namedParams.length;
     }
 
     /**
-     * @param {String} lang
+     * @param {string} lang
      * @return {RouterRouteLang}
      */
     get(lang) {
@@ -23,7 +23,7 @@ export default class RouterRouteCommon {
     }
 
     /**
-     * @param {String} lang
+     * @param {string} lang
      * @param {RouterRouteLang} route
      */
     set(lang, route) {

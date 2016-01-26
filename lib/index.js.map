@@ -1,1 +1,1 @@
-{"version":3,"sources":["../src/index.js"],"names":[],"mappings":";;;;;;;;kCAA8C,sBAAsB;;QAAhD,kBAAkB;;6BACG,iBAAiB;;QAAtC,aAAa","file":"index.js","sourcesContent":["export { default as RoutesTranslations } from './RoutesTranslations';\nexport { default as RouterBuilder } from './RouterBuilder';\n"]}
+{"version":3,"sources":["../src/index.js"],"names":[],"mappings":";;;;;;;;;;;;;uDAAS;;;;;;;;;;;kDACA","file":"index.js","sourcesContent":["export { default as RoutesTranslations } from './RoutesTranslations';\nexport { default as RouterBuilder } from './RouterBuilder';\n"]}

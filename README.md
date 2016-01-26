@@ -1,4 +1,8 @@
-# limosa [![NPM version][npm-image]][npm-url] [![Build Status][build-status-image]][build-status-url] [![Coverage][coverage-image]][coverage-url]
+# limosa [![NPM version][npm-image]][npm-url]
+
+Fast router for both browser and server
+
+[![Build Status][build-status-image]][build-status-url] [![Coverage][coverage-image]][coverage-url]
 
 See the [auto-generated docs](http://christophehurpeau.github.io/limosa/docs/)
 
@@ -49,5 +53,5 @@ router.urlGenerator('en', 'postView', { id: '001', 'a-slug' });
 [npm-url]: https://npmjs.org/package/limosa
 [build-status-image]: https://img.shields.io/circleci/project/christophehurpeau/limosa/master.svg?style=flat-square
 [build-status-url]: https://circleci.com/gh/christophehurpeau/limosa
-[coverage-image]: http://img.shields.io/badge/coverage-90%-green.svg?style=flat
+[coverage-image]: https://img.shields.io/coveralls/christophehurpeau/limosa/master.svg?style=flat-square
 [coverage-url]: http://christophehurpeau.github.io/limosa/coverage/lcov-report/

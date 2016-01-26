@@ -17,20 +17,20 @@ export default class UrlGenerator {
 
         if (args) {
             if (args.extension) {
-                url += '.' + args.extension;
+                url += `.${args.extension}`;
             } else if (this.extension) {
-                url += '.' + this.extension;
+                url += `.${this.extension}`;
             }
 
             if (args.queryString) {
-                url += '?' + args.queryString; // TODO: use qs ?
+                url += `?${args.queryString}`; // TODO: use qs ?
             }
 
             if (args.hash) {
-                url += '#' + args.hash;
+                url += `#${args.hash}`;
             }
         } else if (this.extension) {
-            url += '.' + this.extension;
+            url += `.${this.extension}`;
         }
 
         return url;

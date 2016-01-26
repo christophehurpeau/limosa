@@ -1,6 +1,9 @@
 import RouterRouteCommon from './Common';
 
 export default class RouterRouteSegment extends RouterRouteCommon {
+    /**
+     * @param {Array} namedParams
+     */
     constructor(namedParams) {
         super(namedParams);
         this.subRoutes = [];

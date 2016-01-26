@@ -10,12 +10,6 @@ module.exports = function(config) {
             'Firefox',
             'Chrome',
             'PhantomJS',
-            //'IE6 - WinXP',
-            //'IE7 - WinXP',
-            //'IE8 - WinXP',
-            //'IE9 - Win7',
-            //'IE10 - Win7',
-            //'IE11 - Win7',
         ],
 
         files: [

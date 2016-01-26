@@ -1,9 +1,17 @@
 export default class UrlGeneratorNamedParamPart {
+    /**
+     * @param {string} paramName
+     * @param {Function} translate
+     */
     constructor(paramName, translate) {
         this.paramName = paramName;
         this.translate = translate;
     }
 
+    /**
+     * @param {Object} args
+     * @returns {string}
+     */
     generate(args) {
         if (args[this.paramName] == null) {
             throw new Error(`Missing param name: "${this.paramName}"`);

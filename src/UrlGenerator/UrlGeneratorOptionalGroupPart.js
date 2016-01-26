@@ -5,7 +5,11 @@ export default class UrlGeneratorOptionalGroupPart {
         this.parts = parts;
     }
 
-    generate() {
+    /**
+     * @param {Object} args
+     * @returns {string}
+     */
+    generate(args) {
         try {
             return this.parts.generate(args);
         } catch (err) {

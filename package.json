@@ -3,11 +3,17 @@
   "version": "1.0.4",
   "description": "Fast router for both browser and server",
   "main": "lib/index.js",
+  "browser": "./lib/index.js",
+  "jspm": {
+    "main": "browser/lib/browser.js",
+    "directories": {
+      "lib": "browser"
+    }
+  },
   "scripts": {
-    "test": "make tests",
+    "test": "make test",
     "build": "make build",
     "postpublish": "make post-publish",
-    "prepublish": "make pre-publish",
     "preversion": "make pre-version",
     "version": "make version",
     "watch": "make watch"
@@ -27,6 +33,7 @@
     "object2map": "^1.0.1"
   },
   "devDependencies": {
+    "coveralls": "^2.11.6",
     "karma": "^0.13",
     "karma-chrome-launcher": "^0.2.0",
     "karma-firefox-launcher": "^0.1.6",
@@ -34,8 +41,10 @@
     "karma-mocha": "^0.2.0",
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-proclaim": "^1.0.0",
-    "mocha": "~2.2.5",
+    "mocha": "~2.3.4",
+    "phantomjs": "^1.9.19",
     "proclaim": "^3.3",
-    "springbokjs-library": "^9.0.2"
+    "springbokjs-library": "^13.4.1",
+    "xunit-file": "0.0.9"
   }
 }

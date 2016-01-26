@@ -29,10 +29,12 @@ class RouterBuilderSegment {
     }
 
     /**
-     * @param {String} routeKey
-     * @param {String} routeUrl
-     * @param {String} controllerAndActionSeparatedByDot
-     * @param {Object} options namedParamsDefinition, routeLangs, extension
+     * @param {string} routeKey
+     * @param {string} routeUrl
+     * @param {string} controllerAndActionSeparatedByDot
+     * @param {Map} options.namedParamsDefinition
+     * @param {Map} options.routeLangs
+     * @param {string} options.extension
      */
     add(routeKey, routeUrl, controllerAndActionSeparatedByDot, options) {
         const route = this._createRoute(routeKey, routeUrl, controllerAndActionSeparatedByDot, options);
@@ -42,10 +44,12 @@ class RouterBuilderSegment {
     }
 
     /**
-     * @param {String} routeKey
-     * @param {String} routeUrl
-     * @param {String} controllerAndActionSeparatedByDot
-     * @param {Object} options namedParamsDefinition, routeLangs, extension
+     * @param {string} routeKey
+     * @param {string} routeUrl
+     * @param {string} controllerAndActionSeparatedByDot
+     * @param {Map} options.namedParamsDefinition
+     * @param {Map} options.routeLangs
+     * @param {string} options.extension
      */
     _createRoute(routeKey, routeUrl, controllerAndActionSeparatedByDot, options) {
         return this.builder._createRoute(false, this.route, routeUrl,
@@ -56,9 +60,11 @@ class RouterBuilderSegment {
     }
 
     /**
-     * @param {String} routeKey
-     * @param {String} controllerAndActionSeparatedByDot
-     * @param {Object} options namedParamsDefinition, routeLangs, extension
+     * @param {string} routeKey
+     * @param {string} controllerAndActionSeparatedByDot
+     * @param {Map} options.namedParamsDefinition
+     * @param {Map} options.routeLangs
+     * @param {string} options.extension
      */
     defaultRoute(routeKey, controllerAndActionSeparatedByDot, options) {
         const route = this._createRoute(routeKey, '', controllerAndActionSeparatedByDot, options);
@@ -70,8 +76,9 @@ class RouterBuilderSegment {
     }
 
     /**
-     * @param {String} routeUrl
-     * @param {Object} [options] namedParamsDefinition, routeLangs
+     * @param {string} routeUrl
+     * @param {Map} [options.namedParamsDefinition]
+     * @param {Map} [options.routeLangs]
      * @param {Function} buildSegment
      */
     addSegment(routeUrl, options, buildSegment) {
@@ -88,12 +95,8 @@ class RouterBuilderSegment {
     }
 }
 
-/**
- * @class
- */
 export default class RouterBuilder {
     /**
-     * @constructs
      * @param {RoutesTranslations} routesTranslations
      * @param {Array} allLangs Array of all langs
      */
@@ -109,9 +112,9 @@ export default class RouterBuilder {
     }
 
     /**
-     * @param {String} lang
-     * @param {String} string
-     * @return {String}
+     * @param {string} lang
+     * @param {string} string
+     * @return {string}
      */
     translate(lang, string) {
         const lstring = string.toLowerCase();
@@ -123,7 +126,7 @@ export default class RouterBuilder {
      * @param {Map} routes
      */
     fromMap(routes) {
-        routes.forEach(function(route, routeKey) {
+        routes.forEach((route, routeKey) => {
             this.add(routeKey, routeKey, route[0], {
                 namedParamsDefinition: route.length > 1 ? route[1] : undefined,
                 routeLangs: route.length > 2 ? (route[2] || {}) : {},
@@ -133,10 +136,12 @@ export default class RouterBuilder {
     }
 
     /**
-     * @param {String} routeKey
-     * @param {String} routeUrl
-     * @param {String} controllerAndActionSeparatedByDot
-     * @param {Object} options namedParamsDefinition, routeLangs, extension
+     * @param {string} routeKey
+     * @param {string} routeUrl
+     * @param {string} controllerAndActionSeparatedByDot
+     * @param {Map} options.namedParamsDefinition
+     * @param {Map} options.routeLangs
+     * @param {string} options.extension
      */
     add(routeKey, routeUrl, controllerAndActionSeparatedByDot, options) {
         const route = this._createRoute(false, undefined, routeUrl, controllerAndActionSeparatedByDot,
@@ -148,8 +153,9 @@ export default class RouterBuilder {
     }
 
     /**
-     * @param {String} routeUrl
-     * @param {Object} [options] namedParamsDefinition, routeLangs
+     * @param {string} routeUrl
+     * @param {Map} [options.namedParamsDefinition]
+     * @param {Map} [options.routeLangs]
      * @param {Function} buildSegment
      */
     addSegment(routeUrl, options, buildSegment) {
@@ -168,24 +174,24 @@ export default class RouterBuilder {
 
     /**
      * @param {RouterRouteSegment} parent
-     * @param {String} routeUrl
+     * @param {string} routeUrl
      * @param {Map} namedParamsDefinition
      * @param {Map} routeLangs
-     * @return {_RouterRouteCommon}
+     * @return {RouterRouteCommon}
      */
     _createRouteSegment(parent, routeUrl, namedParamsDefinition, routeLangs) {
         return this._createRoute(true, parent, routeUrl, undefined, namedParamsDefinition, routeLangs, undefined);
     }
 
     /**
-     * @param {bool} segment
+     * @param {boolean} segment
      * @param {RouterRouteSegment} parent
-     * @param {String} routeUrl
-     * @param {String} controllerAndActionSeparatedByDot
+     * @param {string} routeUrl
+     * @param {string} controllerAndActionSeparatedByDot
      * @param {Map} namedParamsDefinition
      * @param {Map} routeLangs
-     * @param {String} extension
-     * @return {_RouterRouteCommon}
+     * @param {string} extension
+     * @return {RouterRouteCommon}
      */
     _createRoute(segment, parent, routeUrl, controllerAndActionSeparatedByDot,
                         namedParamsDefinition, routeLangs, extension) {
@@ -218,9 +224,13 @@ export default class RouterBuilder {
                 routeLangs.set(lang, routeUrl);
             });
         } else {
-            this._allLangs.forEach((lang) => {
-                routeLangs.set(lang, routeUrl.replace(this.translatableRoutePart,
-                  (str, p1) => '/' + this.translate(lang, p1)));
+            this._allLangs.forEach(lang => {
+                routeLangs.set(
+                    lang,
+                    routeUrl.replace(
+                        this.translatableRoutePart,
+                        (str, p1) => `/${this.translate(lang, p1)}`)
+                );
             });
         }
 
@@ -256,10 +266,10 @@ export default class RouterBuilder {
                 .replace(/\(/g, '(?:');
 
             if (specialEnd) {
-                routeLangRegExp = routeLangRegExp + '(?:\\/([^.]*))?';
+                routeLangRegExp = `${routeLangRegExp}(?:\\/([^.]*))?`;
             } else if (specialEnd2) {
                 // ends now is : /*)?
-                routeLangRegExp = routeLangRegExp.slice(0, -2) + '(?:\\/(.*))?' + routeLangRegExp.slice(-2);
+                routeLangRegExp = `${routeLangRegExp.slice(0, -2)}(?:\\/(.*))?${routeLangRegExp.slice(-2)}`;
             }
 
             const extensionRegExp = (() => {
@@ -271,7 +281,7 @@ export default class RouterBuilder {
                     return '(?:\\.(html))?';
                 }
 
-                return '\\.(' + extension + ')';
+                return `\\.(${extension})`;
             })();
 
             const replacedRegExp = routeLangRegExp.replace(this.regExpNamedParam, (str, paramName) => {
@@ -287,7 +297,7 @@ export default class RouterBuilder {
                         paramDefVal = paramDefVal[lang];
                     }
 
-                    return paramDefVal == 'id' ? '([0-9]+)' : '(' + paramDefVal.replace('(', '(?:') + ')';
+                    return paramDefVal == 'id' ? '([0-9]+)' : `(${paramDefVal.replace('(', '(?:')})`;
                 }
 
                 if (paramName === 'id') {
@@ -333,7 +343,7 @@ export default class RouterBuilder {
                 }
 
                 return new UrlGeneratorPartArray(parts);
-            })(routeLang);
+            }(routeLang));
 
             let urlGeneratorParts;
             if (parent != null) {
@@ -345,7 +355,7 @@ export default class RouterBuilder {
             }
 
             finalRoute.set(lang, new RouterRouteLang(
-                new RegExp('^' + replacedRegExp + extensionRegExp + (segment ? '(.*)$' : '$')),
+                new RegExp(`^${replacedRegExp}${extensionRegExp}${segment ? '(.*)$' : '$'}`),
                 urlGeneratorParts
             ));
         });

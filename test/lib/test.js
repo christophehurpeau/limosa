@@ -1,33 +1,34 @@
-/* global test */
 'use strict';
 
-var _Map = require('babel-runtime/core-js/map').default;
+var _RouterBuilder = require('../../lib/RouterBuilder');
 
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default').default;
+var _RouterBuilder2 = _interopRequireDefault(_RouterBuilder);
 
-var _libRouterBuilder = require('../../lib/RouterBuilder');
+var _RoutesTranslations = require('../../lib/RoutesTranslations');
 
-var _libRouterBuilder2 = _interopRequireDefault(_libRouterBuilder);
-
-var _libRoutesTranslations = require('../../lib/RoutesTranslations');
-
-var _libRoutesTranslations2 = _interopRequireDefault(_libRoutesTranslations);
+var _RoutesTranslations2 = _interopRequireDefault(_RoutesTranslations);
 
 var _proclaim = require('proclaim');
 
 var _proclaim2 = _interopRequireDefault(_proclaim);
 
+/**
+ * @function
+ * @param obj
+*/
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // const routesLangsConfig = fs.readYamlFileSync('example/routesLangs.yml');
-const routesLangsConfig = new _Map([['login', new _Map([['en', 'login'], ['fr', 'connexion']])], ['post', new _Map([['en', 'post'], ['fr', 'article']])], ['view', new _Map([['en', 'view'], ['fr', 'afficher']])]]);
+const routesLangsConfig = new Map([['login', new Map([['en', 'login'], ['fr', 'connexion']])], ['post', new Map([['en', 'post'], ['fr', 'article']])], ['view', new Map([['en', 'view'], ['fr', 'afficher']])]]); /* global test */
 
-const routesTranslations = new _libRoutesTranslations2.default(routesLangsConfig);
+const routesTranslations = new _RoutesTranslations2.default(routesLangsConfig);
 
-test('RouteTranslations', /** @function */function () {
+test('RouteTranslations', () => {
     _proclaim2.default.strictEqual(routesTranslations.translate('login', 'fr'), 'connexion');
     _proclaim2.default.strictEqual(routesTranslations.untranslate('connexion', 'fr'), 'login');
 });
 
-const builder = new _libRouterBuilder2.default(routesTranslations, ['en', 'fr']);
+const builder = new _RouterBuilder2.default(routesTranslations, ['en', 'fr']);
 const router = builder.router;
 
 builder.add('/', '/', 'site.index').add('postView', '/post/${id}-${slug}', 'post.view', {
@@ -40,7 +41,7 @@ builder.add('/', '/', 'site.index').add('postView', '/post/${id}-${slug}', 'post
     namedParamsDefinition: { date: '\\d{4}\\-\\d{2}\\-\\d{2}' }
 }).addDefaultRoutes();
 
-test('SimpleRoute', /** @function */function () {
+test('SimpleRoute', () => {
     let rr = router.get('/');
     _proclaim2.default.ok(rr != null);
     _proclaim2.default.strictEqual(rr.controller, 'site');
@@ -54,7 +55,7 @@ test('SimpleRoute', /** @function */function () {
     _proclaim2.default.strictEqual(fr.url(), '/');
 });
 
-test('Common route', /** @function */function () {
+test('Common route', () => {
     let rrs = router.get('defaultSimple');
     _proclaim2.default.ok(rrs != null);
     _proclaim2.default.strictEqual(rrs.controller, 'site');
@@ -82,7 +83,7 @@ test('Common route', /** @function */function () {
     _proclaim2.default.strictEqual(fr.url({ controller: 'post', action: 'view' }), '/article/afficher.html');
 });
 
-test('Named param route', /** @function */function () {
+test('Named param route', () => {
     let rr = router.get('postView');
     _proclaim2.default.ok(rr != null);
     _proclaim2.default.strictEqual(rr.controller, 'post');
@@ -97,7 +98,7 @@ test('Named param route', /** @function */function () {
     _proclaim2.default.strictEqual(fr.url({ id: 1, slug: 'un-slug' }), '/article/1-un-slug.htm');
 });
 
-test('Named param route with RegExp', /** @function */function () {
+test('Named param route with RegExp', () => {
     let rr = router.get('postView2');
     _proclaim2.default.ok(rr != null);
     _proclaim2.default.strictEqual(rr.controller, 'post');
@@ -112,7 +113,7 @@ test('Named param route with RegExp', /** @function */function () {
     _proclaim2.default.strictEqual(fr.url({ id: 1, slug: 'un-slug' }), '/article/1-un-slug.htm');
 });
 
-test('More complex param route', /** @function */function () {
+test('More complex param route', () => {
     let rr = router.get('postWithDate');
     _proclaim2.default.ok(rr != null);
     _proclaim2.default.strictEqual(rr.controller, 'post');
@@ -127,7 +128,7 @@ test('More complex param route', /** @function */function () {
     _proclaim2.default.strictEqual(fr.url({ date: '2015-01-01', slug: 'un-slug' }), '/article/2015-01-01_un-slug');
 });
 
-test('Find simple routes', /** @function */function () {
+test('Find simple routes', () => {
     let r = router.find('/', 'en');
     _proclaim2.default.ok(r != null);
     _proclaim2.default.strictEqual(r.all, '/');
@@ -147,7 +148,7 @@ test('Find simple routes', /** @function */function () {
     _proclaim2.default.strictEqual(r.otherParams, undefined);
 });
 
-test('Find common routes, /:controller', /** @function */function () {
+test('Find common routes, /:controller', () => {
     let r = router.find('/post', 'en');
     _proclaim2.default.ok(r != null);
     _proclaim2.default.strictEqual(r.all, '/post');
@@ -181,7 +182,7 @@ test('Find common routes, /:controller', /** @function */function () {
     _proclaim2.default.strictEqual(r.namedParams, undefined);
 });
 
-test('Find common routes, /:controller/:action', /** @function */function () {
+test('Find common routes, /:controller/:action', () => {
     let r = router.find('/post/view', 'en');
     _proclaim2.default.ok(r != null);
     _proclaim2.default.strictEqual(r.all, '/post/view');
@@ -217,7 +218,7 @@ test('Find common routes, /:controller/:action', /** @function */function () {
     _proclaim2.default.strictEqual(r.namedParams, undefined);
 });
 
-test('Find common routes, /:controller/:action/*', /** @function */function () {
+test('Find common routes, /:controller/:action/*', () => {
     let r = router.find('/post/view/test1/test2', 'en');
     _proclaim2.default.ok(r != null);
     _proclaim2.default.strictEqual(r.all, '/post/view/test1/test2');
@@ -254,7 +255,7 @@ test('Find common routes, /:controller/:action/*', /** @function */function () {
     _proclaim2.default.deepEqual(r.otherParams, ['test1', 'test2']);
 });
 
-test('Find named param route', /** @function */function () {
+test('Find named param route', () => {
     let r = router.find('/post/001-The-First-Post.htm', 'en');
     _proclaim2.default.ok(r != null);
     _proclaim2.default.strictEqual(r.all, '/post/001-The-First-Post.htm');
@@ -262,7 +263,7 @@ test('Find named param route', /** @function */function () {
     _proclaim2.default.strictEqual(r.action, 'view');
     _proclaim2.default.strictEqual(r.extension, 'htm');
     let namedParams = r.namedParams;
-    _proclaim2.default.isInstanceOf(namedParams, _Map);
+    _proclaim2.default.isInstanceOf(namedParams, Map);
     _proclaim2.default.strictEqual(r.namedParams.size, 2);
     _proclaim2.default.strictEqual(r.namedParams.get('id'), '001');
     _proclaim2.default.strictEqual(r.namedParams.get('slug'), 'The-First-Post');
@@ -275,19 +276,19 @@ test('Find named param route', /** @function */function () {
     _proclaim2.default.strictEqual(r.action, 'view');
     _proclaim2.default.strictEqual(r.extension, 'htm');
     namedParams = r.namedParams;
-    _proclaim2.default.isInstanceOf(namedParams, _Map);
+    _proclaim2.default.isInstanceOf(namedParams, Map);
     _proclaim2.default.strictEqual(r.namedParams.size, 2);
     _proclaim2.default.strictEqual(r.namedParams.get('id'), '001');
     _proclaim2.default.strictEqual(r.namedParams.get('slug'), 'Le-Premier-Billet');
     _proclaim2.default.strictEqual(r.otherParams, undefined);
 });
 
-test('Router generator default', /** @function */function () {
+test('Router generator default', () => {
     let url = router.urlGenerator('en', 'default', { controller: 'post', action: 'view' });
     _proclaim2.default.strictEqual(url, '/post/view.html');
 });
 
-test('Router generator postView', /** @function */function () {
+test('Router generator postView', () => {
     let url = router.urlGenerator('en', 'postView', { id: '001', slug: 'Le-Premier-Billet' });
     _proclaim2.default.strictEqual(url, '/post/001-Le-Premier-Billet.htm');
 

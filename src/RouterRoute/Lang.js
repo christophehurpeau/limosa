@@ -5,6 +5,7 @@ export default class RouterRouteLang {
     }
 
     /**
+     * @param {string} input
      * @return {Array}
      */
     match(input) {

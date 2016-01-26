@@ -2,7 +2,10 @@
  * Convert a simple conf file key=>value into a two-way translation map
  */
 export default class RoutesTranslations {
-    constructor(translations: Map) {
+    /**
+     * @param {Map} translations
+     */
+    constructor(translations) {
         this._languages = new Map();
 
         if (!translations) {
@@ -30,32 +33,32 @@ export default class RoutesTranslations {
     }
 
     /**
-     * @param {String} string
-     * @param {String} lang
-     * @return {String}
+     * @param {string} string
+     * @param {string} lang
+     * @return {string}
      */
     translate(string, lang) {
         string = string.toLowerCase();
         const translationsMap = this._languages.get(lang).translate;
 
         if (!translationsMap.has(string)) {
-            throw new Error('Missing translation ' + string + ' for lang ' + lang);
+            throw new Error(`Missing translation ${string} for lang ${lang}`);
         }
 
         return translationsMap.get(string);
     }
 
     /**
-     * @param {String} string
-     * @param {String} lang
-     * @return {String}
+     * @param {string} string
+     * @param {string} lang
+     * @return {string}
      */
     untranslate(string, lang) {
         string = string.toLowerCase();
         const translationsMap = this._languages.get(lang).untranslate;
 
         if (!translationsMap.has(string)) {
-            throw new Error('Missing untranslation ' + string + ' for lang ' + lang);
+            throw new Error(`Missing untranslation ${string} for lang ${lang}`);
         }
 
         return translationsMap.get(string);

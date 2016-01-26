@@ -13,7 +13,7 @@ const routesLangsConfig = new Map([
 
 const routesTranslations = new RouteTranslations(routesLangsConfig);
 
-test('RouteTranslations', function() {
+test('RouteTranslations', () => {
     assert.strictEqual(routesTranslations.translate('login', 'fr'), 'connexion');
     assert.strictEqual(routesTranslations.untranslate('connexion', 'fr'), 'login');
 });
@@ -36,7 +36,7 @@ builder
     })
     .addDefaultRoutes();
 
-test('SimpleRoute', function() {
+test('SimpleRoute', () => {
     let rr = router.get('/');
     assert.ok(rr != null);
     assert.strictEqual(rr.controller, 'site');
@@ -50,7 +50,7 @@ test('SimpleRoute', function() {
     assert.strictEqual(fr.url(), '/');
 });
 
-test('Common route', function() {
+test('Common route', () => {
     let rrs = router.get('defaultSimple');
     assert.ok(rrs != null);
     assert.strictEqual(rrs.controller, 'site');
@@ -78,7 +78,7 @@ test('Common route', function() {
     assert.strictEqual(fr.url({ controller: 'post', action: 'view' }), '/article/afficher.html');
 });
 
-test('Named param route', function() {
+test('Named param route', () => {
     let rr = router.get('postView');
     assert.ok(rr != null);
     assert.strictEqual(rr.controller, 'post');
@@ -93,7 +93,7 @@ test('Named param route', function() {
     assert.strictEqual(fr.url({ id: 1, slug: 'un-slug' }), '/article/1-un-slug.htm');
 });
 
-test('Named param route with RegExp', function() {
+test('Named param route with RegExp', () => {
     let rr = router.get('postView2');
     assert.ok(rr != null);
     assert.strictEqual(rr.controller, 'post');
@@ -108,7 +108,7 @@ test('Named param route with RegExp', function() {
     assert.strictEqual(fr.url({ id: 1, slug: 'un-slug' }), '/article/1-un-slug.htm');
 });
 
-test('More complex param route', function() {
+test('More complex param route', () => {
     let rr = router.get('postWithDate');
     assert.ok(rr != null);
     assert.strictEqual(rr.controller, 'post');
@@ -123,7 +123,7 @@ test('More complex param route', function() {
     assert.strictEqual(fr.url({ date: '2015-01-01', slug: 'un-slug' }), '/article/2015-01-01_un-slug');
 });
 
-test('Find simple routes', function() {
+test('Find simple routes', () => {
     let r = router.find('/', 'en');
     assert.ok(r != null);
     assert.strictEqual(r.all, '/');
@@ -143,7 +143,7 @@ test('Find simple routes', function() {
     assert.strictEqual(r.otherParams, undefined);
 });
 
-test('Find common routes, /:controller', function() {
+test('Find common routes, /:controller', () => {
     let r = router.find('/post', 'en');
     assert.ok(r != null);
     assert.strictEqual(r.all, '/post');
@@ -177,7 +177,7 @@ test('Find common routes, /:controller', function() {
     assert.strictEqual(r.namedParams, undefined);
 });
 
-test('Find common routes, /:controller/:action', function() {
+test('Find common routes, /:controller/:action', () => {
     let r = router.find('/post/view', 'en');
     assert.ok(r != null);
     assert.strictEqual(r.all, '/post/view');
@@ -213,7 +213,7 @@ test('Find common routes, /:controller/:action', function() {
     assert.strictEqual(r.namedParams, undefined);
 });
 
-test('Find common routes, /:controller/:action/*', function() {
+test('Find common routes, /:controller/:action/*', () => {
     let r = router.find('/post/view/test1/test2', 'en');
     assert.ok(r != null);
     assert.strictEqual(r.all, '/post/view/test1/test2');
@@ -250,7 +250,7 @@ test('Find common routes, /:controller/:action/*', function() {
     assert.deepEqual(r.otherParams, ['test1', 'test2']);
 });
 
-test('Find named param route', function() {
+test('Find named param route', () => {
     let r = router.find('/post/001-The-First-Post.htm', 'en');
     assert.ok(r != null);
     assert.strictEqual(r.all, '/post/001-The-First-Post.htm');
@@ -278,12 +278,12 @@ test('Find named param route', function() {
     assert.strictEqual(r.otherParams, undefined);
 });
 
-test('Router generator default', function() {
+test('Router generator default', () => {
     let url = router.urlGenerator('en', 'default', { controller: 'post', action: 'view' });
     assert.strictEqual(url, '/post/view.html');
 });
 
-test('Router generator postView', function() {
+test('Router generator postView', () => {
     let url = router.urlGenerator('en', 'postView', { id: '001', slug: 'Le-Premier-Billet' });
     assert.strictEqual(url, '/post/001-Le-Premier-Billet.htm');
 
