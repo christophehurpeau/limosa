@@ -2,30 +2,48 @@
 <html lang="en">
 <head>
     <title>Code coverage report for lib/UrlGenerator/UrlGeneratorStringPart.js</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="../../prettify.css">
-    <link rel="stylesheet" href="../../base.css">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type='text/css'>
-        div.coverage-summary .sorter {
+        .coverage-summary .sorter {
             background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
 <body>
-<div class="header high">
-    <h1>Code coverage report for <span class="entity">lib/UrlGenerator/UrlGeneratorStringPart.js</span></h1>
-    <h2>
-        Statements: <span class="metric">100% <small>(12 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
-        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
-        Functions: <span class="metric">100% <small>(3 / 3)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
-        Lines: <span class="metric">100% <small>(12 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
-        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
-    </h2>
-    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">lib/UrlGenerator/</a> &#187; UrlGeneratorStringPart.js</div>
-</div>
-<div class="body">
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">lib/UrlGenerator/</a> UrlGeneratorStringPart.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>5/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>5/5</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
-<tr><td class="line-count">1
+<tr><td class="line-count quiet">1
 2
 3
 4
@@ -46,87 +64,56 @@
 19
 20
 21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+22</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">22</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">22×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
-&nbsp;
-var _createClass = require("babel-runtime/helpers/create-class").default;
-&nbsp;
-var _classCallCheck = require("babel-runtime/helpers/class-call-check").default;
 &nbsp;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-/** @class UrlGeneratorStringPart 
-* @param string */
-let UrlGeneratorStringPart = (function () {
-    function UrlGeneratorStringPart(string) {
-        _classCallCheck(this, UrlGeneratorStringPart);
-&nbsp;
+let UrlGeneratorStringPart = class UrlGeneratorStringPart {
+    /**
+     * @param {string} string
+    */
+    constructor(string) {
         this.string = string;
     }
 &nbsp;
-    _createClass(UrlGeneratorStringPart, [{
-        key: "generate",
-        /** @memberof UrlGeneratorStringPart 
-        * @instance 
-        * @method generate */value: function generate() {
-            return this.string;
-        }
-    }]);
-&nbsp;
-    return UrlGeneratorStringPart;
-})();
-&nbsp;
+    /**
+     * @returns {string}
+     */
+    generate() {
+        return this.string;
+    }
+};
 exports.default = UrlGeneratorStringPart;
-module.exports = exports.default;
 //# sourceMappingURL=UrlGeneratorStringPart.js.map</pre></td></tr>
 </table></pre>
-
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jan 26 2016 19:27:46 GMT+0000 (UTC)
 </div>
-<div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Aug 30 2015 19:50:11 GMT+0000 (UTC)</div>
 </div>
 <script src="../../prettify.js"></script>
 <script>

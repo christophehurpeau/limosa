@@ -123,41 +123,6 @@
             </ul>
         </li>
     
-        <li class="item" data-name="RouterBuilder">
-            <span class="title">
-                <a href="RouterBuilder.html">RouterBuilder</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="RouterBuilder#_createRoute"><a href="RouterBuilder.html#_createRoute">_createRoute</a></li>
-            
-                <li data-name="RouterBuilder#_createRouteSegment"><a href="RouterBuilder.html#_createRouteSegment">_createRouteSegment</a></li>
-            
-                <li data-name="RouterBuilder#add"><a href="RouterBuilder.html#add">add</a></li>
-            
-                <li data-name="RouterBuilder#addDefaultRoutes"><a href="RouterBuilder.html#addDefaultRoutes">addDefaultRoutes</a></li>
-            
-                <li data-name="RouterBuilder#addSegment"><a href="RouterBuilder.html#addSegment">addSegment</a></li>
-            
-                <li data-name="RouterBuilder#fromMap"><a href="RouterBuilder.html#fromMap">fromMap</a></li>
-            
-                <li data-name="RouterBuilder#translate"><a href="RouterBuilder.html#translate">translate</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
         <li class="item" data-name="RouterBuilderSegment">
             <span class="title">
                 <a href="RouterBuilderSegment.html">RouterBuilderSegment</a>
@@ -436,6 +401,8 @@
     RouterBuilderSegment
     </h2>
     
+        <div class="class-description">Build a route segment</div>
+    
 </header>  
 
 <article>
@@ -448,12 +415,12 @@
     <div class="nameContainer">
         <h4 class="name" id="RouterBuilderSegment">
             
-            new RouterBuilderSegment<span class="signature">(builder, route, parent)</span>
+            new RouterBuilderSegment<span class="signature">(builder, route, <span class="optional">parent</span>)</span>
         </h4>
     
         
         <div class="tag-source">
-            RouterBuilder.js, line 60
+            RouterBuilder.js, line 62
         </div>
         
     </div>
@@ -462,10 +429,6 @@
 </dt>
 <dd>
     
-    
-    <div class="description">
-        Build a route segment
-    </div>
     
 
     
@@ -500,11 +463,21 @@
             
             <td class="type">
             
+                
+<span class="param-type"><a href="RouterBuilder.html">RouterBuilder</a></span>
+
+
+            
             </td>
             
             
             
             <td class="description last">
+                
+                    
+                    
+                        
+                    
                 
                 </td>
         </tr>
@@ -518,11 +491,21 @@
             
             <td class="type">
             
+                
+<span class="param-type"><a href="RouterRouteSegment.html">RouterRouteSegment</a></span>
+
+
+            
             </td>
             
             
             
             <td class="description last">
+                
+                    
+                    
+                        
+                    
                 
                 </td>
         </tr>
@@ -536,11 +519,23 @@
             
             <td class="type">
             
+                
+<span class="param-type"><a href="RouterRouteSegment.html">RouterRouteSegment</a></span>
+
+
+            
             </td>
             
             
             
             <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
                 
                 </td>
         </tr>
@@ -613,12 +608,12 @@
     <div class="nameContainer">
         <h4 class="name" id="_createRoute">
             
-            _createRoute<span class="signature">(routeKey, routeUrl, controllerAndActionSeparatedByDot, options, routeKey, routeUrl, controllerAndActionSeparatedByDot, options)</span>
+            _createRoute<span class="signature">(routeKey, routeUrl, controllerAndActionSeparatedByDot, options)</span>
         </h4>
     
         
         <div class="tag-source">
-            RouterBuilder.js, line 110
+            RouterBuilder.js, line 99
         </div>
         
     </div>
@@ -662,7 +657,7 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
@@ -685,7 +680,7 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
@@ -708,7 +703,7 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
@@ -725,33 +720,15 @@
 	
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>options.namedParamsDefinition</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Map</span>
 
 
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                namedParamsDefinition, routeLangs, extension</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>routeKey</code></td>
-            
-            
-            <td class="type">
             
             </td>
             
@@ -766,10 +743,15 @@
 	
         <tr>
             
-                <td class="name"><code>routeUrl</code></td>
+                <td class="name"><code>options.routeLangs</code></td>
             
             
             <td class="type">
+            
+                
+<span class="param-type">Map</span>
+
+
             
             </td>
             
@@ -784,10 +766,15 @@
 	
         <tr>
             
-                <td class="name"><code>controllerAndActionSeparatedByDot</code></td>
+                <td class="name"><code>options.extension</code></td>
             
             
             <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
             
             </td>
             
@@ -866,12 +853,12 @@
     <div class="nameContainer">
         <h4 class="name" id="add">
             
-            add<span class="signature">(routeKey, routeUrl, controllerAndActionSeparatedByDot, options, routeKey, routeUrl, controllerAndActionSeparatedByDot, options)</span>
+            add<span class="signature">(routeKey, routeUrl, controllerAndActionSeparatedByDot, options)</span>
         </h4>
     
         
         <div class="tag-source">
-            RouterBuilder.js, line 87
+            RouterBuilder.js, line 83
         </div>
         
     </div>
@@ -915,7 +902,7 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
@@ -938,7 +925,7 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
@@ -961,7 +948,7 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
@@ -978,33 +965,15 @@
 	
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>options.namedParamsDefinition</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Map</span>
 
 
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                namedParamsDefinition, routeLangs, extension</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>routeKey</code></td>
-            
-            
-            <td class="type">
             
             </td>
             
@@ -1019,10 +988,15 @@
 	
         <tr>
             
-                <td class="name"><code>routeUrl</code></td>
+                <td class="name"><code>options.routeLangs</code></td>
             
             
             <td class="type">
+            
+                
+<span class="param-type">Map</span>
+
+
             
             </td>
             
@@ -1037,10 +1011,15 @@
 	
         <tr>
             
-                <td class="name"><code>controllerAndActionSeparatedByDot</code></td>
+                <td class="name"><code>options.extension</code></td>
             
             
             <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
             
             </td>
             
@@ -1119,12 +1098,12 @@
     <div class="nameContainer">
         <h4 class="name" id="addSegment">
             
-            addSegment<span class="signature">(routeUrl, <span class="optional">options</span>, buildSegment, routeUrl, options, buildSegment)</span>
+            addSegment<span class="signature">(routeUrl, buildSegment, options)</span>
         </h4>
     
         
         <div class="tag-source">
-            RouterBuilder.js, line 151
+            RouterBuilder.js, line 127
         </div>
         
     </div>
@@ -1168,7 +1147,7 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
@@ -1190,13 +1169,13 @@
 	
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>options.namedParamsDefinition</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Map</span>
 
 
             
@@ -1213,7 +1192,37 @@
                         
                     
                 
-                namedParamsDefinition, routeLangs</td>
+                </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options.routeLangs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Map</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                </td>
         </tr>
 	
 	
@@ -1248,53 +1257,7 @@
 	
         <tr>
             
-                <td class="name"><code>routeUrl</code></td>
-            
-            
-            <td class="type">
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
                 <td class="name"><code>options</code></td>
-            
-            
-            <td class="type">
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                </td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>buildSegment</code></td>
             
             
             <td class="type">
@@ -1363,12 +1326,12 @@
     <div class="nameContainer">
         <h4 class="name" id="defaultRoute">
             
-            defaultRoute<span class="signature">(routeKey, controllerAndActionSeparatedByDot, options, routeKey, controllerAndActionSeparatedByDot, options)</span>
+            defaultRoute<span class="signature">(routeKey, controllerAndActionSeparatedByDot, options)</span>
         </h4>
     
         
         <div class="tag-source">
-            RouterBuilder.js, line 129
+            RouterBuilder.js, line 111
         </div>
         
     </div>
@@ -1412,7 +1375,7 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
@@ -1435,7 +1398,7 @@
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
             
@@ -1452,33 +1415,15 @@
 	
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>options.namedParamsDefinition</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Map</span>
 
 
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                namedParamsDefinition, routeLangs, extension</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>routeKey</code></td>
-            
-            
-            <td class="type">
             
             </td>
             
@@ -1493,10 +1438,38 @@
 	
         <tr>
             
-                <td class="name"><code>controllerAndActionSeparatedByDot</code></td>
+                <td class="name"><code>options.routeLangs</code></td>
             
             
             <td class="type">
+            
+                
+<span class="param-type">Map</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options.extension</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
             
             </td>
             
@@ -1586,7 +1559,7 @@
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sun Aug 30 2015 19:50:11 GMT+0000 (UTC)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Jan 26 2016 19:27:45 GMT+0000 (UTC)
         </footer>
     </div>
 </div>
