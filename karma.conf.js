@@ -9,11 +9,11 @@ module.exports = function(config) {
         browsers: [
             'Firefox',
             'Chrome',
-            'PhantomJS',
+            // 'PhantomJS',
         ],
 
         files: [
-            'http://cdn.polyfill.io/v1/polyfill.min.js?features=all',
+            'http://cdn.polyfill.io/v2/polyfill.min.js?features=all',
             'mocha.conf.js',
             'dist/test.js',
         ],
