@@ -1,5 +1,9 @@
 export default class RouterRouteLang {
-    constructor(regExp: RegExp, urlGenerator: RouteRouteLangUrlGenerator) {
+    /**
+     * @param {RegExp} regExp
+     * @param {RouteRouteLangUrlGenerator} urlGenerator
+     */
+    constructor(regExp, urlGenerator) {
         this.regExp = regExp;
         this.urlGenerator = urlGenerator;
     }

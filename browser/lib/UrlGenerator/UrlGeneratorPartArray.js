@@ -26,10 +26,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var UrlGeneratorPartArray = /**
                              * @function
                             */function () {
+    // parts: Array;
+
     /**
-     * @function
      * @param {Array} parts
+    * @function
     */
+
     function UrlGeneratorPartArray(parts) {
         _classCallCheck(this, UrlGeneratorPartArray);
 
@@ -37,7 +40,7 @@ var UrlGeneratorPartArray = /**
     }
 
     /**
-     * @param {Object} args
+     * @param {object} args
      * @returns {string}
      */
 

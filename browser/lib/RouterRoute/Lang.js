@@ -27,10 +27,11 @@ var RouterRouteLang = /**
                        * @function
                       */function () {
     /**
-     * @function
      * @param {RegExp} regExp
      * @param {RouteRouteLangUrlGenerator} urlGenerator
+    * @function
     */
+
     function RouterRouteLang(regExp, urlGenerator) {
         _classCallCheck(this, RouterRouteLang);
 

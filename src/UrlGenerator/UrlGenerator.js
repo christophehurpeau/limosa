@@ -1,6 +1,9 @@
 export default class UrlGenerator {
-
-    constructor(parts: UrlGeneratorPartArray, extension) {
+    /**
+     * @param {UrlGeneratorPartArray} parts
+     * @param {string} extension
+     */
+    constructor(parts, extension) {
         this.parts = parts;
         this.extension = extension;
     }

@@ -26,10 +26,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var UrlGeneratorOptionalGroupPart = /**
                                      * @function
                                     */function () {
+    // parts: UrlGeneratorPartArray;
+
     /**
-     * @function
      * @param {UrlGeneratorPartArray} parts
+    * @function
     */
+
     function UrlGeneratorOptionalGroupPart(parts) {
         _classCallCheck(this, UrlGeneratorOptionalGroupPart);
 

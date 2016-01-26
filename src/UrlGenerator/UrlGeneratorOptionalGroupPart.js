@@ -1,7 +1,10 @@
 export default class UrlGeneratorOptionalGroupPart {
-    parts: UrlGeneratorPartArray;
+    // parts: UrlGeneratorPartArray;
 
-    constructor(parts: UrlGeneratorPartArray) {
+    /**
+     * @param {UrlGeneratorPartArray} parts
+     */
+    constructor(parts) {
         this.parts = parts;
     }
 

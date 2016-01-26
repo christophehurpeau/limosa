@@ -1,12 +1,15 @@
 export default class UrlGeneratorPartArray {
-    parts: Array;
+    // parts: Array;
 
-    constructor(parts: Array) {
+    /**
+     * @param {Array} parts
+     */
+    constructor(parts) {
         this.parts = parts;
     }
 
     /**
-     * @param {Object} args
+     * @param {object} args
      * @returns {string}
      */
     generate(args) {

@@ -27,10 +27,11 @@ var UrlGenerator = /**
                     * @function
                    */function () {
     /**
-     * @function
      * @param {UrlGeneratorPartArray} parts
-     * @param extension
+     * @param {string} extension
+    * @function
     */
+
     function UrlGenerator(parts, extension) {
         _classCallCheck(this, UrlGenerator);
 
