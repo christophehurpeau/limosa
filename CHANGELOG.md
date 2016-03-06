@@ -1,3 +1,7 @@
+### v2.0.2
+
+- [`b4db664`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/b4db664611afe9fc819191ba6cbb8c50f35f11d4) fix browser and jspm main field in package.json (Christophe Hurpeau)
+
 ### v2.0.1
 
 - [`78fc391`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/78fc39153dd1df047a32b0457b46b777fe0ec8dd) fix browser field in package.json (Christophe Hurpeau)
