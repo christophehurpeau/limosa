@@ -200,6 +200,10 @@ export default class Router {
      */
     urlGenerator(lang, routeKey, params) {
         const route = this._routesMap.get(routeKey);
-        return route.routes.get(lang).url(params);
+        try {
+            return route.routes.get(lang).url(params);
+        } catch (err) {
+            throw new Error(err.message);
+        }
     }
 }
