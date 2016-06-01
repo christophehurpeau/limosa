@@ -1,3 +1,8 @@
+### v2.0.3
+
+- [`b213449`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/b213449c55410a9c4aff7c01c8f4e60fc15ae2f3) fix optional param, add tests (Christophe Hurpeau)
+- [`55d99e8`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/55d99e8d78eb0390a419087790fb1ed0a4ba7bc4) eslint (Christophe Hurpeau)
+
 ### v2.0.2
 
 - [`b4db664`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/b4db664611afe9fc819191ba6cbb8c50f35f11d4) fix browser and jspm main field in package.json (Christophe Hurpeau)
