@@ -1,5 +1,10 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
 var _createClass = /**
                     * @function
                    */ function () { /**
@@ -12,52 +17,52 @@ var _createClass = /**
                                                                                                                                                                                                                                                                                                                                                                             * @param protoProps
                                                                                                                                                                                                                                                                                                                                                                             * @param staticProps
                                                                                                                                                                                                                                                                                                                                                                            */ function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; } ); }();
-// import RouterRouteCommon from './RouterRoute/Common';
+// import RouterRouteCommon from '../RouterRoute/Common';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = undefined;
 
 var _object2map = require('object2map');
 
 var _object2map2 = _interopRequireDefault(_object2map);
 
-var _Router = require('./Router');
+var _Router = require('../Router');
 
 var _Router2 = _interopRequireDefault(_Router);
 
-var _Route = require('./RouterRoute/Route');
+var _Route = require('../RouterRoute/Route');
 
 var _Route2 = _interopRequireDefault(_Route);
 
-var _Segment = require('./RouterRoute/Segment');
+var _Segment = require('../RouterRoute/Segment');
 
 var _Segment2 = _interopRequireDefault(_Segment);
 
-var _Lang = require('./RouterRoute/Lang');
+var _Lang = require('../RouterRoute/Lang');
 
 var _Lang2 = _interopRequireDefault(_Lang);
 
-var _UrlGenerator = require('./UrlGenerator/UrlGenerator');
+var _UrlGenerator = require('../UrlGenerator/UrlGenerator');
 
 var _UrlGenerator2 = _interopRequireDefault(_UrlGenerator);
 
-var _UrlGeneratorNamedParamPart = require('./UrlGenerator/UrlGeneratorNamedParamPart');
+var _UrlGeneratorNamedParamPart = require('../UrlGenerator/UrlGeneratorNamedParamPart');
 
 var _UrlGeneratorNamedParamPart2 = _interopRequireDefault(_UrlGeneratorNamedParamPart);
 
-var _UrlGeneratorOptionalGroupPart = require('./UrlGenerator/UrlGeneratorOptionalGroupPart');
+var _UrlGeneratorOptionalGroupPart = require('../UrlGenerator/UrlGeneratorOptionalGroupPart');
 
 var _UrlGeneratorOptionalGroupPart2 = _interopRequireDefault(_UrlGeneratorOptionalGroupPart);
 
-var _UrlGeneratorPartArray = require('./UrlGenerator/UrlGeneratorPartArray');
+var _UrlGeneratorPartArray = require('../UrlGenerator/UrlGeneratorPartArray');
 
 var _UrlGeneratorPartArray2 = _interopRequireDefault(_UrlGeneratorPartArray);
 
-var _UrlGeneratorStringPart = require('./UrlGenerator/UrlGeneratorStringPart');
+var _UrlGeneratorStringPart = require('../UrlGenerator/UrlGeneratorStringPart');
 
 var _UrlGeneratorStringPart2 = _interopRequireDefault(_UrlGeneratorStringPart);
+
+var _RouterBuilderSegment = require('./RouterBuilderSegment');
+
+var _RouterBuilderSegment2 = _interopRequireDefault(_RouterBuilderSegment);
 
 /**
  * @function
@@ -74,127 +79,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 // const regExpStartingSlash = /^\/+/;
 // const regExpEndingSlash = /\/+$/;
-
-/**
- * Build a route segment
- */
-
-var RouterBuilderSegment = /**
-                            * @function
-                           */function () {
-    /**
-     * @param {RouterBuilder} builder
-     * @param {RouterRouteSegment} route
-     * @param {RouterRouteSegment} [parent]
-    * @function
-    */
-
-    function RouterBuilderSegment(builder, route, parent) {
-        _classCallCheck(this, RouterBuilderSegment);
-
-        this.builder = builder;
-        this.route = route;
-        this.parent = parent;
-    }
-
-    /**
-     * @param {string} routeKey
-     * @param {string} routeUrl
-     * @param {string} controllerAndActionSeparatedByDot
-     * @param {Map} options.namedParamsDefinition
-     * @param {Map} options.routeLangs
-     * @param {string} options.extension
-     */
-
-    _createClass(RouterBuilderSegment, [{
-        key: 'add',
-        value: /**
-                * @function
-                * @param routeKey
-                * @param routeUrl
-                * @param controllerAndActionSeparatedByDot
-                * @param options
-               */function add(routeKey, routeUrl, controllerAndActionSeparatedByDot, options) {
-            var route = this._createRoute(routeKey, routeUrl, controllerAndActionSeparatedByDot, options);
-            this.route.subRoutes.push(route);
-            this.builder.router._addInternalRoute(routeKey, route);
-            return this;
-        }
-
-        /**
-         * @param {string} routeKey
-         * @param {string} routeUrl
-         * @param {string} controllerAndActionSeparatedByDot
-         * @param {Map} options.namedParamsDefinition
-         * @param {Map} options.routeLangs
-         * @param {string} options.extension
-         */
-
-    }, {
-        key: '_createRoute',
-        value: /**
-                * @function
-                * @param routeKey
-                * @param routeUrl
-                * @param controllerAndActionSeparatedByDot
-                * @param options
-               */function _createRoute(routeKey, routeUrl, controllerAndActionSeparatedByDot, options) {
-            return this.builder._createRoute(false, this.route, routeUrl, controllerAndActionSeparatedByDot, options && options.namedParamsDefinition, options && options.routeLangs, options && options.extension);
-        }
-
-        /**
-         * @param {string} routeKey
-         * @param {string} controllerAndActionSeparatedByDot
-         * @param {Map} options.namedParamsDefinition
-         * @param {Map} options.routeLangs
-         * @param {string} options.extension
-         */
-
-    }, {
-        key: 'defaultRoute',
-        value: /**
-                * @function
-                * @param routeKey
-                * @param controllerAndActionSeparatedByDot
-                * @param options
-               */function defaultRoute(routeKey, controllerAndActionSeparatedByDot, options) {
-            var route = this._createRoute(routeKey, '', controllerAndActionSeparatedByDot, options);
-            // this.route.defaultRoute = route;
-            // this.builder.router._addInternalRoute(routeKey, route);
-            this.route.subRoutes.push(route);
-            this.builder.router._addInternalRoute(routeKey, route);
-            return this;
-        }
-
-        /**
-         * @param {string} routeUrl
-         * @param {Map} [options.namedParamsDefinition]
-         * @param {Map} [options.routeLangs]
-         * @param {Function} buildSegment
-         */
-
-    }, {
-        key: 'addSegment',
-        value: /**
-                * @function
-                * @param routeUrl
-                * @param options
-                * @param buildSegment
-               */function addSegment(routeUrl, options, buildSegment) {
-            if (typeof options === 'function') {
-                buildSegment = options;
-                options = {};
-            }
-
-            var route = this.builder._createRouteSegment(this.route, routeUrl, options.namedParamsDefinition, options.routeLangs);
-            var segment = new RouterBuilderSegment(this.buider, route, this.route);
-            buildSegment(segment);
-            this.router.addRoute(null, route);
-        }
-    }]);
-
-    return RouterBuilderSegment;
-}();
 
 var RouterBuilder = /**
                      * @function
@@ -223,6 +107,7 @@ var RouterBuilder = /**
      * @param {string} string
      * @return {string}
      */
+
 
     _createClass(RouterBuilder, [{
         key: 'translate',
@@ -301,7 +186,7 @@ var RouterBuilder = /**
             }
 
             var route = this._createRouteSegment(undefined, routeUrl, options.namedParamsDefinition, options.routeLangs);
-            var segment = new RouterBuilderSegment(this, route, undefined);
+            var segment = new _RouterBuilderSegment2.default(this, route, undefined);
             buildSegment(segment);
             this.router.addRoute(undefined, route);
             return this;
@@ -352,7 +237,7 @@ var RouterBuilder = /**
                */function _createRoute(segment, parent, routeUrl, controllerAndActionSeparatedByDot, namedParamsDefinition, routeLangs, extension) {
             var _this2 = this;
 
-            var controllerAndAction = undefined;
+            var controllerAndAction = void 0;
             if (!segment) {
                 controllerAndAction = controllerAndActionSeparatedByDot.split('.');
                 // assert(controllerAndAction.length == 2);
@@ -392,7 +277,6 @@ var RouterBuilder = /**
             routeLangs.get(this._allLangs[0]).replace(this.regExpNamedParam, function (str, paramName) {
                 paramNames.push(paramName);
             });
-            // console.log(routeLangs[this._allLangs[0]], paramNames);
 
             var finalRoute = segment ? new _Segment2.default(paramNames) : new _Route2.default(controllerAndAction[0], controllerAndAction[1], extension, paramNames);
 
@@ -400,7 +284,7 @@ var RouterBuilder = /**
                 var translate = _this2.translate.bind(_this2, lang);
                 var specialEnd = false;
                 var specialEnd2 = false;
-                var routeLangRegExp = undefined;
+                var routeLangRegExp = void 0;
 
                 if (!segment && (specialEnd = routeLang.endsWith('/*'))) {
                     routeLangRegExp = routeLang.slice(0, -2);
@@ -410,7 +294,7 @@ var RouterBuilder = /**
                     routeLangRegExp = routeLang;
                 }
 
-                routeLangRegExp = routeLangRegExp.replace(/\//g, '\\/').replace(/\-/g, '\\-').replace(/\*/g, '(.*)').replace(/\[/g, '(').replace(/]/g, ')').replace(/\(/g, '(?:');
+                routeLangRegExp = routeLangRegExp.replace(/\//g, '\\/').replace(/\-/g, '\\-').replace(/\*/g, '(.*)').replace(/\[/g, '(').replace(/]/g, ')?').replace(/\(/g, '(?:');
 
                 if (specialEnd) {
                     routeLangRegExp = routeLangRegExp + '(?:\\/([^.]*))?';
@@ -495,7 +379,7 @@ var RouterBuilder = /**
                     return new _UrlGeneratorPartArray2.default(parts);
                 }(routeLang);
 
-                var urlGeneratorParts = undefined;
+                var urlGeneratorParts = void 0;
                 if (parent != null) {
                     var parentParts = parent.routes.get(lang).urlGenerator.parts;
                     var mergedParts = parts === null ? parentParts : new _UrlGeneratorPartArray2.default([parentParts, parts]);

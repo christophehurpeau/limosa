@@ -1,6 +1,6 @@
 'use strict';
 
-var _RouterBuilder = require('../../lib/RouterBuilder');
+var _RouterBuilder = require('../../lib/RouterBuilder/RouterBuilder');
 
 var _RouterBuilder2 = _interopRequireDefault(_RouterBuilder);
 
@@ -20,6 +20,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // const routesLangsConfig = fs.readYamlFileSync('example/routesLangs.yml');
 const routesLangsConfig = new Map([['login', new Map([['en', 'login'], ['fr', 'connexion']])], ['post', new Map([['en', 'post'], ['fr', 'article']])], ['view', new Map([['en', 'view'], ['fr', 'afficher']])]]); /* global test */
+
 
 const routesTranslations = new _RoutesTranslations2.default(routesLangsConfig);
 
@@ -121,10 +122,12 @@ test('More complex param route', () => {
     _proclaim2.default.deepEqual(rr.namedParams, ['tagKey', 'date', 'slug']);
     _proclaim2.default.strictEqual(rr.getNamedParamsCount(), 3);
     let en = rr.get('en');
-    _proclaim2.default.strictEqual(en.regExp.source, /^\/post(?:\/([^\/.]+))\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+)$/.source);
+    _proclaim2.default.strictEqual(en.regExp.source, /^\/post(?:\/([^\/.]+))?\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+)$/.source);
     _proclaim2.default.strictEqual(en.url({ date: '2015-01-01', slug: 'a-slug' }), '/post/2015-01-01_a-slug');
+    _proclaim2.default.strictEqual(en.url({ date: '2015-01-01', slug: 'a-slug', tagKey: 'some-tag' }), '/post/some-tag/2015-01-01_a-slug');
+
     let fr = rr.get('fr');
-    _proclaim2.default.strictEqual(fr.regExp.source, /^\/article(?:\/([^\/.]+))\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+)$/.source);
+    _proclaim2.default.strictEqual(fr.regExp.source, /^\/article(?:\/([^\/.]+))?\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+)$/.source);
     _proclaim2.default.strictEqual(fr.url({ date: '2015-01-01', slug: 'un-slug' }), '/article/2015-01-01_un-slug');
 });
 
@@ -281,6 +284,29 @@ test('Find named param route', () => {
     _proclaim2.default.strictEqual(r.namedParams.get('id'), '001');
     _proclaim2.default.strictEqual(r.namedParams.get('slug'), 'Le-Premier-Billet');
     _proclaim2.default.strictEqual(r.otherParams, undefined);
+});
+
+test('Find postWithDate without tag', () => {
+    let r = router.find('/post/2015-01-01_a-slug', 'en');
+    _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.all, '/post/2015-01-01_a-slug');
+    _proclaim2.default.strictEqual(r.controller, 'post');
+    _proclaim2.default.strictEqual(r.action, 'view');
+    _proclaim2.default.strictEqual(r.namedParams.size, 2);
+    _proclaim2.default.strictEqual(r.namedParams.get('date'), '2015-01-01');
+    _proclaim2.default.strictEqual(r.namedParams.get('slug'), 'a-slug');
+});
+
+test('Find postWithDate with tag', () => {
+    let r = router.find('/post/some-tag/2015-01-01_a-slug', 'en');
+    _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.all, '/post/some-tag/2015-01-01_a-slug');
+    _proclaim2.default.strictEqual(r.controller, 'post');
+    _proclaim2.default.strictEqual(r.action, 'view');
+    _proclaim2.default.strictEqual(r.namedParams.size, 3);
+    _proclaim2.default.strictEqual(r.namedParams.get('tagKey'), 'some-tag');
+    _proclaim2.default.strictEqual(r.namedParams.get('date'), '2015-01-01');
+    _proclaim2.default.strictEqual(r.namedParams.get('slug'), 'a-slug');
 });
 
 test('Router generator default', () => {

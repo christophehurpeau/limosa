@@ -1,5 +1,10 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
 var _createClass = /**
                     * @function
                    */ function () { /**
@@ -12,11 +17,6 @@ var _createClass = /**
                                                                                                                                                                                                                                                                                                                                                                             * @param protoProps
                                                                                                                                                                                                                                                                                                                                                                             * @param staticProps
                                                                                                                                                                                                                                                                                                                                                                            */ function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; } ); }();
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = undefined;
 
 var _Route = require('./RouterRoute/Route');
 
@@ -68,6 +68,7 @@ var Router = /**
      * @param {string} key
      * @return {Route}
      */
+
 
     _createClass(Router, [{
         key: 'get',
@@ -152,7 +153,7 @@ var Router = /**
                */function _findRoute(routes, completePath, path, lang, namedParams) {
             var _this = this;
 
-            var result = undefined;
+            var result = void 0;
             routes.some(function (route, index) {
                 /* RouterRouteLang */
                 var routeLang = route.get(lang);
@@ -160,6 +161,7 @@ var Router = /**
                     throw new Error('Cannot find routeLang for lang ' + lang + ' and route ' + index);
                 }
 
+                // console.log(`[springbokjs-router] trying ${routeLang.regExp}`);
                 if (_this.logger) {
                     _this.logger.info('[springbokjs-router] trying ' + routeLang.regExp);
                 }
@@ -244,7 +246,7 @@ var Router = /**
             var controller = route.controller;
             var action = route.action;
 
-            var otherParams = undefined;
+            var otherParams = void 0;
 
             if (route.getNamedParamsCount() !== 0) {
                 // set params

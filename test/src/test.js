@@ -1,5 +1,5 @@
 /* global test */
-import RouterBuilder from '../../lib/RouterBuilder';
+import RouterBuilder from '../../lib/RouterBuilder/RouterBuilder';
 import RouteTranslations from '../../lib/RoutesTranslations';
 
 import assert from 'proclaim';
@@ -116,10 +116,15 @@ test('More complex param route', () => {
     assert.deepEqual(rr.namedParams, ['tagKey', 'date', 'slug']);
     assert.strictEqual(rr.getNamedParamsCount(), 3);
     let en = rr.get('en');
-    assert.strictEqual(en.regExp.source, /^\/post(?:\/([^\/.]+))\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+)$/.source);
+    assert.strictEqual(en.regExp.source, /^\/post(?:\/([^\/.]+))?\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+)$/.source);
     assert.strictEqual(en.url({ date: '2015-01-01', slug: 'a-slug' }), '/post/2015-01-01_a-slug');
+    assert.strictEqual(
+        en.url({ date: '2015-01-01', slug: 'a-slug', tagKey: 'some-tag' }),
+        '/post/some-tag/2015-01-01_a-slug'
+    );
+
     let fr = rr.get('fr');
-    assert.strictEqual(fr.regExp.source, /^\/article(?:\/([^\/.]+))\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+)$/.source);
+    assert.strictEqual(fr.regExp.source, /^\/article(?:\/([^\/.]+))?\/(\d{4}\-\d{2}\-\d{2})_([^\/.]+)$/.source);
     assert.strictEqual(fr.url({ date: '2015-01-01', slug: 'un-slug' }), '/article/2015-01-01_un-slug');
 });
 
@@ -278,6 +283,30 @@ test('Find named param route', () => {
     assert.strictEqual(r.otherParams, undefined);
 });
 
+
+test('Find postWithDate without tag', () => {
+    let r = router.find('/post/2015-01-01_a-slug', 'en');
+    assert.ok(r != null);
+    assert.strictEqual(r.all, '/post/2015-01-01_a-slug');
+    assert.strictEqual(r.controller, 'post');
+    assert.strictEqual(r.action, 'view');
+    assert.strictEqual(r.namedParams.size, 2);
+    assert.strictEqual(r.namedParams.get('date'), '2015-01-01');
+    assert.strictEqual(r.namedParams.get('slug'), 'a-slug');
+});
+
+test('Find postWithDate with tag', () => {
+    let r = router.find('/post/some-tag/2015-01-01_a-slug', 'en');
+    assert.ok(r != null);
+    assert.strictEqual(r.all, '/post/some-tag/2015-01-01_a-slug');
+    assert.strictEqual(r.controller, 'post');
+    assert.strictEqual(r.action, 'view');
+    assert.strictEqual(r.namedParams.size, 3);
+    assert.strictEqual(r.namedParams.get('tagKey'), 'some-tag');
+    assert.strictEqual(r.namedParams.get('date'), '2015-01-01');
+    assert.strictEqual(r.namedParams.get('slug'), 'a-slug');
+});
+
 test('Router generator default', () => {
     let url = router.urlGenerator('en', 'default', { controller: 'post', action: 'view' });
     assert.strictEqual(url, '/post/view.html');
@@ -290,3 +319,5 @@ test('Router generator postView', () => {
     url = router.urlGenerator('fr', 'postView', { id: '001', slug: 'Le-Premier-Billet' });
     assert.strictEqual(url, '/article/001-Le-Premier-Billet.htm');
 });
+
+

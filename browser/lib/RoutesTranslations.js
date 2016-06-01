@@ -1,5 +1,9 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _slicedToArray = /**
                       * @function
                      */ function () { /**
@@ -25,9 +29,6 @@ var _createClass = /**
                                                                                                                                                                                                                                                                                                                                                                             * @param staticProps
                                                                                                                                                                                                                                                                                                                                                                            */ function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; } ); }();
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 /**
  * @function
  * @param instance
@@ -125,6 +126,7 @@ var RoutesTranslations = /**
      * @param {string} lang
      * @return {string}
      */
+
 
     _createClass(RoutesTranslations, [{
         key: "translate",

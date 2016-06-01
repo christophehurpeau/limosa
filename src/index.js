@@ -1,2 +1,2 @@
 export { default as RoutesTranslations } from './RoutesTranslations';
-export { default as RouterBuilder } from './RouterBuilder';
+export { default as RouterBuilder } from './RouterBuilder/RouterBuilder';
