@@ -319,5 +319,3 @@ test('Router generator postView', () => {
     url = router.urlGenerator('fr', 'postView', { id: '001', slug: 'Le-Premier-Billet' });
     assert.strictEqual(url, '/article/001-Le-Premier-Billet.htm');
 });
-
-

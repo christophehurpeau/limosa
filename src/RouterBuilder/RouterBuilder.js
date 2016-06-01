@@ -145,7 +145,7 @@ export default class RouterBuilder {
         if (routeLangs.size !== 0) {
             this._allLangs.forEach((lang) => {
                 if (!routeLangs.has(lang)) {
-                    if (lang == 'en') {
+                    if (lang === 'en') {
                         routeLangs.set('en', routeUrl);
                     } else {
                         throw new Error(`Missing lang ${lang}" for route "${routeUrl}"`);
@@ -209,7 +209,7 @@ export default class RouterBuilder {
                     return '';
                 }
 
-                if (extension == 'html') {
+                if (extension === 'html') {
                     return '(?:\\.(html))?';
                 }
 
@@ -229,7 +229,7 @@ export default class RouterBuilder {
                         paramDefVal = paramDefVal[lang];
                     }
 
-                    return paramDefVal == 'id' ? '([0-9]+)' : `(${paramDefVal.replace('(', '(?:')})`;
+                    return paramDefVal === 'id' ? '([0-9]+)' : `(${paramDefVal.replace('(', '(?:')})`;
                 }
 
                 if (paramName === 'id') {

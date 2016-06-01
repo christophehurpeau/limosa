@@ -35,6 +35,9 @@
   "devDependencies": {
     "coveralls": "^2.11.6",
     "eslint": "^2.11.1",
+    "eslint-config-airbnb-base": "^3.0.1",
+    "eslint-config-pob": "^6.1.0",
+    "eslint-plugin-import": "^1.8.1",
     "karma": "^0.13",
     "karma-chrome-launcher": "^0.2.0",
     "karma-firefox-launcher": "^0.1.6",
