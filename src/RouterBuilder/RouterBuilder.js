@@ -277,6 +277,10 @@ export default class RouterBuilder {
                     throw new Error(routeLangPart);
                 }
 
+                if (parts.length === 1) {
+                    return parts[0];
+                }
+
                 return new UrlGeneratorPartArray(parts);
             }(routeLang));
 

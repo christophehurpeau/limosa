@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.default = undefined;
 
 var _createClass = /**
                     * @function
@@ -16,6 +17,24 @@ var _createClass = /**
                                                                                                                                                                                                                                                                                                                                                                             * @param protoProps
                                                                                                                                                                                                                                                                                                                                                                             * @param staticProps
                                                                                                                                                                                                                                                                                                                                                                            */ function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; } ); }();
+
+var _RouterBuilder = require('./RouterBuilder');
+
+var _RouterBuilder2 = _interopRequireDefault(_RouterBuilder);
+
+var _Common = require('../RouterRoute/Common');
+
+var _Common2 = _interopRequireDefault(_Common);
+
+var _Segment = require('../RouterRoute/Segment');
+
+var _Segment2 = _interopRequireDefault(_Segment);
+
+/**
+ * @function
+ * @param obj
+*/
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * @function
@@ -31,6 +50,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var RouterBuilderSegment = /**
                             * @function
                            */function () {
+
     /**
      * @param {RouterBuilder} builder
      * @param {RouterRouteSegment} route
@@ -50,9 +70,10 @@ var RouterBuilderSegment = /**
      * @param {string} routeKey
      * @param {string} routeUrl
      * @param {string} controllerAndActionSeparatedByDot
-     * @param {Map} options.namedParamsDefinition
-     * @param {Map} options.routeLangs
-     * @param {string} options.extension
+     * @param {Object} [options]
+     * @param {Map} [options.namedParamsDefinition]
+     * @param {Map} [options.routeLangs]
+     * @param {string} [options.extension]
      */
 
 
@@ -75,9 +96,10 @@ var RouterBuilderSegment = /**
          * @param {string} routeKey
          * @param {string} routeUrl
          * @param {string} controllerAndActionSeparatedByDot
-         * @param {Map} options.namedParamsDefinition
-         * @param {Map} options.routeLangs
-         * @param {string} options.extension
+         * @param {Object} [options]
+         * @param {Map} [options.namedParamsDefinition]
+         * @param {Map} [options.routeLangs]
+         * @param {string} [options.extension]
          */
 
     }, {
@@ -95,9 +117,10 @@ var RouterBuilderSegment = /**
         /**
          * @param {string} routeKey
          * @param {string} controllerAndActionSeparatedByDot
-         * @param {Map} options.namedParamsDefinition
-         * @param {Map} options.routeLangs
-         * @param {string} options.extension
+         * @param {Object} [options]
+         * @param {Map} [options.namedParamsDefinition]
+         * @param {Map} [options.routeLangs]
+         * @param {string} [options.extension]
          */
 
     }, {
@@ -121,6 +144,7 @@ var RouterBuilderSegment = /**
          *
          * @param {string} routeKey
          * @param {string} controllerAndActionSeparatedByDot
+         * @param {Object} [options]
          * @param {Map} options.namedParamsDefinition
          * @param {Map} options.routeLangs
          * @param {string} options.extension
@@ -139,6 +163,7 @@ var RouterBuilderSegment = /**
 
         /**
          * @param {string} routeUrl
+         * @param {Object} [options]
          * @param {Map} [options.namedParamsDefinition]
          * @param {Map} [options.routeLangs]
          * @param {Function} buildSegment
@@ -160,7 +185,7 @@ var RouterBuilderSegment = /**
             var route = this.builder._createRouteSegment(this.route, routeUrl, options.namedParamsDefinition, options.routeLangs);
             var segment = new RouterBuilderSegment(this.builder, route, this.route);
             buildSegment(segment);
-            this.builder.router.addRoute(null, route);
+            this.route.subRoutes.push(route);
         }
     }]);
 

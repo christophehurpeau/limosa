@@ -376,6 +376,10 @@ var RouterBuilder = /**
                         throw new Error(routeLangPart);
                     }
 
+                    if (parts.length === 1) {
+                        return parts[0];
+                    }
+
                     return new _UrlGeneratorPartArray2.default(parts);
                 }(routeLang);
 

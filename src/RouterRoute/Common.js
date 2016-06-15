@@ -1,4 +1,8 @@
+import RouterRouteLang from './Lang';
+
 export default class RouterRouteCommon {
+    routes: Map<string, RouterRouteLang>;
+
     /**
      * @param {Array} namedParams
      */
@@ -18,7 +22,7 @@ export default class RouterRouteCommon {
      * @param {string} lang
      * @return {RouterRouteLang}
      */
-    get(lang) {
+    get(lang: string): RouterRouteLang {
         return this.routes.get(lang);
     }
 
@@ -26,7 +30,7 @@ export default class RouterRouteCommon {
      * @param {string} lang
      * @param {RouterRouteLang} route
      */
-    set(lang, route) {
+    set(lang: string, route: RouterRouteLang) {
         this.routes.set(lang, route);
     }
 }

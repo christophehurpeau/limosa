@@ -1,13 +1,21 @@
+import RouterBuilder from './RouterBuilder';
+import RouterRouteCommon from '../RouterRoute/Common';
+import RouterRouteSegment from '../RouterRoute/Segment';
+
 /**
  * Build a route segment
  */
 export default class RouterBuilderSegment {
+    builder: RouterBuilder;
+    route: RouterRouteSegment;
+    parent: ?RouterRouteCommon;
+
     /**
      * @param {RouterBuilder} builder
      * @param {RouterRouteSegment} route
      * @param {RouterRouteSegment} [parent]
      */
-    constructor(builder, route, parent) {
+    constructor(builder: RouterBuilder, route: RouterRouteSegment, parent: ?RouterRouteCommon) {
         this.builder = builder;
         this.route = route;
         this.parent = parent;
@@ -17,9 +25,10 @@ export default class RouterBuilderSegment {
      * @param {string} routeKey
      * @param {string} routeUrl
      * @param {string} controllerAndActionSeparatedByDot
-     * @param {Map} options.namedParamsDefinition
-     * @param {Map} options.routeLangs
-     * @param {string} options.extension
+     * @param {Object} [options]
+     * @param {Map} [options.namedParamsDefinition]
+     * @param {Map} [options.routeLangs]
+     * @param {string} [options.extension]
      */
     add(routeKey, routeUrl, controllerAndActionSeparatedByDot, options) {
         const route = this._createRoute(
@@ -37,9 +46,10 @@ export default class RouterBuilderSegment {
      * @param {string} routeKey
      * @param {string} routeUrl
      * @param {string} controllerAndActionSeparatedByDot
-     * @param {Map} options.namedParamsDefinition
-     * @param {Map} options.routeLangs
-     * @param {string} options.extension
+     * @param {Object} [options]
+     * @param {Map} [options.namedParamsDefinition]
+     * @param {Map} [options.routeLangs]
+     * @param {string} [options.extension]
      */
     _createRoute(routeKey, routeUrl, controllerAndActionSeparatedByDot, options) {
         return this.builder._createRoute(false, this.route, routeUrl,
@@ -52,9 +62,10 @@ export default class RouterBuilderSegment {
     /**
      * @param {string} routeKey
      * @param {string} controllerAndActionSeparatedByDot
-     * @param {Map} options.namedParamsDefinition
-     * @param {Map} options.routeLangs
-     * @param {string} options.extension
+     * @param {Object} [options]
+     * @param {Map} [options.namedParamsDefinition]
+     * @param {Map} [options.routeLangs]
+     * @param {string} [options.extension]
      */
     defaultRoute(routeKey, controllerAndActionSeparatedByDot, options) {
         const route = this._createRoute(routeKey, '', controllerAndActionSeparatedByDot, options);
@@ -70,6 +81,7 @@ export default class RouterBuilderSegment {
      *
      * @param {string} routeKey
      * @param {string} controllerAndActionSeparatedByDot
+     * @param {Object} [options]
      * @param {Map} options.namedParamsDefinition
      * @param {Map} options.routeLangs
      * @param {string} options.extension
@@ -80,6 +92,7 @@ export default class RouterBuilderSegment {
 
     /**
      * @param {string} routeUrl
+     * @param {Object} [options]
      * @param {Map} [options.namedParamsDefinition]
      * @param {Map} [options.routeLangs]
      * @param {Function} buildSegment
@@ -94,6 +107,6 @@ export default class RouterBuilderSegment {
             options.namedParamsDefinition, options.routeLangs);
         const segment = new RouterBuilderSegment(this.builder, route, this.route);
         buildSegment(segment);
-        this.builder.router.addRoute(null, route);
+        this.route.subRoutes.push(route);
     }
 }

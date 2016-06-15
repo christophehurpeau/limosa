@@ -1,8 +1,9 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.default = undefined;
 
 var _createClass = /**
                     * @function
@@ -17,6 +18,16 @@ var _createClass = /**
                                                                                                                                                                                                                                                                                                                                                                             * @param staticProps
                                                                                                                                                                                                                                                                                                                                                                            */ function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; } ); }();
 
+var _Lang = require('./Lang');
+
+var _Lang2 = _interopRequireDefault(_Lang);
+
+/**
+ * @function
+ * @param obj
+*/
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * @function
  * @param instance
@@ -27,6 +38,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var RouterRouteCommon = /**
                          * @function
                         */function () {
+
     /**
      * @param {Array} namedParams
     * @function
@@ -45,7 +57,7 @@ var RouterRouteCommon = /**
 
 
     _createClass(RouterRouteCommon, [{
-        key: "getNamedParamsCount",
+        key: 'getNamedParamsCount',
         value: /**
                 * @function
                */function getNamedParamsCount() {
@@ -58,10 +70,10 @@ var RouterRouteCommon = /**
          */
 
     }, {
-        key: "get",
+        key: 'get',
         value: /**
                 * @function
-                * @param lang
+                * @param {string} lang
                */function get(lang) {
             return this.routes.get(lang);
         }
@@ -72,11 +84,11 @@ var RouterRouteCommon = /**
          */
 
     }, {
-        key: "set",
+        key: 'set',
         value: /**
                 * @function
-                * @param lang
-                * @param route
+                * @param {string} lang
+                * @param {RouterRouteLang} route
                */function set(lang, route) {
             this.routes.set(lang, route);
         }

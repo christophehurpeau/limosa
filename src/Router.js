@@ -42,6 +42,9 @@ export default class Router {
      * @param {RouterRoute} route
      */
     _addInternalRoute(routeKey, route) {
+        if (this._routesMap.has(routeKey)) {
+            throw new Error(`duplicate routeKey: "${routeKey}"`);
+        }
         this._routesMap.set(routeKey, route);
     }
 

@@ -22,6 +22,10 @@ var _Common = require('./Common');
 
 var _Common2 = _interopRequireDefault(_Common);
 
+var _Route = require('./Route');
+
+var _Route2 = _interopRequireDefault(_Route);
+
 /**
  * @function
  * @param obj
@@ -80,7 +84,7 @@ var RouterRouteSegment = /**
         key: 'setDefaultRoute',
         value: /**
                 * @function
-                * @param defaultRoute
+                * @param {RouterRoute} defaultRoute
                */function setDefaultRoute(defaultRoute) {
             this.defaultRoute = defaultRoute;
         }
