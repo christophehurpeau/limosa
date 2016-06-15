@@ -1,3 +1,8 @@
+### v2.0.4
+
+- [`8d80e85`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/8d80e852653587ab93266bdd2fb5dfd0929e8b4b) fix nested segment in routerbuilder (Christophe Hurpeau)
+- [`3e3cd09`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/3e3cd098c8e51cd06f7f4e06e7c9836dc7ac0747) fix nested segments and add tests (Christophe Hurpeau)
+
 ### v2.0.3
 
 - [`b213449`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/b213449c55410a9c4aff7c01c8f4e60fc15ae2f3) fix optional param, add tests (Christophe Hurpeau)
