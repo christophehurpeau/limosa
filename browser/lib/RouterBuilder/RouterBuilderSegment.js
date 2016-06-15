@@ -117,6 +117,27 @@ var RouterBuilderSegment = /**
         }
 
         /**
+         * Alias for defaultRoute
+         *
+         * @param {string} routeKey
+         * @param {string} controllerAndActionSeparatedByDot
+         * @param {Map} options.namedParamsDefinition
+         * @param {Map} options.routeLangs
+         * @param {string} options.extension
+         */
+
+    }, {
+        key: 'default',
+        value: /**
+                * @function
+                * @param routeKey
+                * @param controllerAndActionSeparatedByDot
+                * @param options
+               */function _default(routeKey, controllerAndActionSeparatedByDot, options) {
+            return this.defaultRoute(routeKey, controllerAndActionSeparatedByDot, options);
+        }
+
+        /**
          * @param {string} routeUrl
          * @param {Map} [options.namedParamsDefinition]
          * @param {Map} [options.routeLangs]
@@ -137,9 +158,9 @@ var RouterBuilderSegment = /**
             }
 
             var route = this.builder._createRouteSegment(this.route, routeUrl, options.namedParamsDefinition, options.routeLangs);
-            var segment = new RouterBuilderSegment(this.buider, route, this.route);
+            var segment = new RouterBuilderSegment(this.builder, route, this.route);
             buildSegment(segment);
-            this.router.addRoute(null, route);
+            this.builder.router.addRoute(null, route);
         }
     }]);
 

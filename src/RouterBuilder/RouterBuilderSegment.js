@@ -66,6 +66,19 @@ export default class RouterBuilderSegment {
     }
 
     /**
+     * Alias for defaultRoute
+     *
+     * @param {string} routeKey
+     * @param {string} controllerAndActionSeparatedByDot
+     * @param {Map} options.namedParamsDefinition
+     * @param {Map} options.routeLangs
+     * @param {string} options.extension
+     */
+    default(routeKey, controllerAndActionSeparatedByDot, options) {
+        return this.defaultRoute(routeKey, controllerAndActionSeparatedByDot, options);
+    }
+
+    /**
      * @param {string} routeUrl
      * @param {Map} [options.namedParamsDefinition]
      * @param {Map} [options.routeLangs]
@@ -79,8 +92,8 @@ export default class RouterBuilderSegment {
 
         const route = this.builder._createRouteSegment(this.route, routeUrl,
             options.namedParamsDefinition, options.routeLangs);
-        const segment = new RouterBuilderSegment(this.buider, route, this.route);
+        const segment = new RouterBuilderSegment(this.builder, route, this.route);
         buildSegment(segment);
-        this.router.addRoute(null, route);
+        this.builder.router.addRoute(null, route);
     }
 }
