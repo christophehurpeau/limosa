@@ -42,48 +42,6 @@ builder.add('/', '/', 'site.index').add('postView', '/post/${id}-${slug}', 'post
     namedParamsDefinition: { date: '\\d{4}\\-\\d{2}\\-\\d{2}' }
 }).addDefaultRoutes();
 
-test('SimpleRoute', () => {
-    let rr = router.get('/');
-    _proclaim2.default.ok(rr != null);
-    _proclaim2.default.strictEqual(rr.controller, 'site');
-    _proclaim2.default.strictEqual(rr.action, 'index');
-    _proclaim2.default.strictEqual(rr.getNamedParamsCount(), 0);
-    let en = rr.get('en');
-    _proclaim2.default.strictEqual(en.regExp.source, '^\\/$');
-    _proclaim2.default.strictEqual(en.url(), '/');
-    let fr = rr.get('fr');
-    _proclaim2.default.strictEqual(fr.regExp.source, '^\\/$');
-    _proclaim2.default.strictEqual(fr.url(), '/');
-});
-
-test('Common route', () => {
-    let rrs = router.get('defaultSimple');
-    _proclaim2.default.ok(rrs != null);
-    _proclaim2.default.strictEqual(rrs.controller, 'site');
-    _proclaim2.default.strictEqual(rrs.action, 'index');
-    _proclaim2.default.strictEqual(rrs.getNamedParamsCount(), 0);
-    let rsen = rrs.get('en');
-    _proclaim2.default.strictEqual(rsen.regExp.source, '^(?:\\.(html))?$');
-    _proclaim2.default.strictEqual(rsen.url({ controller: 'post' }), '/post.html');
-    let rsfr = rrs.get('fr');
-    _proclaim2.default.strictEqual(rsfr.regExp.source, '^(?:\\.(html))?$');
-    _proclaim2.default.strictEqual(rsfr.url({ controller: 'post' }), '/article.html');
-
-    let rr = router.get('default');
-    _proclaim2.default.ok(rr != null);
-    _proclaim2.default.strictEqual(rr.controller, 'site');
-    _proclaim2.default.strictEqual(rr.action, 'index');
-    _proclaim2.default.deepEqual(rr.namedParams, ['action']);
-    _proclaim2.default.strictEqual(rr.getNamedParamsCount(), 1);
-    let en = rr.get('en');
-
-    _proclaim2.default.strictEqual(en.regExp.source, /^\/([^\/.]+)(?:\/([^.]*))?(?:\.(html))?$/.source);
-    _proclaim2.default.strictEqual(en.url({ controller: 'post', action: 'view' }), '/post/view.html');
-    let fr = rr.get('fr');
-    _proclaim2.default.strictEqual(fr.regExp.source, /^\/([^\/.]+)(?:\/([^.]*))?(?:\.(html))?$/.source);
-    _proclaim2.default.strictEqual(fr.url({ controller: 'post', action: 'view' }), '/article/afficher.html');
-});
-
 test('Named param route', () => {
     let rr = router.get('postView');
     _proclaim2.default.ok(rr != null);

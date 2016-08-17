@@ -21,6 +21,7 @@
   "repository": "git://github.com/christophehurpeau/limosa.git",
   "keywords": [
     "springbokjs",
+    "alpjs",
     "router"
   ],
   "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)",
@@ -29,9 +30,6 @@
     "url": "https://github.com/christophehurpeau/limosa/issues"
   },
   "homepage": "https://github.com/christophehurpeau/limosa",
-  "dependencies": {
-    "object2map": "^1.0.1"
-  },
   "devDependencies": {
     "babel-eslint": "^6.0.4",
     "coveralls": "^2.11.6",

@@ -50,9 +50,9 @@ var UrlGeneratorNamedParamPart = /**
         key: 'generate',
         value: /**
                 * @function
-                * @param args
+                * @param {Object} args
                */function generate(args) {
-            if (args[this.paramName] == null) {
+            if (!args || args[this.paramName] == null) {
                 throw new Error('Missing param name: "' + this.paramName + '"');
             }
 

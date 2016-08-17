@@ -12,8 +12,8 @@ export default class UrlGeneratorNamedParamPart {
      * @param {Object} args
      * @returns {string}
      */
-    generate(args) {
-        if (args[this.paramName] == null) {
+    generate(args: Object) {
+        if (!args || args[this.paramName] == null) {
             throw new Error(`Missing param name: "${this.paramName}"`);
         }
 
@@ -23,5 +23,4 @@ export default class UrlGeneratorNamedParamPart {
 
         return args[this.paramName];
     }
-
 }

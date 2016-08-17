@@ -1,4 +1,3 @@
-import object2map from 'object2map';
 import Router from '../Router';
 // import RouterRouteCommon from '../RouterRoute/Common';
 import RouterRoute from '../RouterRoute/Route';
@@ -14,6 +13,7 @@ import RouterBuilderSegment from './RouterBuilderSegment';
 // const regExpStartingSlash = /^\/+/;
 // const regExpEndingSlash = /\/+$/;
 
+const object2map = object => new Map(Object.keys(object).map(key => [key, object[key]]));
 
 export default class RouterBuilder {
     /**
@@ -56,24 +56,63 @@ export default class RouterBuilder {
     }
 
     /**
-     * @param {string} routeKey
-     * @param {string} routeUrl
+     * @param {string|Object} routeKeyOrRoute key to get the route. If object: { routeKey, routeUrl, controller, action, namedParamsDefinition, routeLangs, extension }
+     * @param {string|Function} routeUrlOrSegmentBuilder url, or if function: segment
      * @param {string} controllerAndActionSeparatedByDot
-     * @param {Map} options.namedParamsDefinition
-     * @param {Map} options.routeLangs
-     * @param {string} options.extension
+     * @param {Map} [options.namedParamsDefinition]
+     * @param {Map} [options.routeLangs]
+     * @param {string} [options.extension]
+     * If routeKey is an object:
+     * @param {string} routeKeyOrRoute.routeKeyOrRoute key to get the route
+     * @param {string} routeKeyOrRoute.routeUrl
+     * @param {string} [routeKeyOrRoute.controller]
+     * @param {string} [routeKeyOrRoute.action]
+     * @param {Map} [routeKeyOrRoute.namedParamsDefinition]
+     * @param {Map} [routeKeyOrRoute.routeLangs]
+     * @param {string} [routeKeyOrRoute.extension]
      */
-    add(routeKey, routeUrl, controllerAndActionSeparatedByDot, options) {
+    add(routeKeyOrRoute, routeUrlOrSegmentBuilder, controllerAndActionSeparatedByDot, options) {
+        if (typeof routeKeyOrRoute === 'string') {
+            const [controller, action] = controllerAndActionSeparatedByDot.split('.');
+            routeKeyOrRoute = {
+                key: routeKeyOrRoute,
+                url: routeUrlOrSegmentBuilder,
+                controller,
+                action,
+                namedParamsDefinition: options && options.namedParamsDefinition,
+                routeLangs: options && options.routeLangs,
+                extension: options && options.extension,
+            };
+        }
+
+        let {
+            key,
+            url,
+            controller,
+            action,
+            namedParamsDefinition,
+            routeLangs,
+            extension,
+        } = routeKeyOrRoute;
+
+        if (typeof routeUrlOrSegmentBuilder === 'function') {
+            return this.addSegment(
+                url,
+                { namedParamsDefinition, routeLangs, extension },
+                routeUrlOrSegmentBuilder
+            );
+        }
+
         const route = this._createRoute(
             false,
             undefined,
-            routeUrl,
-            controllerAndActionSeparatedByDot,
-            options && options.namedParamsDefinition,
-            options && options.routeLangs,
-            options && options.extension
+            url,
+            { controller, action },
+            namedParamsDefinition,
+            routeLangs,
+            extension
         );
-        this.router.addRoute(routeKey, route);
+        this.router.addRoute(key, route);
         return this;
     }
 
@@ -83,7 +122,11 @@ export default class RouterBuilder {
      * @param {Map} [options.routeLangs]
      * @param {Function} buildSegment
      */
-    addSegment(routeUrl, options, buildSegment) {
+    addSegment(
+        routeUrl: string,
+        options: ?{ namedParamsDefinition: ?Map, routeLangs: ?Map },
+        buildSegment: Function
+    ) {
         if (typeof options === 'function') {
             buildSegment = options;
             options = {};
@@ -98,13 +141,18 @@ export default class RouterBuilder {
     }
 
     /**
-     * @param {RouterRouteSegment} parent
+     * @param {RouterRouteSegment} [parent]
      * @param {string} routeUrl
      * @param {Map} namedParamsDefinition
      * @param {Map} routeLangs
      * @return {RouterRouteCommon}
      */
-    _createRouteSegment(parent, routeUrl, namedParamsDefinition, routeLangs) {
+    _createRouteSegment(
+        parent: ?RouterRouteSegment,
+        routeUrl: string,
+        namedParamsDefinition: ?Map,
+        routeLangs: ?Map
+    ) {
         return this._createRoute(
             true,
             parent,
@@ -118,20 +166,31 @@ export default class RouterBuilder {
 
     /**
      * @param {boolean} segment
-     * @param {RouterRouteSegment} parent
+     * @param {RouterRouteSegment} [parent]
      * @param {string} routeUrl
-     * @param {string} controllerAndActionSeparatedByDot
-     * @param {Map} namedParamsDefinition
-     * @param {Map} routeLangs
-     * @param {string} extension
+     * @param {string|Object} controllerAndAction
+     * @param {Object} [namedParamsDefinition]
+     * @param {Map|Object} [routeLangs]
+     * @param {string} [extension]
      * @return {RouterRouteCommon}
      */
-    _createRoute(segment, parent, routeUrl, controllerAndActionSeparatedByDot,
-                        namedParamsDefinition, routeLangs, extension) {
-        let controllerAndAction;
+    _createRoute(
+        segment: boolean,
+        parent: ?RouterRouteSegment,
+        routeUrl: string,
+        controllerAndAction: ?string|{controller: ?string, action: ?string},
+        namedParamsDefinition: ?Object,
+        routeLangs: ?Map|Object,
+        extension: ?string,
+    ) {
         if (!segment) {
-            controllerAndAction = controllerAndActionSeparatedByDot.split('.');
-            // assert(controllerAndAction.length == 2);
+            if (typeof controllerAndAction === 'string') {
+                controllerAndAction = controllerAndAction.split('.');
+                controllerAndAction = {
+                    controller: controllerAndAction[0],
+                    action: controllerAndAction[1],
+                };
+            }
         }
 
         if (routeLangs == null) {
@@ -173,7 +232,7 @@ export default class RouterBuilder {
         });
 
         const finalRoute = segment ? new RouterRouteSegment(paramNames)
-            : new RouterRoute(controllerAndAction[0], controllerAndAction[1], extension, paramNames);
+            : new RouterRoute(controllerAndAction.controller, controllerAndAction.action, extension, paramNames);
 
         routeLangs.forEach((routeLang, lang) => {
             const translate = this.translate.bind(this, lang);

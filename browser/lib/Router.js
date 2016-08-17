@@ -30,6 +30,10 @@ var _Route3 = require('./Route');
 
 var _Route4 = _interopRequireDefault(_Route3);
 
+var _Common = require('./RouterRoute/Common');
+
+var _Common2 = _interopRequireDefault(_Common);
+
 /**
  * @function
  * @param obj
@@ -74,7 +78,7 @@ var Router = /**
         key: 'get',
         value: /**
                 * @function
-                * @param key
+                * @param {string} key
                */function get(key) {
             return this._routesMap.get(key);
         }
@@ -88,8 +92,8 @@ var Router = /**
         key: 'addRoute',
         value: /**
                 * @function
-                * @param routeKey
-                * @param route
+                * @param {string} routeKey
+                * @param {RouterRouteCommon} route
                */function addRoute(routeKey, route) {
             if (route instanceof _Route2.default) {
                 this._addInternalRoute(routeKey, route);
@@ -107,8 +111,8 @@ var Router = /**
         key: '_addInternalRoute',
         value: /**
                 * @function
-                * @param routeKey
-                * @param route
+                * @param {string} routeKey
+                * @param {RouterRoute} route
                */function _addInternalRoute(routeKey, route) {
             if (this._routesMap.has(routeKey)) {
                 throw new Error('duplicate routeKey: "' + routeKey + '"');
@@ -126,8 +130,8 @@ var Router = /**
         key: 'find',
         value: /**
                 * @function
-                * @param path
-                * @param [lang=en]
+                * @param {string} path
+                * @param {string} [lang=en]
                */function find(path) {
             var lang = arguments.length <= 1 || arguments[1] === undefined ? 'en' : arguments[1];
 

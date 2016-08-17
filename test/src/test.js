@@ -36,48 +36,6 @@ builder
     })
     .addDefaultRoutes();
 
-test('SimpleRoute', () => {
-    let rr = router.get('/');
-    assert.ok(rr != null);
-    assert.strictEqual(rr.controller, 'site');
-    assert.strictEqual(rr.action, 'index');
-    assert.strictEqual(rr.getNamedParamsCount(), 0);
-    let en = rr.get('en');
-    assert.strictEqual(en.regExp.source, '^\\/$');
-    assert.strictEqual(en.url(), '/');
-    let fr = rr.get('fr');
-    assert.strictEqual(fr.regExp.source, '^\\/$');
-    assert.strictEqual(fr.url(), '/');
-});
-
-test('Common route', () => {
-    let rrs = router.get('defaultSimple');
-    assert.ok(rrs != null);
-    assert.strictEqual(rrs.controller, 'site');
-    assert.strictEqual(rrs.action, 'index');
-    assert.strictEqual(rrs.getNamedParamsCount(), 0);
-    let rsen = rrs.get('en');
-    assert.strictEqual(rsen.regExp.source, '^(?:\\.(html))?$');
-    assert.strictEqual(rsen.url({ controller: 'post' }), '/post.html');
-    let rsfr = rrs.get('fr');
-    assert.strictEqual(rsfr.regExp.source, '^(?:\\.(html))?$');
-    assert.strictEqual(rsfr.url({ controller: 'post' }), '/article.html');
-
-    let rr = router.get('default');
-    assert.ok(rr != null);
-    assert.strictEqual(rr.controller, 'site');
-    assert.strictEqual(rr.action, 'index');
-    assert.deepEqual(rr.namedParams, ['action']);
-    assert.strictEqual(rr.getNamedParamsCount(), 1);
-    let en = rr.get('en');
-
-    assert.strictEqual(en.regExp.source, /^\/([^\/.]+)(?:\/([^.]*))?(?:\.(html))?$/.source);
-    assert.strictEqual(en.url({ controller: 'post', action: 'view' }), '/post/view.html');
-    let fr = rr.get('fr');
-    assert.strictEqual(fr.regExp.source, /^\/([^\/.]+)(?:\/([^.]*))?(?:\.(html))?$/.source);
-    assert.strictEqual(fr.url({ controller: 'post', action: 'view' }), '/article/afficher.html');
-});
-
 test('Named param route', () => {
     let rr = router.get('postView');
     assert.ok(rr != null);

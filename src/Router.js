@@ -1,6 +1,7 @@
 import RouterRoute from './RouterRoute/Route';
 import RouterRouteSegment from './RouterRoute/Segment';
 import Route from './Route';
+import RouterRouteCommon from './RouterRoute/Common';
 
 const regExpStartingSlash = /^\/+/;
 const regExpEndingSlash = /\/+$/;
@@ -21,7 +22,7 @@ export default class Router {
      * @param {string} key
      * @return {Route}
      */
-    get(key) {
+    get(key: string): ?Route {
         return this._routesMap.get(key);
     }
 
@@ -29,7 +30,7 @@ export default class Router {
      * @param {string} routeKey
      * @param {RouterRouteCommon} route
      */
-    addRoute(routeKey, route) {
+    addRoute(routeKey: string, route: RouterRouteCommon) {
         if (route instanceof RouterRoute) {
             this._addInternalRoute(routeKey, route);
         }
@@ -41,7 +42,7 @@ export default class Router {
      * @param {string} routeKey
      * @param {RouterRoute} route
      */
-    _addInternalRoute(routeKey, route) {
+    _addInternalRoute(routeKey: string, route: RouterRoute) {
         if (this._routesMap.has(routeKey)) {
             throw new Error(`duplicate routeKey: "${routeKey}"`);
         }
@@ -53,7 +54,7 @@ export default class Router {
      * @param {string=} lang
      * @return {Route}
      */
-    find(path, lang = 'en') {
+    find(path: string, lang: string = 'en'): Route {
         path = `/${path.trim().replace(regExpStartingSlash, '').replace(regExpEndingSlash, '')}`;
         return this._findRoute(this._routes, path, path, lang);
     }
