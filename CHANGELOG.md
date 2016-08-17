@@ -1,3 +1,7 @@
+### v2.0.5
+
+- [`c2af66b`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/c2af66b55e3725a731d0658b034219cba7223590) remove objec2map dependency (Christophe Hurpeau)
+
 ### v2.0.4
 
 - [`8d80e85`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/8d80e852653587ab93266bdd2fb5dfd0929e8b4b) fix nested segment in routerbuilder (Christophe Hurpeau)
