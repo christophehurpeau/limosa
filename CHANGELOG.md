@@ -1,3 +1,7 @@
+### v2.0.6
+
+- [`071d05a`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/071d05a2333ad51c10f3b258ebea39116900ad6c) urlGenerator: add clear error when routerKey was not found (Christophe Hurpeau)
+
 ### v2.0.5
 
 - [`c2af66b`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/c2af66b55e3725a731d0658b034219cba7223590) remove objec2map dependency (Christophe Hurpeau)
