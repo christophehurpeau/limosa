@@ -320,6 +320,9 @@ var Router = /**
                 * @param params
                */function urlGenerator(lang, routeKey, params) {
             var route = this._routesMap.get(routeKey);
+            if (process.env.NODE_ENV !== 'production') {
+                if (!route) throw new Error('Invalid routeKey: "' + routeKey + '"');
+            }
             try {
                 return route.routes.get(lang).url(params);
             } catch (err) {
