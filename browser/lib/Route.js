@@ -12,6 +12,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Route =
 /**
+ * @param {string} key
  * @param {string} all
  * @param {string} controller
  * @param {string} action
@@ -20,9 +21,10 @@ var Route =
  * @param {string} extension
 * @function
 */
-function Route(all, controller, action, namedParams, otherParams, extension) {
+function Route(key, all, controller, action, namedParams, otherParams, extension) {
     _classCallCheck(this, Route);
 
+    this.key = key;
     this.all = all;
     this.controller = controller;
     this.action = action;

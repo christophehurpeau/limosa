@@ -89,6 +89,7 @@ test('More complex param route', () => {
 test('Find simple routes', () => {
     let r = router.find('/', 'en');
     assert.ok(r != null);
+    assert.strictEqual(r.key, '/');
     assert.strictEqual(r.all, '/');
     assert.strictEqual(r.controller, 'site');
     assert.strictEqual(r.action, 'index');
@@ -98,6 +99,7 @@ test('Find simple routes', () => {
 
     r = router.find('/', 'fr');
     assert.ok(r != null);
+    assert.strictEqual(r.key, '/');
     assert.strictEqual(r.all, '/');
     assert.strictEqual(r.controller, 'site');
     assert.strictEqual(r.action, 'index');
@@ -109,6 +111,7 @@ test('Find simple routes', () => {
 test('Find common routes, /:controller', () => {
     let r = router.find('/post', 'en');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'defaultSimple');
     assert.strictEqual(r.all, '/post');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'index');
@@ -118,6 +121,7 @@ test('Find common routes, /:controller', () => {
 
     r = router.find('/post.html', 'en');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'defaultSimple');
     assert.strictEqual(r.all, '/post.html');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.extension, 'html');
@@ -125,6 +129,7 @@ test('Find common routes, /:controller', () => {
 
     r = router.find('/article', 'fr');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'defaultSimple');
     assert.strictEqual(r.all, '/article');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'index');
@@ -134,6 +139,7 @@ test('Find common routes, /:controller', () => {
 
     r = router.find('/article.html', 'fr');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'defaultSimple');
     assert.strictEqual(r.all, '/article.html');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.extension, 'html');
@@ -143,6 +149,7 @@ test('Find common routes, /:controller', () => {
 test('Find common routes, /:controller/:action', () => {
     let r = router.find('/post/view', 'en');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'default');
     assert.strictEqual(r.all, '/post/view');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'view');
@@ -152,6 +159,7 @@ test('Find common routes, /:controller/:action', () => {
 
     r = router.find('/post/view.html', 'en');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'default');
     assert.strictEqual(r.all, '/post/view.html');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'view');
@@ -160,6 +168,7 @@ test('Find common routes, /:controller/:action', () => {
 
     r = router.find('/article/afficher', 'fr');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'default');
     assert.strictEqual(r.all, '/article/afficher');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'view');
@@ -169,6 +178,7 @@ test('Find common routes, /:controller/:action', () => {
 
     r = router.find('/article/afficher.html', 'fr');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'default');
     assert.strictEqual(r.all, '/article/afficher.html');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'view');
@@ -179,6 +189,7 @@ test('Find common routes, /:controller/:action', () => {
 test('Find common routes, /:controller/:action/*', () => {
     let r = router.find('/post/view/test1/test2', 'en');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'default');
     assert.strictEqual(r.all, '/post/view/test1/test2');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'view');
@@ -188,6 +199,7 @@ test('Find common routes, /:controller/:action/*', () => {
 
     r = router.find('/post/view/test1/test2.html', 'en');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'default');
     assert.strictEqual(r.all, '/post/view/test1/test2.html');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.extension, 'html');
@@ -196,6 +208,7 @@ test('Find common routes, /:controller/:action/*', () => {
 
     r = router.find('/article/afficher/test1/test2', 'fr');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'default');
     assert.strictEqual(r.all, '/article/afficher/test1/test2');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'view');
@@ -205,6 +218,7 @@ test('Find common routes, /:controller/:action/*', () => {
 
     r = router.find('/article/afficher/test1/test2.html', 'fr');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'default');
     assert.strictEqual(r.all, '/article/afficher/test1/test2.html');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'view');
@@ -216,6 +230,7 @@ test('Find common routes, /:controller/:action/*', () => {
 test('Find named param route', () => {
     let r = router.find('/post/001-The-First-Post.htm', 'en');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'postView');
     assert.strictEqual(r.all, '/post/001-The-First-Post.htm');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'view');
@@ -229,6 +244,7 @@ test('Find named param route', () => {
 
     r = router.find('/article/001-Le-Premier-Billet.htm', 'fr');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'postView');
     assert.strictEqual(r.all, '/article/001-Le-Premier-Billet.htm');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'view');
@@ -245,6 +261,7 @@ test('Find named param route', () => {
 test('Find postWithDate without tag', () => {
     let r = router.find('/post/2015-01-01_a-slug', 'en');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'postWithDate');
     assert.strictEqual(r.all, '/post/2015-01-01_a-slug');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'view');
@@ -256,6 +273,7 @@ test('Find postWithDate without tag', () => {
 test('Find postWithDate with tag', () => {
     let r = router.find('/post/some-tag/2015-01-01_a-slug', 'en');
     assert.ok(r != null);
+    assert.strictEqual(r.key, 'postWithDate');
     assert.strictEqual(r.all, '/post/some-tag/2015-01-01_a-slug');
     assert.strictEqual(r.controller, 'post');
     assert.strictEqual(r.action, 'view');

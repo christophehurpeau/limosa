@@ -190,7 +190,15 @@ export default class Router {
             otherParams = match[group].split('/');
         }
 
-        return new Route(completePath, controller, action, namedParams, otherParams, extension);
+        return new Route(
+            route.key,
+            completePath,
+            controller,
+            action,
+            namedParams,
+            otherParams,
+            extension
+        );
     }
 
     /**

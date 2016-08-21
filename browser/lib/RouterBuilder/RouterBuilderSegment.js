@@ -111,7 +111,7 @@ var RouterBuilderSegment = /**
                 * @param controllerAndActionSeparatedByDot
                 * @param options
                */function _createRoute(routeKey, routeUrl, controllerAndActionSeparatedByDot, options) {
-            return this.builder._createRoute(false, this.route, routeUrl, controllerAndActionSeparatedByDot, options && options.namedParamsDefinition, options && options.routeLangs, options && options.extension);
+            return this.builder._createRoute(routeKey, this.route, routeUrl, controllerAndActionSeparatedByDot, options && options.namedParamsDefinition, options && options.routeLangs, options && options.extension);
         }
 
         /**

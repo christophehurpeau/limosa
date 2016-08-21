@@ -38,8 +38,7 @@ export default class RouterBuilder {
      */
     translate(lang, string) {
         const lstring = string.toLowerCase();
-        const translation = this._routesTranslations.translate(lstring, lang);
-        return translation;
+        return this._routesTranslations.translate(lstring, lang);
     }
 
     /**
@@ -104,7 +103,7 @@ export default class RouterBuilder {
         }
 
         const route = this._createRoute(
-            false,
+            key,
             undefined,
             url,
             { controller, action },
@@ -154,7 +153,7 @@ export default class RouterBuilder {
         routeLangs: ?Map
     ) {
         return this._createRoute(
-            true,
+            null,
             parent,
             routeUrl,
             undefined,
@@ -165,7 +164,7 @@ export default class RouterBuilder {
     }
 
     /**
-     * @param {boolean} segment
+     * @param {string} [key] if null this is a segment
      * @param {RouterRouteSegment} [parent]
      * @param {string} routeUrl
      * @param {string|Object} controllerAndAction
@@ -175,7 +174,7 @@ export default class RouterBuilder {
      * @return {RouterRouteCommon}
      */
     _createRoute(
-        segment: boolean,
+        key: ?string,
         parent: ?RouterRouteSegment,
         routeUrl: string,
         controllerAndAction: ?string|{controller: ?string, action: ?string},
@@ -183,7 +182,8 @@ export default class RouterBuilder {
         routeLangs: ?Map|Object,
         extension: ?string,
     ) {
-        if (!segment) {
+        const isSegment = key == null;
+        if (!isSegment) {
             if (typeof controllerAndAction === 'string') {
                 controllerAndAction = controllerAndAction.split('.');
                 controllerAndAction = {
@@ -191,6 +191,8 @@ export default class RouterBuilder {
                     action: controllerAndAction[1],
                 };
             }
+        } else if (controllerAndAction) {
+            throw new Error(`Cannot have controllerAndAction for segment "${routeUrl}"`);
         }
 
         if (routeLangs == null) {
@@ -231,8 +233,8 @@ export default class RouterBuilder {
             paramNames.push(paramName);
         });
 
-        const finalRoute = segment ? new RouterRouteSegment(paramNames)
-            : new RouterRoute(controllerAndAction.controller, controllerAndAction.action, extension, paramNames);
+        const finalRoute = isSegment ? new RouterRouteSegment(paramNames)
+            : new RouterRoute(key, controllerAndAction.controller, controllerAndAction.action, extension, paramNames);
 
         routeLangs.forEach((routeLang, lang) => {
             const translate = this.translate.bind(this, lang);
@@ -240,9 +242,9 @@ export default class RouterBuilder {
             let specialEnd2 = false;
             let routeLangRegExp;
 
-            if (!segment && (specialEnd = routeLang.endsWith('/*'))) {
+            if (!isSegment && (specialEnd = routeLang.endsWith('/*'))) {
                 routeLangRegExp = routeLang.slice(0, -2);
-            } else if (!segment && (specialEnd2 = routeLang.endsWith('/*]'))) {
+            } else if (!isSegment && (specialEnd2 = routeLang.endsWith('/*]'))) {
                 routeLangRegExp = routeLang.slice(0, -3) + routeLang.slice(-1);
             } else {
                 routeLangRegExp = routeLang;
@@ -250,7 +252,7 @@ export default class RouterBuilder {
 
             routeLangRegExp = routeLangRegExp
                 .replace(/\//g, '\\/')
-                .replace(/\-/g, '\\-')
+                .replace(/-/g, '\\-')
                 .replace(/\*/g, '(.*)')
                 .replace(/\[/g, '(')
                 .replace(/]/g, ')?')
@@ -264,7 +266,7 @@ export default class RouterBuilder {
             }
 
             const extensionRegExp = (() => {
-                if (segment || extension == null) {
+                if (isSegment || extension == null) {
                     return '';
                 }
 
@@ -298,9 +300,9 @@ export default class RouterBuilder {
                 return '([^\\/.]+)';
             });
 
-            if (!segment && specialEnd) {
+            if (!isSegment && specialEnd) {
                 routeLang = routeLang.slice(0, -2);
-            } else if (!segment && specialEnd2) {
+            } else if (!isSegment && specialEnd2) {
                 routeLang = routeLang.slice(0, -3) + routeLang.slice(-1);
             }
 
@@ -354,7 +356,7 @@ export default class RouterBuilder {
             }
 
             finalRoute.set(lang, new RouterRouteLang(
-                new RegExp(`^${replacedRegExp}${extensionRegExp}${segment ? '(.*)$' : '$'}`),
+                new RegExp(`^${replacedRegExp}${extensionRegExp}${isSegment ? '(.*)$' : '$'}`),
                 urlGeneratorParts
             ));
         });

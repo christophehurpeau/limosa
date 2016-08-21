@@ -92,6 +92,7 @@ test('More complex param route', () => {
 test('Find simple routes', () => {
     let r = router.find('/', 'en');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, '/');
     _proclaim2.default.strictEqual(r.all, '/');
     _proclaim2.default.strictEqual(r.controller, 'site');
     _proclaim2.default.strictEqual(r.action, 'index');
@@ -101,6 +102,7 @@ test('Find simple routes', () => {
 
     r = router.find('/', 'fr');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, '/');
     _proclaim2.default.strictEqual(r.all, '/');
     _proclaim2.default.strictEqual(r.controller, 'site');
     _proclaim2.default.strictEqual(r.action, 'index');
@@ -112,6 +114,7 @@ test('Find simple routes', () => {
 test('Find common routes, /:controller', () => {
     let r = router.find('/post', 'en');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'defaultSimple');
     _proclaim2.default.strictEqual(r.all, '/post');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.action, 'index');
@@ -121,6 +124,7 @@ test('Find common routes, /:controller', () => {
 
     r = router.find('/post.html', 'en');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'defaultSimple');
     _proclaim2.default.strictEqual(r.all, '/post.html');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.extension, 'html');
@@ -128,6 +132,7 @@ test('Find common routes, /:controller', () => {
 
     r = router.find('/article', 'fr');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'defaultSimple');
     _proclaim2.default.strictEqual(r.all, '/article');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.action, 'index');
@@ -137,6 +142,7 @@ test('Find common routes, /:controller', () => {
 
     r = router.find('/article.html', 'fr');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'defaultSimple');
     _proclaim2.default.strictEqual(r.all, '/article.html');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.extension, 'html');
@@ -146,6 +152,7 @@ test('Find common routes, /:controller', () => {
 test('Find common routes, /:controller/:action', () => {
     let r = router.find('/post/view', 'en');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'default');
     _proclaim2.default.strictEqual(r.all, '/post/view');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.action, 'view');
@@ -155,6 +162,7 @@ test('Find common routes, /:controller/:action', () => {
 
     r = router.find('/post/view.html', 'en');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'default');
     _proclaim2.default.strictEqual(r.all, '/post/view.html');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.action, 'view');
@@ -163,6 +171,7 @@ test('Find common routes, /:controller/:action', () => {
 
     r = router.find('/article/afficher', 'fr');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'default');
     _proclaim2.default.strictEqual(r.all, '/article/afficher');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.action, 'view');
@@ -172,6 +181,7 @@ test('Find common routes, /:controller/:action', () => {
 
     r = router.find('/article/afficher.html', 'fr');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'default');
     _proclaim2.default.strictEqual(r.all, '/article/afficher.html');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.action, 'view');
@@ -182,6 +192,7 @@ test('Find common routes, /:controller/:action', () => {
 test('Find common routes, /:controller/:action/*', () => {
     let r = router.find('/post/view/test1/test2', 'en');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'default');
     _proclaim2.default.strictEqual(r.all, '/post/view/test1/test2');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.action, 'view');
@@ -191,6 +202,7 @@ test('Find common routes, /:controller/:action/*', () => {
 
     r = router.find('/post/view/test1/test2.html', 'en');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'default');
     _proclaim2.default.strictEqual(r.all, '/post/view/test1/test2.html');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.extension, 'html');
@@ -199,6 +211,7 @@ test('Find common routes, /:controller/:action/*', () => {
 
     r = router.find('/article/afficher/test1/test2', 'fr');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'default');
     _proclaim2.default.strictEqual(r.all, '/article/afficher/test1/test2');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.action, 'view');
@@ -208,6 +221,7 @@ test('Find common routes, /:controller/:action/*', () => {
 
     r = router.find('/article/afficher/test1/test2.html', 'fr');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'default');
     _proclaim2.default.strictEqual(r.all, '/article/afficher/test1/test2.html');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.action, 'view');
@@ -219,6 +233,7 @@ test('Find common routes, /:controller/:action/*', () => {
 test('Find named param route', () => {
     let r = router.find('/post/001-The-First-Post.htm', 'en');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'postView');
     _proclaim2.default.strictEqual(r.all, '/post/001-The-First-Post.htm');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.action, 'view');
@@ -232,6 +247,7 @@ test('Find named param route', () => {
 
     r = router.find('/article/001-Le-Premier-Billet.htm', 'fr');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'postView');
     _proclaim2.default.strictEqual(r.all, '/article/001-Le-Premier-Billet.htm');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.action, 'view');
@@ -247,6 +263,7 @@ test('Find named param route', () => {
 test('Find postWithDate without tag', () => {
     let r = router.find('/post/2015-01-01_a-slug', 'en');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'postWithDate');
     _proclaim2.default.strictEqual(r.all, '/post/2015-01-01_a-slug');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.action, 'view');
@@ -258,6 +275,7 @@ test('Find postWithDate without tag', () => {
 test('Find postWithDate with tag', () => {
     let r = router.find('/post/some-tag/2015-01-01_a-slug', 'en');
     _proclaim2.default.ok(r != null);
+    _proclaim2.default.strictEqual(r.key, 'postWithDate');
     _proclaim2.default.strictEqual(r.all, '/post/some-tag/2015-01-01_a-slug');
     _proclaim2.default.strictEqual(r.controller, 'post');
     _proclaim2.default.strictEqual(r.action, 'view');

@@ -43,6 +43,7 @@ var RouterRoute = /**
     _inherits(RouterRoute, _RouterRouteCommon);
 
     /**
+     * @param {string} key
      * @param {string} controller
      * @param {string} action
      * @param {string} [extension]
@@ -50,11 +51,12 @@ var RouterRoute = /**
     * @function
     */
 
-    function RouterRoute(controller, action, extension, namedParams) {
+    function RouterRoute(key, controller, action, extension, namedParams) {
         _classCallCheck(this, RouterRoute);
 
         var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(RouterRoute).call(this, namedParams));
 
+        _this.key = key;
         _this.controller = controller;
         _this.action = action;
         _this.extension = extension;

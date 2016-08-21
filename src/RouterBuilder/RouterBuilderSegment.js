@@ -52,7 +52,7 @@ export default class RouterBuilderSegment {
      * @param {string} [options.extension]
      */
     _createRoute(routeKey, routeUrl, controllerAndActionSeparatedByDot, options) {
-        return this.builder._createRoute(false, this.route, routeUrl,
+        return this.builder._createRoute(routeKey, this.route, routeUrl,
             controllerAndActionSeparatedByDot,
             options && options.namedParamsDefinition,
             options && options.routeLangs,

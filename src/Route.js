@@ -1,5 +1,6 @@
 export default class Route {
     /**
+     * @param {string} key
      * @param {string} all
      * @param {string} controller
      * @param {string} action
@@ -7,7 +8,8 @@ export default class Route {
      * @param {Array} otherParams
      * @param {string} extension
      */
-    constructor(all, controller, action, namedParams, otherParams, extension) {
+    constructor(key, all, controller, action, namedParams, otherParams, extension) {
+        this.key = key;
         this.all = all;
         this.controller = controller;
         this.action = action;

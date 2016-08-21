@@ -131,8 +131,7 @@ var RouterBuilder = /**
                 * @param string
                */function translate(lang, string) {
             var lstring = string.toLowerCase();
-            var translation = this._routesTranslations.translate(lstring, lang);
-            return translation;
+            return this._routesTranslations.translate(lstring, lang);
         }
 
         /**
@@ -215,7 +214,7 @@ var RouterBuilder = /**
                 return this.addSegment(url, { namedParamsDefinition: namedParamsDefinition, routeLangs: routeLangs, extension: extension }, routeUrlOrSegmentBuilder);
             }
 
-            var route = this._createRoute(false, undefined, url, { controller: controller, action: action }, namedParamsDefinition, routeLangs, extension);
+            var route = this._createRoute(key, undefined, url, { controller: controller, action: action }, namedParamsDefinition, routeLangs, extension);
             this.router.addRoute(key, route);
             return this;
         }
@@ -264,11 +263,11 @@ var RouterBuilder = /**
                 * @param {*} namedParamsDefinition
                 * @param {*} routeLangs
                */function _createRouteSegment(parent, routeUrl, namedParamsDefinition, routeLangs) {
-            return this._createRoute(true, parent, routeUrl, undefined, namedParamsDefinition, routeLangs, undefined);
+            return this._createRoute(null, parent, routeUrl, undefined, namedParamsDefinition, routeLangs, undefined);
         }
 
         /**
-         * @param {boolean} segment
+         * @param {string} [key] if null this is a segment
          * @param {RouterRouteSegment} [parent]
          * @param {string} routeUrl
          * @param {string|Object} controllerAndAction
@@ -282,17 +281,18 @@ var RouterBuilder = /**
         key: '_createRoute',
         value: /**
                 * @function
-                * @param {boolean} segment
+                * @param {*} key
                 * @param {*} parent
                 * @param {string} routeUrl
                 * @param {*} controllerAndAction
                 * @param {*} namedParamsDefinition
                 * @param {*} routeLangs
                 * @param {*} extension
-               */function _createRoute(segment, parent, routeUrl, controllerAndAction, namedParamsDefinition, routeLangs, extension) {
+               */function _createRoute(key, parent, routeUrl, controllerAndAction, namedParamsDefinition, routeLangs, extension) {
             var _this2 = this;
 
-            if (!segment) {
+            var isSegment = key == null;
+            if (!isSegment) {
                 if (typeof controllerAndAction === 'string') {
                     controllerAndAction = controllerAndAction.split('.');
                     controllerAndAction = {
@@ -300,6 +300,8 @@ var RouterBuilder = /**
                         action: controllerAndAction[1]
                     };
                 }
+            } else if (controllerAndAction) {
+                throw new Error('Cannot have controllerAndAction for segment "' + routeUrl + '"');
             }
 
             if (routeLangs == null) {
@@ -337,7 +339,7 @@ var RouterBuilder = /**
                 paramNames.push(paramName);
             });
 
-            var finalRoute = segment ? new _Segment2.default(paramNames) : new _Route2.default(controllerAndAction.controller, controllerAndAction.action, extension, paramNames);
+            var finalRoute = isSegment ? new _Segment2.default(paramNames) : new _Route2.default(key, controllerAndAction.controller, controllerAndAction.action, extension, paramNames);
 
             routeLangs.forEach(function (routeLang, lang) {
                 var translate = _this2.translate.bind(_this2, lang);
@@ -345,15 +347,15 @@ var RouterBuilder = /**
                 var specialEnd2 = false;
                 var routeLangRegExp = void 0;
 
-                if (!segment && (specialEnd = routeLang.endsWith('/*'))) {
+                if (!isSegment && (specialEnd = routeLang.endsWith('/*'))) {
                     routeLangRegExp = routeLang.slice(0, -2);
-                } else if (!segment && (specialEnd2 = routeLang.endsWith('/*]'))) {
+                } else if (!isSegment && (specialEnd2 = routeLang.endsWith('/*]'))) {
                     routeLangRegExp = routeLang.slice(0, -3) + routeLang.slice(-1);
                 } else {
                     routeLangRegExp = routeLang;
                 }
 
-                routeLangRegExp = routeLangRegExp.replace(/\//g, '\\/').replace(/\-/g, '\\-').replace(/\*/g, '(.*)').replace(/\[/g, '(').replace(/]/g, ')?').replace(/\(/g, '(?:');
+                routeLangRegExp = routeLangRegExp.replace(/\//g, '\\/').replace(/-/g, '\\-').replace(/\*/g, '(.*)').replace(/\[/g, '(').replace(/]/g, ')?').replace(/\(/g, '(?:');
 
                 if (specialEnd) {
                     routeLangRegExp = routeLangRegExp + '(?:\\/([^.]*))?';
@@ -363,7 +365,7 @@ var RouterBuilder = /**
                 }
 
                 var extensionRegExp = function () {
-                    if (segment || extension == null) {
+                    if (isSegment || extension == null) {
                         return '';
                     }
 
@@ -397,9 +399,9 @@ var RouterBuilder = /**
                     return '([^\\/.]+)';
                 });
 
-                if (!segment && specialEnd) {
+                if (!isSegment && specialEnd) {
                     routeLang = routeLang.slice(0, -2);
-                } else if (!segment && specialEnd2) {
+                } else if (!isSegment && specialEnd2) {
                     routeLang = routeLang.slice(0, -3) + routeLang.slice(-1);
                 }
 
@@ -451,7 +453,7 @@ var RouterBuilder = /**
                     urlGeneratorParts = new _UrlGenerator2.default(parts, extension);
                 }
 
-                finalRoute.set(lang, new _Lang2.default(new RegExp('^' + replacedRegExp + extensionRegExp + (segment ? '(.*)$' : '$')), urlGeneratorParts));
+                finalRoute.set(lang, new _Lang2.default(new RegExp('^' + replacedRegExp + extensionRegExp + (isSegment ? '(.*)$' : '$')), urlGeneratorParts));
             });
 
             return finalRoute;
