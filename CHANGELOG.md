@@ -1,3 +1,7 @@
+### v2.1.0
+
+- [`e533d0d`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/e533d0da1f7313c0f3388e37d41837af60ac2301) add route key (Christophe Hurpeau)
+
 ### v2.0.6
 
 - [`071d05a`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/071d05a2333ad51c10f3b258ebea39116900ad6c) urlGenerator: add clear error when routerKey was not found (Christophe Hurpeau)
