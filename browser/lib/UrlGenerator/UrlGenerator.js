@@ -55,27 +55,31 @@ var UrlGenerator = /**
                 * @function
                 * @param args
                */function generate(args) {
-            var url = this.parts.generate(args);
+            try {
+                var url = this.parts.generate(args);
 
-            if (args) {
-                if (args.extension) {
-                    url += "." + args.extension;
+                if (args) {
+                    if (args.extension) {
+                        url += "." + args.extension;
+                    } else if (this.extension) {
+                        url += "." + this.extension;
+                    }
+
+                    if (args.queryString) {
+                        url += "?" + args.queryString; // TODO: use qs ?
+                    }
+
+                    if (args.hash) {
+                        url += "#" + args.hash;
+                    }
                 } else if (this.extension) {
                     url += "." + this.extension;
                 }
 
-                if (args.queryString) {
-                    url += "?" + args.queryString; // TODO: use qs ?
-                }
-
-                if (args.hash) {
-                    url += "#" + args.hash;
-                }
-            } else if (this.extension) {
-                url += "." + this.extension;
+                return url;
+            } catch (err) {
+                throw new Error("Failed to generate url: " + err.message + " args=" + JSON.stringify(args));
             }
-
-            return url;
         }
     }]);
 
