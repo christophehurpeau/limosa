@@ -1,3 +1,7 @@
+### v2.1.1
+
+- [`b815374`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/b815374be8d2df7bbdedbecc42820c98d4434f26) urlGenerator better error message (Christophe Hurpeau)
+
 ### v2.1.0
 
 - [`e533d0d`](https://github.com/git://github.com/christophehurpeau/limosa.git/commit/e533d0da1f7313c0f3388e37d41837af60ac2301) add route key (Christophe Hurpeau)
