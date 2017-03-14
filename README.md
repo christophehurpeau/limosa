@@ -1,5 +1,7 @@
 # limosa [![NPM version][npm-image]][npm-url]
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/christophehurpeau/limosa.svg)](https://greenkeeper.io/)
+
 Fast router for both browser and server
 
 [![Build Status][build-status-image]][build-status-url] [![Coverage][coverage-image]][coverage-url]
