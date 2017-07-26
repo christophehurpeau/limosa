@@ -1,5 +1,7 @@
 # limosa [![NPM version][npm-image]][npm-url]
 
+# DEPRECATED: replaced by [router-segments](https://www.npmjs.com/package/router-segments)
+
 Fast router for both browser and server
 
 [![Build Status][build-status-image]][build-status-url] [![Coverage][coverage-image]][coverage-url]
